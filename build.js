@@ -24,6 +24,7 @@ import { photographyPage } from './src/pages/photography.js';
 import { aboutPage } from './src/pages/about.js';
 import { servicesPage } from './src/pages/services.js';
 import { contactPage, notFoundPage } from './src/pages/contact.js';
+import { privacyPage } from './src/pages/privacy.js';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(ROOT, 'dist');
@@ -320,6 +321,7 @@ export function build() {
     aboutPage(ctx),
     servicesPage(ctx),
     contactPage(ctx),
+    privacyPage(ctx),
     notFoundPage(ctx),
   ];
 

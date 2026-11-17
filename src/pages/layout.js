@@ -165,7 +165,7 @@ function footer(ctx) {
     </div>
   </div>
   <div class="footer__base">
-    <p>&copy; ${ctx.year} ${esc(site.name)}. All rights reserved.</p>
+    <p>&copy; ${ctx.year} ${esc(site.name)}. All rights reserved. <a class="footer__privacy hover-blur" href="/privacy/">${chars('Privacy')}</a></p>
     <p>Video production &amp; photography in ${esc(loc.city)}, ${esc(loc.region)}</p>
     <a class="hover-blur" href="#main" data-top>${chars('Back to top')}<span aria-hidden="true"> &#8593;</span></a>
   </div>

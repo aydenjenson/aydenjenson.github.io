@@ -1000,6 +1000,16 @@ html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
 .notfound .label { margin: 0; }
 .notfound__links { display: flex; gap: 30px; margin-top: 10px; }
 
+/* Privacy page: one readable column of short sections */
+.legal { max-width: calc(760px + var(--pad) * 2); padding: 0 var(--pad) clamp(80px, 14vh, 160px); }
+.legal__block { padding: clamp(22px, 3.4vh, 34px) 0; border-top: 1px solid var(--line); }
+.legal__block .label { margin-bottom: 12px; }
+.legal__block p { color: var(--fg-dim); font-size: clamp(15px, 1.15vw, 17px); line-height: 1.55; text-wrap: pretty; }
+.legal__block p + p { margin-top: 0.8em; }
+.legal__block a { color: var(--fg); border-bottom: 1px solid var(--fg-faint); transition: border-color 0.3s; }
+.legal__block a:hover { border-color: var(--fg); }
+.legal__updated { padding: 18px 0 28px; border-top: 1px solid var(--line); color: var(--fg-faint); }
+
 /* 13. Footer & CTA ----------------------------------------------------------- */
 
 .cta { border-top: 1px solid var(--line); }
@@ -1025,6 +1035,7 @@ html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
   color: var(--fg-faint);
 }
 .footer__base a { color: var(--fg); }
+.footer__privacy { margin-left: 14px; }
 
 /* 14. Small screens ----------------------------------------------------------- */
 
