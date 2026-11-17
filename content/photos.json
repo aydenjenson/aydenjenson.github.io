@@ -1,0 +1,31 @@
+{
+  "_about": "Optional descriptions for photos (used by screen readers and Google Images). The key is folder/name without the size or file ending. A photo with no entry here gets a generic description.",
+  "captions": {
+    "brand/01-dumbbells": "Orange dumbbells lined up on a rack in a gym",
+    "people/02-golden-hour": "Couple embracing in a golden field at sunset",
+    "events/03-esports-red": "Esports player in a cap lit by red stage light",
+    "brand/04-interview": "Woman lit for an on-camera interview in a dark room",
+    "people/05-blue-hour": "Couple framed in the windows of a blue building at night",
+    "brand/06-jeweler": "Jeweler working at her bench in soft daylight",
+    "events/07-concert": "Performer facing a crowd under blue stage light",
+    "brand/08-cable-fly": "Athlete in the middle of a cable fly in a gym",
+    "explore/09-air-pump": "Lone air pump at an empty gas station under a pale sky",
+    "people/10-dancer": "Dancer in a high kick beside a ballet barre",
+    "brand/11-golden-gym": "Lifter flexing in warm backlight in a gym",
+    "events/12-champions": "Esports champion holding a shield trophy on stage",
+    "people/13-range-portrait": "Man in shooting glasses and ear protection with a cigar",
+    "brand/14-juggle": "Woman juggling supplement tubs inside a nutrition store",
+    "explore/15-diner": "Black and white view inside a small-town diner",
+    "brand/16-on-set": "Woman speaking on camera during a video shoot in a store",
+    "people/17-first-dance": "Black and white photo of a couple dancing on a prairie path",
+    "events/18-esports-focus": "Esports player adjusting his headset in purple light",
+    "brand/19-silhouette": "Athlete flexing in silhouette against a bright window",
+    "people/20-wildflowers": "Portrait of a woman in wildflowers at sunset",
+    "brand/21-barbell": "Black and white photo of a lifter gripping a loaded barbell",
+    "explore/22-turkey-woods": "Wild turkey strutting through backlit woods",
+    "events/23-guitarist": "Guitarist singing on stage in purple light",
+    "people/24-hands": "Close-up of a couple holding hands in a field",
+    "brand/25-product": "Supplement bottle on a gym bench with an athlete behind it",
+    "explore/26-trail": "Trail through a pine forest"
+  }
+}

@@ -1,0 +1,28 @@
+# Build output (Cloudflare builds this itself from the source)
+dist/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Original, full-size camera files never go in the repo. Only the web-sized
+# copies that tools/media.js writes into media/ are committed.
+_originals/
+*.mov
+*.MOV
+*.raf
+*.RAF
+*.dng
+*.DNG
+
+# Notes about where original files live on Ayden's own computer. They contain
+# local folder paths, so they stay on this PC and are not published.
+tools/media-sources.json
+tools/photo-sources.json
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

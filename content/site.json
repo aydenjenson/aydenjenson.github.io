@@ -1,0 +1,189 @@
+{
+  "name": "Ayden Jenson",
+  "role": "Videographer & Cinematographer",
+  "url": "https://aydenjenson.com",
+  "language": "en",
+
+  "location": {
+    "city": "Mankato",
+    "region": "MN",
+    "regionName": "Minnesota",
+    "country": "US",
+    "latitude": 44.1636,
+    "longitude": -94.0,
+    "timezone": "America/Chicago"
+  },
+
+  "contact": {
+    "email": "aydenjenson23@gmail.com",
+    "phone": "",
+    "responseTime": "I usually reply within a day or two."
+  },
+
+  "socials": [
+    { "label": "Instagram", "url": "https://instagram.com/aydenjenson" },
+    { "label": "TikTok", "url": "https://www.tiktok.com/@aydenjenson" },
+    { "label": "YouTube", "url": "https://www.youtube.com/@aydenjenson" }
+  ],
+
+  "form": {
+    "web3formsKey": "",
+    "projectTypes": ["Brand film", "Commercial / ad", "Social media content", "Event coverage", "Photography", "Something else"]
+  },
+
+  "analytics": {
+    "ga4": "G-CK0P2DL9MX"
+  },
+
+  "seo": {
+    "titleSuffix": "Ayden Jenson",
+    "homeTitle": "Ayden Jenson | Videographer & Cinematographer in Mankato, MN",
+    "description": "Ayden Jenson is a videographer and cinematographer in Mankato, MN, making brand films, commercials and social content for businesses across Southern Minnesota.",
+    "keywords": ["Mankato videographer", "Mankato cinematographer", "video production Mankato MN", "commercial videographer Minnesota", "brand films", "social media video"]
+  },
+
+  "home": {
+    "reelProject": "showreel",
+    "statement": "I'm Ayden, a videographer and cinematographer based in Mankato, Minnesota. I make brand films, commercials and social content for businesses that want to look as good as the work they do.",
+    "workHeading": "Selected work",
+    "servicesHeading": "What I do",
+    "photoHeading": "Stills",
+    "photoText": "Photography that sits next to the motion work: brand, people, events and whatever I find along the way.",
+    "aboutHeading": "A camera has been by my side through it all.",
+    "cta": "Let's make something."
+  },
+
+  "about": {
+    "heading": "About Ayden",
+    "lead": "A creative based in Mankato, Minnesota, working in cinematography and photography.",
+    "portrait": "about/portrait",
+    "portraitAlt": "Ayden Jenson, videographer and cinematographer based in Mankato, Minnesota",
+    "bio": [
+      "Hey! I'm Ayden Jenson, a creative based in Mankato, Minnesota, specializing in the art of both cinematography and photography. My passion for creating began in middle school, and while my interests have evolved over the years, one thing has always stayed the same: a camera has been by my side through it all.",
+      "I thrive on capturing candid, real moments, whether it's a brand film, a commercial, a short film or content for social media. Over time, I've grown to love the process of transforming simple moments into pieces of art that evoke emotion through thoughtful composition and vibrant color.",
+      "When I'm not behind the camera, you'll likely find me traveling, camping, fishing, or simply enjoying the great outdoors.",
+      "I'd love to hear from you! If you're interested in scheduling a shoot, please don't hesitate to reach out."
+    ],
+    "facts": [
+      { "label": "Based in", "value": "Mankato, Minnesota" },
+      { "label": "Working", "value": "Southern Minnesota, the Twin Cities and on location wherever the project goes" },
+      { "label": "Cameras", "value": "Fujifilm X-series" },
+      { "label": "Edit & color", "value": "DaVinci Resolve" }
+    ],
+    "clientsHeading": "Worked with",
+    "clients": ["Seraphim Studios", "Reborn Legacy Tattoo", "Gigli", "Allstar Nutrition", "Bodyart", "Iron Alliance", "OxCB"]
+  },
+
+  "services": {
+    "heading": "Video production in Mankato, MN",
+    "lead": "Brand films, commercials and social content for businesses in Mankato and across Southern Minnesota, with photography to match.",
+    "items": [
+      {
+        "slug": "brand-films",
+        "title": "Brand Films",
+        "summary": "Story-driven films that show who you are, not just what you sell.",
+        "body": "A brand film is the piece people watch when they want to know who they're dealing with. I plan it with you, shoot it on location and deliver a finished film for your website, your launch or your about page, along with shorter cuts you can post.",
+        "project": "seraphim-studios"
+      },
+      {
+        "slug": "commercials",
+        "title": "Commercials & Ads",
+        "summary": "Short, sharp spots built for paid social, pre-roll and local TV.",
+        "body": "Fifteen to sixty seconds with one clear idea. I handle concept, shooting, editing, color and sound, and deliver each spot in the sizes your ad platforms ask for.",
+        "project": "scheels-turkey-hunting"
+      },
+      {
+        "slug": "social-content",
+        "title": "Social Media Content",
+        "summary": "Reels, TikToks and shorts shot and cut for the vertical screen.",
+        "body": "One shoot day can cover weeks of posts. I shoot with your content calendar in mind and deliver vertical edits that are ready to publish, so your feed stays consistent without you having to film it yourself.",
+        "project": "reborn-legacy-tattoo"
+      },
+      {
+        "slug": "events",
+        "title": "Events & Recaps",
+        "summary": "Grand openings, tournaments, festivals and shows, turned around while people are still talking about them.",
+        "body": "I cover the event start to finish and cut a highlight film that shows what it felt like to be there, plus short clips for promoting the next one.",
+        "project": "western-fest-rodeo"
+      },
+      {
+        "slug": "photography",
+        "title": "Photography",
+        "summary": "Brand, portrait and event photography that matches the look of your video.",
+        "body": "Stills and motion from the same shoot keep everything you publish looking like it belongs together. Photography can be booked on its own or added to any video project.",
+        "project": "",
+        "href": "/photography/"
+      }
+    ],
+    "processHeading": "How it works",
+    "process": [
+      { "title": "Talk", "text": "A quick call or coffee to hear what you need, who it's for and where it will be seen." },
+      { "title": "Plan", "text": "I put together the concept, shot list and schedule so the shoot day runs smoothly." },
+      { "title": "Shoot", "text": "On location with a small, quiet setup that doesn't get in the way of your day." },
+      { "title": "Edit", "text": "Cut, color and sound, with a review round so you can ask for changes." },
+      { "title": "Deliver", "text": "Final files sized for every place you plan to post them." }
+    ],
+    "areasHeading": "Where I work",
+    "areasText": "Based in Mankato and working throughout Southern Minnesota. Happy to travel for the right project.",
+    "areas": ["Mankato", "North Mankato", "St. Peter", "New Ulm", "Lake Crystal", "Waseca", "Owatonna", "Albert Lea", "Faribault", "Rochester", "Minneapolis", "St. Paul"],
+    "faqHeading": "Common questions",
+    "faq": [
+      {
+        "q": "How much does a video cost?",
+        "a": "It depends on the length, the number of shoot days and how the video will be used, so every project gets its own quote. Tell me what you have in mind and your budget range and I'll tell you what's possible."
+      },
+      {
+        "q": "Do you work outside of Mankato?",
+        "a": "Yes. Most of my work is in Mankato and Southern Minnesota, and I travel to the Twin Cities and out of state for the right project."
+      },
+      {
+        "q": "What do you shoot on?",
+        "a": "Fujifilm X-series cameras, with editing and color grading in DaVinci Resolve. I like a filmic look with natural color."
+      },
+      {
+        "q": "Can you make vertical videos for Instagram and TikTok?",
+        "a": "Yes. If the video is going on social, I frame for vertical on the shoot day instead of cropping it afterwards."
+      },
+      {
+        "q": "Do you do photography too?",
+        "a": "Yes. Photography can be booked on its own or added to a video shoot."
+      }
+    ]
+  },
+
+  "photography": {
+    "heading": "Photography",
+    "lead": "A small set of favorites. Brand work, people, events and the outdoors.",
+    "categories": [
+      { "folder": "brand", "label": "Brand" },
+      { "folder": "people", "label": "People" },
+      { "folder": "events", "label": "Events" },
+      { "folder": "explore", "label": "Explore" }
+    ]
+  },
+
+  "work": {
+    "heading": "Work",
+    "lead": "Brand films, commercials, creative projects, weddings and events.",
+    "categories": [
+      { "id": "brand", "label": "Brand & Commercial" },
+      { "id": "creative", "label": "Creative & Film" },
+      { "id": "weddings-events", "label": "Weddings & Events" }
+    ]
+  },
+
+  "contactPage": {
+    "heading": "Let's talk.",
+    "lead": "Tell me about your project: what you're making, when you need it and where it will be seen."
+  },
+
+  "redirects": [
+    { "from": "/videography", "to": "/work/" },
+    { "from": "/about-2", "to": "/about/" },
+    { "from": "/business-branding", "to": "/photography/" },
+    { "from": "/fitness-wellness", "to": "/photography/" },
+    { "from": "/portraits-people", "to": "/photography/" },
+    { "from": "/esports-events", "to": "/photography/" },
+    { "from": "/exploration", "to": "/photography/" }
+  ]
+}

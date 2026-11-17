@@ -1,0 +1,16 @@
+{
+  "name": "aydenjenson-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio site for Ayden Jenson, videographer & cinematographer in Mankato, MN. Zero-dependency static site.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node dev.js",
+    "check": "node build.js --check",
+    "media": "node tools/media.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
