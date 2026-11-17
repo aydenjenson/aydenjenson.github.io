@@ -65,6 +65,7 @@ function initHero() {
     video.src = src;
     video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
     layer.append(video);
+    layer.classList.add('has-video'); // layers without footage get a slow drift instead (see main.css)
     return video;
   }
 

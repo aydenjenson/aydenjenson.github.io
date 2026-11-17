@@ -22,7 +22,10 @@ const stillSmall = (p) => p.loop?.stillSmall || p.poster.thumb || p.poster.src;
 export function homePage(ctx) {
   const { site } = ctx;
   const loc = site.location;
-  const featured = ctx.featured.slice(0, HERO_TITLES);
+  // The six titles over the reel: the list in site.json (home.heroProjects), or
+  // the featured projects when that list is empty. Top row first, left to right.
+  const chosen = (site.home.heroProjects || []).map((slug) => ctx.projects.find((p) => p.slug === slug)).filter(Boolean);
+  const featured = (chosen.length ? chosen : ctx.featured).slice(0, HERO_TITLES);
   const reel = ctx.projects.find((p) => p.slug === site.home.reelProject) || featured[0];
   const cards = ctx.featured.slice(0, CARD_LAYOUT.length);
   const stills = pickStills(ctx.photos, 10);

@@ -323,6 +323,12 @@ export function build() {
     notFoundPage(ctx),
   ];
 
+  for (const slug of site.home?.heroProjects || []) {
+    const p = projects.find((x) => x.slug === slug);
+    if (!p) warn(`content/site.json: home.heroProjects lists "${slug}", which is not a project slug. It is skipped.`);
+    else if (!p.loop) warn(`Home page title "${p.title}" has no preview loop, so opening it shows a still picture instead of footage.`);
+  }
+
   // Helpful notes about things that would make the site better.
   const noLoop = projects.filter((p) => !p.loop).map((p) => p.slug);
   if (noLoop.length) warn(`${noLoop.length} project(s) have no preview loop yet (they show a still image instead): ${noLoop.join(', ')}`);

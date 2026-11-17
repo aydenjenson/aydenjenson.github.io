@@ -44,6 +44,14 @@
 
   "home": {
     "reelProject": "showreel",
+    "heroProjects": [
+      "scheels-turkey-hunting",
+      "reborn-legacy-tattoo",
+      "seraphim-studios",
+      "western-fest-rodeo",
+      "super-bowl-lix",
+      "bison-in-the-snow"
+    ],
     "statement": "I'm Ayden, a videographer and cinematographer based in Mankato, Minnesota. I make brand films, commercials and social content for businesses that want to look as good as the work they do.",
     "workHeading": "Selected work",
     "servicesHeading": "What I do",
