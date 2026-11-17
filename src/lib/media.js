@@ -10,6 +10,8 @@
 //   media/photos/<category>/<name>-800.webp, -1600.webp, -2400.webp
 //                                         optional web sizes made by tools/media.js
 //   media/about/portrait.jpg              about page portrait
+//   media/grades/<nn>-<project-slug>[-label]-after.webp and -before.webp
+//                                         before/after pairs for the color grading slider on the home page
 import fs from 'node:fs';
 import path from 'node:path';
 import { imageSize } from './image-size.js';
@@ -69,7 +71,7 @@ export function scanMedia(root) {
     if (posters[slug] && !/\.webp$/i.test(f.name)) continue;
     posters[slug] = { src: url('posters', f.name), width: size.width || 0, height: size.height || 0 };
   }
-  // Small copies used in lists and on the work wall (made by tools/media.js).
+  // Small copies used where a picture is shown small or blurred (made by tools/media.js).
   for (const f of list(path.join(mediaDir, 'posters', 'thumbs'))) {
     if (!f.isFile() || !IMAGE_EXT.test(f.name)) continue;
     const slug = f.name.replace(IMAGE_EXT, '');
@@ -91,7 +93,21 @@ export function scanMedia(root) {
     about[img.name] = img;
   }
 
-  return { loops, films, posters, photos, about };
+  // ---- before/after pairs for the color grading slider -----------------------
+  // media/grades/<name>-after.webp with <name>-before.webp. A pair whose "before"
+  // is <name>-before-sim.webp has no real ungraded frame yet: tools/media.js made
+  // a stand-in from the finished one (the build prints a note about those).
+  const grades = [];
+  const gradeImages = new Map(scanImageFolder(path.join(mediaDir, 'grades'), (name) => url('grades', name)).map((img) => [img.name, img]));
+  for (const [name, after] of gradeImages) {
+    if (!name.endsWith('-after')) continue;
+    const base = name.slice(0, -'-after'.length);
+    const real = gradeImages.get(`${base}-before`);
+    const standIn = gradeImages.get(`${base}-before-sim`);
+    if (real || standIn) grades.push({ name: base, after, before: real || standIn, simulated: !real });
+  }
+
+  return { loops, films, posters, photos, about, grades };
 }
 
 /**

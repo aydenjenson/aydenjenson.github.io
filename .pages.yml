@@ -164,8 +164,14 @@ content:
           - name: statement
             label: Intro statement
             type: text
+          - name: gradeHeading
+            label: Before and after slider, heading
+            type: string
+          - name: gradeText
+            label: Before and after slider, text beside the picture
+            type: text
           - name: facts
-            label: The three facts under the intro statement
+            label: The facts under the intro statement
             type: object
             list: true
             fields:

@@ -1,7 +1,7 @@
 // Services page. This is the page written for Google as much as for people:
 // plain text about what Ayden offers, where, and how it works.
 import { esc, html, pad2 } from '../lib/html.js';
-import { chars, projectAttrs, posterImg, loopVideo, cta } from './components.js';
+import { chars, projectAttrs, posterImg, loopVideo, cta, ARROW } from './components.js';
 import { breadcrumbLd, businessLd, faqLd } from '../lib/seo.js';
 
 export function servicesPage(ctx) {
@@ -28,7 +28,7 @@ export function servicesPage(ctx) {
         <p class="service__summary" data-reveal>${esc(item.summary)}</p>
         <p class="service__body" data-reveal>${esc(item.body)}</p>
         <p data-reveal>
-          <a class="link-arrow hover-blur" href="${item.href || '/contact/'}">${chars(item.href ? 'See the photography' : `Ask about ${item.title.toLowerCase()}`)}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>
+          <a class="link-arrow hover-blur" href="${item.href || '/contact/'}">${chars(item.href ? 'See the photography' : `Ask about ${item.title.toLowerCase()}`)}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
         </p>
       </div>
       ${project ? html`

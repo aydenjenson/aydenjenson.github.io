@@ -1,12 +1,12 @@
 // Home page: full-screen reel with project titles scattered over it, then the
-// scrolling sections (statement, selected work, services, stills, about).
+// scrolling sections (statement, selected work, before and after, services, stills, about).
 //
 // How the hero behaves (see src/assets/js/home.js):
 //   hover a title   a blurred strip of that project slides in from the side the title is on
 //   click a title   the project opens full screen, sharpens and plays; the title becomes "See project"
 //   click the name  back to the reel
 import { esc, html, pad2, clock } from '../lib/html.js';
-import { chars, words, spread, titleText, socialLinks, projectAttrs, posterImg, loopVideo, picture, sectionHead, cta } from './components.js';
+import { chars, words, spread, titleText, socialLinks, projectAttrs, posterImg, loopVideo, picture, sectionHead, cta, gradeSection, ARROW } from './components.js';
 import { businessLd, personLd, websiteLd } from '../lib/seo.js';
 
 // The hero is a grid of 3 columns x 2 rows; each cell holds one title.
@@ -56,7 +56,7 @@ export function homePage(ctx) {
     ${heroProjects.map((p, i) => html`
     <div class="hero__cell">
       <div class="hero__item" data-hero-item data-project="${esc(p.slug)}" style="--n:${i}">
-        <button class="hero__link hover-blur" type="button" data-hero-link>${chars(p.title)}</button>
+        <button class="hero__link hover-blur" type="button" data-hero-link>${chars(p.title.replace(/ - /g, ' - '))}</button>
         <a class="hero__see hover-blur" href="${p.url}" data-hero-see tabindex="-1" aria-label="See project: ${esc(p.title)}"><span aria-hidden="true">${chars('See project')}</span></a>
       </div>
     </div>`)}
@@ -74,12 +74,12 @@ export function homePage(ctx) {
   const statement = html`
 <section class="statement" id="intro" data-statement aria-label="Introduction">
   <p class="statement__text" data-words>${words(site.home.statement)}</p>
-  <dl class="statement__facts" data-reveal>
+  <dl class="statement__facts" style="--cols:${(site.home.facts || []).length || 1}" data-reveal>
     ${(site.home.facts || []).map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`)}
   </dl>
   <p class="statement__links" data-reveal>
-    <a class="link-arrow hover-blur" href="/about/">${chars('About Ayden')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>
-    <a class="link-arrow hover-blur" href="/services/">${chars('Services')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>
+    <a class="link-arrow hover-blur" href="/about/">${chars('About Ayden')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
+    <a class="link-arrow hover-blur" href="/services/">${chars('Services')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
   </p>
 </section>`;
 
@@ -105,9 +105,13 @@ export function homePage(ctx) {
   </div>
 </section>`;
 
+  // The before/after slider appears once media/grades/ holds a pair; the sections after it are then numbered one higher.
+  const grade = gradeSection(ctx, { num: 2, title: site.home.gradeHeading || 'Before and After', text: site.home.gradeText });
+  const shift = grade ? 1 : 0;
+
   const services = html`
 <section class="svc-teaser" aria-labelledby="svc-title">
-  ${sectionHead({ num: 2, title: site.home.servicesHeading, id: 'svc-title', link: { href: '/services/', label: 'Services' } })}
+  ${sectionHead({ num: 2 + shift, title: site.home.servicesHeading, id: 'svc-title', link: { href: '/services/', label: 'Services' } })}
   <ul class="svc-list">
     ${site.services.items.map((s, i) => {
       // A small picture opens up inside the row on hover (it does not follow the pointer).
@@ -120,7 +124,7 @@ export function homePage(ctx) {
         <span class="svc__title">${esc(s.title)}</span>
         <span class="svc__summary">${esc(s.summary)}</span>
         <span class="svc__thumb" aria-hidden="true">${thumb ? `<img src="${esc(thumb)}" alt="" loading="lazy" decoding="async">` : ''}</span>
-        <span class="svc__arrow" aria-hidden="true">&#8599;</span>
+        <span class="svc__arrow" aria-hidden="true">${ARROW}</span>
       </a>
     </li>`;
     })}
@@ -129,7 +133,7 @@ export function homePage(ctx) {
 
   const stillsSection = stills.length ? html`
 <section class="stills" aria-labelledby="stills-title">
-  ${sectionHead({ num: 3, title: site.home.photoHeading, id: 'stills-title', link: { href: '/photography/', label: 'Photography' } })}
+  ${sectionHead({ num: 3 + shift, title: site.home.photoHeading, id: 'stills-title', link: { href: '/photography/', label: 'Photography' } })}
   <div class="stills__viewport">
     <div class="stills__track" data-stills>
       ${stills.map((img, i) => html`
@@ -148,10 +152,10 @@ export function homePage(ctx) {
     <div data-parallax="0.06">${picture(portrait, { alt: site.about.portraitAlt, sizes: '(min-width: 900px) 36vw, 90vw' })}</div>
   </figure>` : ''}
   <div class="about-teaser__text">
-    <p class="section-head__num" aria-hidden="true">(04)</p>
+    <p class="section-head__num" aria-hidden="true">(${pad2(4 + shift)})</p>
     <h2 class="about-teaser__title" id="about-teaser-title" data-reveal="rise">${esc(site.home.aboutHeading)}</h2>
     <p data-reveal>${esc(site.about.bio[0])}</p>
-    <a class="link-arrow hover-blur" href="/about/">${chars('About Ayden')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>
+    <a class="link-arrow hover-blur" href="/about/">${chars('About Ayden')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
   </div>
 </section>`;
 
@@ -163,7 +167,7 @@ export function homePage(ctx) {
     description: site.seo.description,
     preload: [{ href: still(reel), as: 'image', fetchpriority: 'high' }],
     jsonld: [websiteLd(ctx), businessLd(ctx), personLd(ctx)],
-    content: [hero, statement, selected, services, stillsSection, about, cta(ctx)].join('\n'),
+    content: [hero, statement, selected, grade, services, stillsSection, about, cta(ctx)].join('\n'),
   };
 }
 

@@ -27,7 +27,7 @@
 
   "form": {
     "web3formsKey": "",
-    "projectTypes": ["Brand film", "Commercial", "Social media", "Photography", "Something else"]
+    "projectTypes": ["Brand Film", "Commercial", "Social Media", "Photography", "Something Else"]
   },
 
   "analytics": {
@@ -52,41 +52,41 @@
       "bison-in-the-snow"
     ],
     "nameLine": ["Cinematographer", "Mankato, MN"],
-    "statement": "I'm Ayden, a videographer and cinematographer based in Mankato, Minnesota. I make brand films, commercials and social content for businesses that want to look as good as the work they do.",
+    "statement": "Creating content worth watching.",
     "facts": [
-      { "label": "Based in", "value": "Mankato, Minnesota" },
-      { "label": "Making", "value": "Brand films, commercials, social media" },
-      { "label": "Open to", "value": "Travel, in Minnesota and beyond" }
+      { "label": "Based in", "value": "Mankato, Minnesota. Open to travel." },
+      { "label": "Making", "value": "Brand Films, Commercials, Social Media" }
     ],
-    "workHeading": "Selected work",
-    "servicesHeading": "What I do",
+    "workHeading": "Selected Work",
+    "gradeHeading": "Before and After",
+    "gradeText": "Color grading is part of every project. Drag the line across the frame to compare.",
+    "servicesHeading": "What I Do",
     "photoHeading": "Stills",
     "photoText": "Photography that sits next to the motion work: people, events and branding.",
-    "aboutHeading": "A camera has been by my side through it all.",
+    "aboutHeading": "Cinematographer, Editor, Colorist.",
     "cta": "Let's make something."
   },
 
   "about": {
     "heading": "About Ayden",
-    "lead": "A creative based in Mankato, Minnesota, working in cinematography and photography.",
+    "lead": "Videographer and cinematographer based in Mankato, Minnesota.",
     "portrait": "about/portrait",
     "portraitAlt": "Ayden Jenson, videographer and cinematographer based in Mankato, Minnesota",
     "bio": [
-      "Hey! I'm Ayden Jenson, a creative based in Mankato, Minnesota, specializing in the art of both cinematography and photography. My passion for creating began in middle school, and while my interests have evolved over the years, one thing has always stayed the same: a camera has been by my side through it all.",
-      "I thrive on capturing candid, real moments, whether it's a brand film, a commercial, a short film or content for social media. Over time, I've grown to love the process of transforming simple moments into pieces of art that evoke emotion through thoughtful composition and vibrant color.",
-      "When I'm not behind the camera, you'll likely find me traveling, camping, fishing, or simply enjoying the great outdoors.",
-      "I'd love to hear from you! If you're interested in scheduling a shoot, please don't hesitate to reach out."
+      "I make brand films, commercials and social media content for businesses, along with photography.",
+      "I handle the planning, shooting, editing and color grading myself, which keeps the look consistent from start to finish.",
+      "I work with businesses in Mankato and beyond, and I'm open to travel. If you have a project in mind, I'd like to hear about it."
     ],
     "facts": [
-      { "label": "Based in", "value": "Mankato, Minnesota" },
-      { "label": "Working", "value": "Minnesota and beyond. Open to travel." }
+      { "label": "Based in", "value": "Mankato, Minnesota. Open to travel." },
+      { "label": "Role", "value": "Cinematographer, Director, Editor, Colorist" }
     ],
-    "clientsHeading": "Worked with",
+    "clientsHeading": "Worked With",
     "clients": ["Seraphim Studios", "Reborn Legacy Tattoo", "Gigli", "Allstar Nutrition", "Body Art Nutrition", "Iron Alliance", "Mobile Charm Bar", "OrinLaen"]
   },
 
   "services": {
-    "heading": "Video production in Mankato, MN",
+    "heading": "Video Production in Mankato, MN",
     "lead": "Brand films, commercials and social media content for businesses in Mankato, MN and beyond, with photography to match.",
     "items": [
       {
@@ -119,7 +119,7 @@
         "href": "/photography/"
       }
     ],
-    "processHeading": "How it works",
+    "processHeading": "How It Works",
     "process": [
       { "title": "Talk", "text": "A quick call or coffee to hear what you need, who it's for and where it will be seen." },
       { "title": "Plan", "text": "I put together the concept, shot list and schedule so the shoot day runs smoothly." },
@@ -127,9 +127,9 @@
       { "title": "Edit", "text": "Cut, color and sound, with a review round so you can ask for changes." },
       { "title": "Deliver", "text": "Final files sized for every place you plan to post them." }
     ],
-    "areasHeading": "Where I work",
+    "areasHeading": "Where I Work",
     "areasText": "Mankato, MN and beyond. Open to travel.",
-    "faqHeading": "Common questions",
+    "faqHeading": "Common Questions",
     "faq": [
       {
         "q": "How much does a video cost?",

@@ -2,7 +2,7 @@
    aydenjenson.com
    One stylesheet for the whole site. Sections, in order:
      1. Fonts & design tokens     6. Home                11. Services
-     2. Base & helpers            7. Work (wall/index)   12. Contact
+     2. Base & helpers            7. Work (one at a time)   12. Contact
      3. Motion helpers            8. Film page           13. Footer & CTA
      4. Navigation & menu         9. Photography         14. Small screens
      5. Shared overlays          10. About               15. Reduced motion
@@ -116,7 +116,7 @@ sup { line-height: 0; }
 /* Small uppercase text used for labels, nav, captions */
 .label,
 .nav, .hero__foot, .hero__link, .section-head, .link-arrow, .card__num, .card__kind,
-.tile__num, .tile__kind, .tile__year, .wall__label, .work__views, .film__kind, .film__bar,
+.work__credits, .work__cats, .work__hint, .grade__tag, .grade__pick, .film__kind, .film__bar,
 .film__nav, .filters, .photo__meta, .lightbox, .footer, .svc__num, .svc__arrow, .service__num,
 .service__caption, .process__num, .next__eyebrow, .next__kind, .cta__eyebrow, .cta__go,
 .details__credits dt, .facts dt, .statement__facts dt, .field label, .field legend, .form__status, .menu__num, .menu__foot {
@@ -160,6 +160,13 @@ sup { line-height: 0; }
 .link-arrow { display: inline-flex; align-items: baseline; gap: 8px; padding: 6px 0; }
 .link-arrow__icon { transition: transform 0.5s var(--ease); }
 .link-arrow:hover .link-arrow__icon { transform: translate(3px, -3px); }
+/* The arrows are drawn, not typed (ARROW in components.js): a typed arrow is
+   not in the site's fonts, and phones then show a coloured emoji in its place. */
+.arrow {
+  display: inline-block; width: 0.8em; height: 0.8em; vertical-align: -0.04em; overflow: visible;
+  fill: none; stroke: currentColor; stroke-width: 1.4;
+}
+.cta__arrow, .footer__top > span:last-child { margin-left: 0.6em; }
 
 .section-head {
   display: grid;
@@ -190,7 +197,7 @@ sup { line-height: 0; }
   letter-spacing: -0.03em;
   text-wrap: balance;
 }
-.page-title sup, .work__title sup {
+.page-title sup {
   font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
   color: var(--fg-dim); margin-left: 0.6em; position: relative; top: -2.6em; vertical-align: baseline;
 }
@@ -409,10 +416,16 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
   .hero__bar--bottom { background: linear-gradient(0deg, rgba(13, 10, 8, 0.6), transparent); }
 }
 
+/* The name is the one place that uses Inter Tight in capitals (Ayden's pick);
+   headings everywhere else stay in the serif. Its size keeps the name about
+   90% as wide as the serif name it replaced, so it is not "massive". */
 .hero__title {
-  --name-size: clamp(46px, 4.75vw, 110px);
+  --name-size: clamp(26.4px, 2.722vw, 63px);
   position: absolute; left: 50%; top: 50%; z-index: 2;
   transform: translate(-50%, -50%);
+  /* The button's padding sits above the name and the small line hangs below it;
+     this lifts the pair so that together they are centred on the screen. */
+  margin-top: -26px;
   width: max-content; max-width: 100vw;
   text-align: center; font-weight: 400;
 }
@@ -420,10 +433,12 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .hero__name {
   display: block; margin: 0 auto;
   width: calc(500px + 10vw); max-width: 100vw; padding: 50px 12px;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: var(--name-size);
+  font-weight: 600;
   line-height: 1;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
   color: var(--fg);
   cursor: crosshair;
 }
@@ -431,12 +446,13 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 /* The small line under the name. Its box is exactly as wide as the name and the
    letters are spread across it, so the two lines start and end together.
    home.js measures the name (--name-w); the calc is the same width worked out
-   for the default font, used until the script has run. */
+   for the name's font, used until the script has run. The negative margin pulls
+   the line up into the button's padding, close under the name. */
 .hero__role {
-  display: block; width: var(--name-w, calc(var(--name-size) * 4.57)); max-width: calc(100vw - var(--pad) * 2);
-  margin: -36px auto 0; pointer-events: none;
+  display: block; width: var(--name-w, calc(var(--name-size) * 7.18)); max-width: calc(100vw - var(--pad) * 2);
+  margin: -46px auto 0; pointer-events: none;
   /* Scales with the name, so the spacing between letters looks the same at every size */
-  font-size: clamp(10px, calc(var(--name-size) * 0.168), 13px);
+  font-size: clamp(9px, calc(var(--name-size) * 0.255), 11px);
   font-weight: 600; line-height: 1.3; letter-spacing: 0; text-transform: uppercase;
   color: var(--fg);
 }
@@ -533,12 +549,13 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 }
 .js .word { opacity: 0.16; transition: opacity 0.6s var(--ease); }
 .js .word.is-on { opacity: 1; }
-/* Three facts under the statement, all set the same way: a small label over one line of text */
+/* The facts under the statement, all set the same way: a small label over one line of text.
+   --cols is how many there are (home.js sets it), so two facts sit as tidily as three. */
 .statement__facts {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px var(--pad);
+  display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 18px var(--pad);
   margin-top: clamp(56px, 10vh, 130px); padding-top: 18px;
   border-top: 1px solid var(--line);
-  max-width: 1080px;
+  max-width: calc(var(--cols, 3) * 360px);
 }
 .statement__facts dt { color: var(--fg-dim); margin-bottom: 10px; }
 .statement__facts dd { font-size: clamp(15px, 1.2vw, 18px); line-height: 1.35; text-wrap: balance; }
@@ -625,95 +642,123 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .about-teaser__title { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 4.6vw, 76px); line-height: 1; letter-spacing: -0.02em; text-wrap: balance; }
 .about-teaser__text p:not(.section-head__num) { color: var(--fg-dim); max-width: 46ch; font-size: clamp(15px, 1.2vw, 18px); }
 
+/* Before and after: one frame, ungraded on the left of the line and graded on
+   the right. Press and drag anywhere on the picture to move the line (it never
+   follows the pointer by itself), or use the arrow keys. The buttons beside it
+   switch to another frame. Markup: gradeSection() in components.js. Behaviour:
+   initGrade() in main.js. Pictures: media/grades/. */
+.grade { padding-bottom: clamp(90px, 16vh, 220px); }
+.grade__body {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(22px, 4vh, 40px) var(--pad);
+  align-items: end;
+  padding: clamp(28px, 5vh, 64px) var(--pad) 0;
+}
+.grade__stage {
+  --split: 50%;
+  grid-column: 1 / span 9;
+  position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg-2);
+  cursor: ew-resize; touch-action: pan-y;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+}
+.grade__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-drag: none; transition: opacity 0.35s var(--ease); }
+.grade__stage.is-loading .grade__img { opacity: 0.35; }
+.grade__before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--split)) 0 0); }
+.grade__line { position: absolute; top: 0; bottom: 0; left: var(--split); width: 1px; margin-left: -0.5px; background: var(--fg); pointer-events: none; }
+.grade__grip {
+  position: absolute; left: 50%; top: 50%; display: grid; place-items: center;
+  width: 42px; height: 42px; margin: -21px 0 0 -21px;
+  border: 1px solid var(--fg); border-radius: 50%; color: var(--fg);
+  background: rgba(13, 10, 8, 0.28); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  transition: transform 0.4s var(--ease);
+}
+.grade__grip svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.4; }
+.grade__stage:hover .grade__grip, .grade__stage.is-dragging .grade__grip { transform: scale(1.1); }
+.grade__tag {
+  position: absolute; bottom: 14px; padding: 2px 0;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.75); pointer-events: none;
+}
+.grade__tag--before { left: 16px; }
+.grade__tag--after { right: 16px; }
+/* The real control for keyboards and screen readers: a slider with no visible track */
+.grade__range { position: absolute; left: 0; bottom: 0; width: 100%; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.grade__stage:has(.grade__range:focus-visible) { outline: 1px solid var(--fg); outline-offset: 4px; }
+
+.grade__side { grid-column: 10 / span 3; display: flex; flex-direction: column; align-items: flex-start; gap: clamp(18px, 3vh, 30px); min-width: 0; }
+.grade__text { color: var(--fg-dim); font-size: clamp(15px, 1.2vw, 18px); line-height: 1.42; text-wrap: pretty; }
+.grade__list { width: 100%; border-bottom: 1px solid var(--line); }
+.grade__pick {
+  display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 6px; align-items: baseline; width: 100%;
+  padding: 11px 0; border-top: 1px solid var(--line); text-align: left;
+  font: inherit; letter-spacing: inherit; text-transform: uppercase; color: var(--fg);
+  opacity: 0.45; transition: opacity 0.4s var(--ease);
+}
+.grade__pick span:first-child { color: var(--fg-faint); transition: color 0.4s var(--ease); }
+.grade__pick:hover, .grade__pick.is-active { opacity: 1; }
+.grade__pick.is-active span:first-child { color: var(--accent); }
+
 /* 7. Work ------------------------------------------------------------------- */
 
-.work__head { padding: calc(var(--nav-h) + clamp(48px, 10vh, 130px)) var(--pad) clamp(24px, 4vh, 48px); position: relative; }
-.work__title { font-family: var(--serif); font-weight: 400; font-size: clamp(56px, 10.5vw, 190px); line-height: 0.9; letter-spacing: -0.03em; }
-.work__lead { margin-top: 18px; color: var(--fg-dim); font-size: clamp(16px, 1.45vw, 21px); max-width: 42ch; }
-.work__views { display: flex; gap: 18px; margin-top: 28px; }
-.work__views button { padding: 6px 0; opacity: 0.4; text-transform: uppercase; letter-spacing: inherit; font: inherit; transition: opacity 0.3s; }
-.work__views button.is-active { opacity: 1; }
+/* One project at a time (Ayden's pick; the idea comes from kaiblamey.com).
+   work.js makes .work as tall as the list needs. The stage stays on screen
+   while the page scrolls, and how far it has scrolled picks the project. */
+.work { position: relative; }
+.work__stage { position: sticky; top: 0; height: 100svh; min-height: 480px; overflow: hidden; background: #000; }
+.work__layers, .work__layer, .work__dim { position: absolute; inset: 0; }
+.work__layer { opacity: 0; transition: opacity 0.8s var(--ease); }
+.work__layer.is-active { opacity: 1; }
+.work__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.work__layer img:not([src]) { visibility: hidden; }
+.work__layer video { opacity: 0; transition: opacity 0.5s linear; }
+.work__layer video.is-playing { opacity: 1; }
+/* An upright, phone-shaped film on a wide screen is shown whole over a blurred
+   copy of itself, instead of being cropped to a thin band. */
+.work__back { position: absolute; left: -6%; top: -6%; width: 112%; height: 112%; object-fit: cover; filter: blur(34px) brightness(0.5); display: none; }
+@media (min-aspect-ratio: 1/1) {
+  .work__layer--portrait .work__back { display: block; }
+  .work__layer--portrait .work__media { object-fit: contain; object-position: 66% 50%; }
+}
+.work__dim { background: linear-gradient(90deg, rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.2) 55%, rgba(0, 0, 0, 0.48)); pointer-events: none; }
 
-.tile__link { display: grid; }
-.tile__media { position: relative; display: block; overflow: hidden; aspect-ratio: var(--ar); background: var(--bg-2); }
-.tile__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease), filter 0.5s; }
-.tile__num { color: var(--fg-faint); }
+/* The list shows through this window and fades out towards the top and bottom
+   of the screen, so far-off titles never run under the menu or the filter. */
+.work__window {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 7%, #000 24%, #000 76%, transparent 91%);
+  mask-image: linear-gradient(to bottom, transparent 7%, #000 24%, #000 76%, transparent 91%);
+}
+.work__list {
+  position: absolute; left: var(--pad); top: 50%; width: min(48vw, 640px); pointer-events: auto;
+  transition: transform 0.7s cubic-bezier(0.8, 0, 0.2, 1); will-change: transform;
+}
+/* --d is how many titles this one is from the middle one (work.js sets it): the further, the fainter */
+.work__item { opacity: clamp(0.14, calc(1 - var(--d, 9) * 0.28), 1); transition: opacity 0.5s var(--ease); }
+.work__item[hidden] { display: none; }
+.work__item a {
+  display: block; padding: 4px 0;
+  font-family: var(--serif); font-size: clamp(22px, 2.3vw, 36px); line-height: 1.1; letter-spacing: -0.012em;
+  text-shadow: 0 1px 20px rgba(0, 0, 0, 0.55);
+}
+.work__credits {
+  position: absolute; right: var(--pad); top: 50%; transform: translateY(-50%);
+  display: grid; gap: 6px; max-width: min(300px, 24vw); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
+}
+.work__credits div { display: flex; justify-content: flex-end; gap: 10px; }
+.work__credits dt { flex: none; color: var(--fg-dim); }
+.work__credits dd { text-align: right; }
+.work__cats {
+  position: absolute; left: 50%; bottom: calc(var(--pad) + env(safe-area-inset-bottom)); transform: translateX(-50%);
+  display: flex; gap: 2px 18px; white-space: nowrap;
+}
+.work__cats button { padding: 8px 0; opacity: 0.45; font: inherit; letter-spacing: inherit; text-transform: uppercase; transition: opacity 0.3s; }
+.work__cats button:hover, .work__cats button.is-active { opacity: 1; }
+.work__hint { position: absolute; left: var(--pad); bottom: calc(var(--pad) + env(safe-area-inset-bottom)); padding: 8px 0; color: var(--fg-dim); }
 
-/* --- Index view: a list you can scan (also what phones and no-JS get) --- */
-.wall { padding: 0 var(--pad) clamp(80px, 14vh, 180px); }
-.wall__col { margin-top: clamp(40px, 8vh, 96px); }
-.wall__label { padding-bottom: 14px; border-bottom: 1px solid var(--line); color: var(--fg-dim); }
-.wall__label span { color: var(--fg-faint); margin-right: 10px; }
-.wall__label sup { margin-left: 4px; color: var(--fg-faint); }
-.tile { border-bottom: 1px solid var(--line); }
-.tile__link {
-  grid-template-columns: 40px clamp(96px, 13vw, 200px) minmax(0, 1fr) auto;
-  align-items: center; gap: var(--pad);
-  padding: 14px 0;
-  transition: opacity 0.4s var(--ease), padding 0.6s var(--ease);
-}
-.tile__info { display: contents; }
-.tile__title { font-family: var(--serif); font-size: clamp(24px, 2.9vw, 46px); line-height: 1.02; letter-spacing: -0.015em; grid-column: 3; }
-.tile__kind { display: none; }
-.tile__year { color: var(--fg-dim); white-space: nowrap; }
-.tile--portrait .tile__media { aspect-ratio: 16 / 9; }
-@media (hover: hover) {
-  .wall__track:hover .tile__link { opacity: 0.38; }
-  .wall__track .tile__link:hover { opacity: 1; padding-left: 14px; }
-}
-
-/* --- Wall view: three endless columns (set by JS on wide screens) --- */
-html[data-work='wall'] { overflow: hidden; }
-html[data-work='wall'] .footer, html[data-work='wall'] .cta { display: none; }
-html[data-work='wall'] .work__head {
-  position: fixed; z-index: 6; left: 0; right: 0; bottom: 0; padding: 0 var(--pad) 14px;
-  display: flex; justify-content: flex-end; pointer-events: none;
-}
-html[data-work='wall'] .work__title, html[data-work='wall'] .work__lead {
-  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
-}
-html[data-work='wall'] .work__views { margin: 0; pointer-events: auto; }
-html[data-work='wall'] .wall {
-  position: fixed; inset: 0;
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--pad);
-  padding: 0 var(--pad);
-}
-html[data-work='wall'] .wall::before, html[data-work='wall'] .wall::after {
-  content: ''; position: absolute; left: 0; right: 0; z-index: 4; pointer-events: none; height: 150px;
-}
-html[data-work='wall'] .wall::before { top: 0; background: linear-gradient(to bottom, var(--bg), rgba(13, 10, 8, 0)); }
-html[data-work='wall'] .wall::after { bottom: 0; background: linear-gradient(to top, var(--bg) 18%, rgba(13, 10, 8, 0)); }
-html[data-work='wall'] .wall__col { position: relative; margin: 0; overflow: hidden; height: 100%; }
-html[data-work='wall'] .wall__label {
-  position: absolute; z-index: 5; left: 0; bottom: 14px; padding: 6px 0; border: 0; color: var(--fg);
-}
-html[data-work='wall'] .wall__track { will-change: transform; }
-html[data-work='wall'] .tile { border: 0; padding-bottom: clamp(14px, 1.6vw, 26px); }
-html[data-work='wall'] .tile__link {
-  grid-template-columns: 34px minmax(0, 1fr); align-items: start; gap: 0; padding: 0;
-  transition: opacity 0.5s var(--ease);
-}
-html[data-work='wall'] .tile__num { padding-top: 2px; }
-html[data-work='wall'] .tile__media { width: var(--tile-w, 78%); aspect-ratio: var(--ar); }
-html[data-work='wall'] .tile:nth-child(3n + 2) { --tile-w: 62%; }
-html[data-work='wall'] .tile:nth-child(3n) { --tile-w: 90%; }
-html[data-work='wall'] .tile:nth-child(4n + 1) { --tile-w: 70%; }
-html[data-work='wall'] .tile--portrait { --tile-w: 44% !important; }
-html[data-work='wall'] .tile--portrait .tile__media { aspect-ratio: var(--ar); }
-html[data-work='wall'] .tile__info {
-  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px;
-  position: absolute; left: 34px; top: 0; width: var(--tile-w, 78%); aspect-ratio: var(--ar);
-  padding: 12px; text-align: center; pointer-events: none;
-  background: rgba(13, 10, 8, 0.42);
-  opacity: 0; transition: opacity 0.45s var(--ease);
-}
-html[data-work='wall'] .tile__link { position: relative; }
-html[data-work='wall'] .tile__title { font-family: var(--sans); font-size: 11.5px; font-weight: 600; letter-spacing: 0.045em; text-transform: uppercase; line-height: 1.3; }
-html[data-work='wall'] .tile__kind { display: block; color: var(--fg-dim); }
-html[data-work='wall'] .tile__year { display: none; }
-html[data-work='wall'] .tile__link:hover .tile__info, html[data-work='wall'] .tile__link:focus-visible .tile__info { opacity: 1; }
-html[data-work='wall'] .wall.is-hovering .tile__link:not(:hover) { opacity: 0.3; }
-html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
+/* Without JavaScript the page is a plain list of links */
+html:not(.js) .work__stage { position: static; height: auto; min-height: 0; overflow: visible; background: none; padding: calc(var(--nav-h) + 48px) var(--pad) 96px; }
+html:not(.js) .work__window { position: static; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+html:not(.js) .work__list { position: static; width: auto; }
+html:not(.js) .work__item { opacity: 1; }
+html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats, html:not(.js) .work__hint { display: none; }
 
 /* 8. Film page -------------------------------------------------------------- */
 
@@ -1098,20 +1143,47 @@ html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
 
   .photos__grid { columns: 2; }
   .film__nav { display: none; }
+
+  .grade__stage, .grade__side { grid-column: 1 / -1; }
 }
 
-/* Phones and touch screens: the titles become a list. Tap one to open it full
-   screen (it turns into "See project"), tap the name to go back to the reel. */
-@media (max-width: 900px), (hover: none) {
-  .hero__title { top: 36%; }
-  .hero__grid {
-    inset: auto var(--pad) calc(84px + env(safe-area-inset-bottom)) var(--pad);
-    display: flex; flex-direction: column; align-items: flex-start; padding: 0;
+/* Work page on phones: titles across the width, the details and the filter at the bottom */
+@media (max-width: 700px) {
+  /* The window ends above the details and the filter, which sit at the bottom on a phone */
+  .work__window {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 8%, #000 22%, #000 58%, transparent 72%);
+    mask-image: linear-gradient(to bottom, transparent 8%, #000 22%, #000 58%, transparent 72%);
   }
-  .hero__cell { position: static; margin: 0; }
-  .hero__item, .hero__item.is-placed { position: relative; left: auto !important; top: auto !important; transform: none; }
-  .hero__link, .hero__see { padding: 7px 0; }
-  .hero__see { left: 0; transform: none; }
+  .work__list { top: 40%; width: calc(100vw - var(--pad) * 2); }
+  .work__credits { top: auto; bottom: calc(92px + env(safe-area-inset-bottom)); left: var(--pad); right: var(--pad); max-width: none; transform: none; }
+  .work__credits div { justify-content: flex-start; }
+  .work__credits dd { text-align: left; }
+  .work__cats { left: var(--pad); right: var(--pad); transform: none; flex-wrap: wrap; column-gap: 14px; }
+  .work__hint { display: none; }
+}
+
+/* Phones: the six titles sit one to a row, three above the name and three
+   below, each dropped at a random spot across its row. It is the 3 x 2 grid of
+   the computer layout turned on its side, and how xanvierallison.com lays out
+   on a phone (Ayden asked for that). Tap a title to open it full screen (it
+   turns into "See project"), tap the name to go back to the reel. */
+@media (max-width: 900px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: repeat(3, minmax(0, 1fr)) 92px repeat(3, minmax(0, 1fr));
+    gap: 8px 0;
+    padding: calc(var(--nav-h) + 4px) 12px calc(62px + env(safe-area-inset-bottom));
+  }
+  .hero__cell { margin: 0; }
+  .hero__cell:nth-child(4) { grid-row: 5; }
+  .hero__cell:nth-child(5) { grid-row: 6; }
+  .hero__cell:nth-child(6) { grid-row: 7; }
+  /* A long title may wrap on a narrow phone instead of running off the screen */
+  .hero__item { max-width: 100%; white-space: normal; }
+  .hero__link { padding: 9px 10px; text-align: left; text-wrap: balance; }
+}
+/* Touch screens have no pointer for the blur spot to trail, and less room at the bottom */
+@media (max-width: 900px), (hover: none) {
   .hero__lens { display: none; }
   .hero__foot { grid-template-columns: 1fr auto; }
   .hero__scroll { display: none; }
@@ -1126,8 +1198,8 @@ html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
   .statement__facts dt { margin: 0; padding-top: 2px; }
   .section-head { grid-template-columns: 44px 1fr auto; }
   .card--b, .card--e, .card--c { grid-column: 1 / -1; }
-  .tile__link { grid-template-columns: 26px 92px minmax(0, 1fr); gap: 12px; }
-  .tile__year { display: none; }
+  .grade__stage { aspect-ratio: 3 / 2; }
+  .grade__grip { width: 36px; height: 36px; margin: -18px 0 0 -18px; }
   .photos__grid { columns: 1; }
   .process__steps { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr; }

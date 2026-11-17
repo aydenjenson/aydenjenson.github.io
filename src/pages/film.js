@@ -7,7 +7,7 @@
 //             button; pressing it loads the normal YouTube player. Nothing is
 //             ever drawn on top of the YouTube player (their terms require that).
 import { esc, html, clock, linkify } from '../lib/html.js';
-import { chars, titleText, projectAttrs, posterImg, loopVideo, cta } from './components.js';
+import { chars, titleText, projectAttrs, posterImg, loopVideo, cta, ARROW } from './components.js';
 import { breadcrumbLd, videoLd } from '../lib/seo.js';
 import { youtubeWatchUrl } from '../lib/youtube.js';
 
@@ -105,8 +105,8 @@ export function filmPage(ctx, p) {
       ${p.description ? `<p class="details__text" data-reveal>${esc(p.description)}</p>` : ''}
       ${p.ytId || invite ? html`
       <p class="details__links" data-reveal>
-        ${p.ytId ? `<a class="link-arrow hover-blur" href="${youtubeWatchUrl(p.ytId)}" target="_blank" rel="noopener">${chars('Watch on YouTube')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>` : ''}
-        ${invite ? `<a class="link-arrow hover-blur" href="/contact/">${chars('Create something like this')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>` : ''}
+        ${p.ytId ? `<a class="link-arrow hover-blur" href="${youtubeWatchUrl(p.ytId)}" target="_blank" rel="noopener">${chars('Watch on YouTube')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>` : ''}
+        ${invite ? `<a class="link-arrow hover-blur" href="/contact/">${chars('Create something like this')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>` : ''}
       </p>` : ''}
     </div>
     <dl class="details__credits" data-reveal>

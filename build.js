@@ -186,6 +186,24 @@ function buildPhotos(site, media, photoNotes) {
   return { photos, photoCategories };
 }
 
+/**
+ * Before/after pairs for the color grading slider. The file name says which
+ * project a pair belongs to and, optionally, what to call it:
+ *   03-seraphim-studios                        -> Seraphim Studios, named after the project
+ *   05-the-beauty-of-color-grading-dirt-bike   -> that project, named "Dirt Bike"
+ */
+function buildGrades(media, projects) {
+  return media.grades.map((pair) => {
+    const rest = pair.name.replace(/^\d+-/, '');
+    const project = projects
+      .filter((p) => rest === p.slug || rest.startsWith(`${p.slug}-`))
+      .sort((a, b) => b.slug.length - a.slug.length)[0] || null;
+    const extra = project ? rest.slice(project.slug.length + 1) : rest;
+    const named = extra.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    return { ...pair, project, label: named || project.title };
+  });
+}
+
 // ---------------------------------------------------------------------------
 // 3. Write files
 // ---------------------------------------------------------------------------
@@ -292,6 +310,7 @@ export function build() {
   const media = scanMedia(ROOT);
   const projects = buildProjects(site, rawProjects, media);
   const { photos, photoCategories } = buildPhotos(site, media, photoNotes);
+  const grades = buildGrades(media, projects);
   const featured = projects.filter((p) => p.featured);
 
   // Cache-busting: /assets/css/main.css -> /assets/css/main.css?v=1a2b3c4d
@@ -313,6 +332,7 @@ export function build() {
     featured: featured.length ? featured : projects.slice(0, 6),
     photos,
     photoCategories,
+    grades,
     media,
     asset,
     abs: (p) => (/^https?:\/\//.test(p) ? p : `${site.url}${p.startsWith('/') ? p : `/${p}`}`),
@@ -343,6 +363,8 @@ export function build() {
   if (noLoop.length) warn(`${noLoop.length} project(s) have no preview loop yet (they show a still image instead): ${noLoop.join(', ')}`);
   const noPoster = projects.filter((p) => !p.poster.local).map((p) => p.slug);
   if (noPoster.length) warn(`${noPoster.length} project(s) use the YouTube thumbnail as their poster: ${noPoster.join(', ')}`);
+  const standIns = grades.filter((g) => g.simulated).map((g) => g.name);
+  if (standIns.length) warn(`${standIns.length} before/after picture(s) on the home page use a stand-in "before" made from the finished frame, not real ungraded footage: ${standIns.join(', ')}. Swap each for the real frame with: node tools/media.js grade "<film>" <name> --at <seconds> --before "<ungraded file>"`);
   if (!photos.length) warn('No photos found in media/photos/<category>/. The photography page is empty.');
   if (!media.about.portrait) warn('No portrait found at media/about/portrait.jpg.');
   if (!site.form?.web3formsKey) warn('Contact form: no Web3Forms key in content/site.json, so the form opens the visitor\'s email app instead of sending directly.');

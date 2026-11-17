@@ -3,7 +3,7 @@
 // ID is set, and the contact form paragraph depends on whether the form sends
 // through Web3Forms or opens the visitor's email app.
 import { esc, html } from '../lib/html.js';
-import { chars } from './components.js';
+import { chars, ARROW } from './components.js';
 
 const UPDATED = 'November 2026'; // change this when the wording below changes
 
@@ -73,7 +73,7 @@ export function privacyPage(ctx) {
       ${b.body.map((p) => `<p>${p}</p>`)}
     </div>`)}
     <p class="legal__updated">Last updated ${UPDATED}.</p>
-    <p><a class="link-arrow hover-blur" href="/">${chars('Back home')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a></p>
+    <p><a class="link-arrow hover-blur" href="/">${chars('Back home')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a></p>
   </div>
 </section>`;
 

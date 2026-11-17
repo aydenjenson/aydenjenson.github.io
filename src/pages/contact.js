@@ -1,6 +1,6 @@
 // Contact page and the 404 page.
 import { esc, html } from '../lib/html.js';
-import { chars, socialLinks } from './components.js';
+import { chars, socialLinks, ARROW } from './components.js';
 import { breadcrumbLd, businessLd } from '../lib/seo.js';
 
 export function contactPage(ctx) {
@@ -48,7 +48,7 @@ export function contactPage(ctx) {
         <textarea id="f-message" name="message" rows="5" required></textarea>
       </div>
       <div class="form__foot" data-reveal>
-        <button class="button" type="submit"><span>Send message</span><span aria-hidden="true">&#8599;</span></button>
+        <button class="button" type="submit"><span>Send message</span><span aria-hidden="true">${ARROW}</span></button>
         <p class="form__status" data-form-status role="status" aria-live="polite"></p>
       </div>
     </form>
@@ -94,8 +94,8 @@ export function notFoundPage(ctx) {
   <h1 class="page-title">Out of frame.</h1>
   <p class="page-lead">That page doesn't exist, or it moved when the site was rebuilt.</p>
   <p class="notfound__links">
-    <a class="link-arrow hover-blur" href="/work/">${chars('See the work')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>
-    <a class="link-arrow hover-blur" href="/">${chars('Back home')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>
+    <a class="link-arrow hover-blur" href="/work/">${chars('See the work')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
+    <a class="link-arrow hover-blur" href="/">${chars('Back home')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
   </p>
 </section>`;
 

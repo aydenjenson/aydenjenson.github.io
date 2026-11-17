@@ -1,165 +1,135 @@
-// Work page. Two layouts over the same list of projects:
-//   "wall"   three columns that scroll forever in alternating directions.
-//            Wheel / trackpad / arrow keys push them; they drift on their own.
-//   "index"  a plain list (always used on phones and touch screens).
-// The choice is remembered for the rest of the visit.
-import { $, $$, reduced, ticker } from './util.js';
+// Work page: one project at a time.
+//
+// The page is made tall; how far it has been scrolled picks the project. The
+// list of titles slides so the chosen one sits at mid-height, and that
+// project's footage (or its still, when it has no preview loop) fades in
+// behind. Markup: src/pages/work.js. Styles: main.css section 7.
+import { $, $$, clamp, reduced, saveData } from './util.js';
 
-const html = document.documentElement;
+const STEP = 0.2; // one project for every fifth of a screen scrolled
 
 export default function initWork() {
   const root = $('[data-work]');
-  const wall = $('[data-wall]');
-  if (!root || !wall) return;
-  const buttons = $$('[data-view]', root);
-  const wide = matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine)');
-  let mode = null;
-  let stopWall = null;
+  if (!root) return;
+  const list = $('[data-work-list]', root);
+  const items = $$('.work__item', root);
+  const layers = $$('.work__layer', root);
+  const credits = $('[data-work-credits]', root);
+  const catButtons = $$('[data-work-cats] button', root);
+  const step = () => window.innerHeight * STEP;
+  const layerOf = (item) => layers[items.indexOf(item)];
+  let shown = items.slice();
+  let active = null;
 
-  const saved = () => { try { return sessionStorage.getItem('aj-work'); } catch { return null; } };
-
-  function setMode(wanted, remember = false) {
-    // The wall needs a wide screen and a mouse; everything else gets the index.
-    const next = wide.matches && wanted !== 'index' ? 'wall' : 'index';
-    if (remember) { try { sessionStorage.setItem('aj-work', next); } catch { /* ignore */ } }
-    if (next === mode) return;
-    mode = next;
-    html.dataset.work = next;
-    buttons.forEach((b) => {
-      const on = b.dataset.view === next;
-      b.classList.toggle('is-active', on);
-      b.setAttribute('aria-pressed', String(on));
+  /** Give a layer its pictures (most start without, so the page loads quickly). */
+  function pictures(layer) {
+    $$('img[data-src]', layer).forEach((img) => {
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
     });
-    if (stopWall) { stopWall(); stopWall = null; }
-    if (next === 'wall') stopWall = startWall(wall);
-    else window.scrollTo(0, 0);
   }
 
-  const views = $('.work__views', root);
-  const sync = () => {
-    if (views) views.hidden = !wide.matches; // the toggle only makes sense where the wall exists
-    setMode(saved() || 'wall');
-  };
-  buttons.forEach((b) => b.addEventListener('click', () => setMode(b.dataset.view, true)));
-  wide.addEventListener('change', sync);
-  sync();
-}
+  /** The layer's preview loop, created the first time it is needed. Null when there is none. */
+  function footage(layer) {
+    pictures(layer);
+    let video = $('video', layer);
+    if (video) return video;
+    const src = (window.innerWidth >= 1100 && layer.dataset.loopHd) || layer.dataset.loop || layer.dataset.loopHd;
+    if (!src || reduced || saveData) return null;
+    video = document.createElement('video');
+    video.className = 'work__media';
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.preload = 'metadata';
+    video.src = src;
+    video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
+    layer.append(video);
+    return video;
+  }
 
-function startWall(wall) {
-  const cols = $$('[data-wall-col]', wall).map((col, i) => ({
-    col,
-    track: $('[data-wall-track]', col),
-    dir: i % 2 === 0 ? 1 : -1,
-    drift: [0.34, 0.24, 0.4][i % 3],
-    y: 0,
-    height: 0,
+  function activate(item) {
+    if (!item || item === active) return;
+    active = item;
+    const index = shown.indexOf(item);
+    shown.forEach((other, i) => {
+      other.classList.toggle('is-active', other === item);
+      other.style.setProperty('--d', String(Math.abs(i - index)));
+    });
+    layers.forEach((layer) => {
+      const on = layer === layerOf(item);
+      layer.classList.toggle('is-active', on);
+      const video = on ? footage(layer) : $('video', layer);
+      if (!video) return;
+      if (on) video.play().catch(() => {});
+      else video.pause();
+    });
+    // Have the neighbours' pictures ready before they are needed.
+    [shown[index + 1], shown[index - 1]].forEach((near) => { if (near) pictures(layerOf(near)); });
+    list.style.transform = `translate3d(0, ${(-(item.offsetTop + item.offsetHeight / 2)).toFixed(1)}px, 0)`;
+    const d = item.dataset;
+    const rows = [['Type', d.kind], ['Client', d.client], ['Year', d.year], ['Length', d.length]].filter(([, value]) => value);
+    credits.innerHTML = rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${escapeHtml(value)}</dd></div>`).join('');
+  }
+
+  const top = () => root.getBoundingClientRect().top + window.scrollY;
+  const layout = () => { root.style.height = `${window.innerHeight + Math.max(0, shown.length - 1) * step()}px`; };
+  const indexNow = () => clamp(Math.round((window.scrollY - top()) / step()), 0, shown.length - 1);
+  const pick = () => activate(shown[indexNow()]);
+  const goTo = (index, smooth = true) => {
+    window.scrollTo({ top: top() + clamp(index, 0, shown.length - 1) * step(), behavior: smooth && !reduced ? 'smooth' : 'auto' });
+  };
+
+  catButtons.forEach((button) => button.addEventListener('click', () => {
+    catButtons.forEach((b) => {
+      b.classList.toggle('is-active', b === button);
+      b.setAttribute('aria-pressed', String(b === button));
+    });
+    const filter = button.dataset.filter;
+    items.forEach((item) => { item.hidden = filter !== 'all' && item.dataset.category !== filter; });
+    shown = items.filter((item) => !item.hidden);
+    active = null;
+    layout();
+    goTo(0, false);
+    pick();
   }));
-  let velocity = 0;
-  let hovering = false;
-  let resizeTimer;
 
-  function build() {
-    const vh = window.innerHeight;
-    cols.forEach((c) => {
-      $$('[data-clone]', c.track).forEach((el) => el.remove());
-      c.track.style.transform = '';
-      const originals = [...c.track.children];
-      originals.forEach((li) => $$('img', li).forEach((img) => { img.loading = 'eager'; }));
-      c.height = c.track.offsetHeight;
-      if (!c.height) return;
-      const copies = Math.ceil((vh * 1.2) / c.height) + 1;
-      for (let n = 0; n < copies; n += 1) {
-        originals.forEach((li) => {
-          const clone = li.cloneNode(true);
-          clone.dataset.clone = '';
-          clone.setAttribute('aria-hidden', 'true');
-          $$('a', clone).forEach((a) => { a.tabIndex = -1; });
-          c.track.append(clone);
-        });
-      }
-      // Start each column at a different point so the rows don't line up.
-      c.y = (c.height * [0.08, 0.46, 0.27][cols.indexOf(c) % 3]) % c.height;
-    });
-  }
-
-  const onWheel = (event) => { velocity += event.deltaY * 0.32; };
-  const onKey = (event) => {
-    const step = { ArrowDown: 160, ArrowUp: -160, PageDown: 520, PageUp: -520, ' ': 520 }[event.key];
-    if (!step || event.target.closest('button, input, textarea')) return;
-    velocity += step * 0.16;
+  // Keyboard. Tab moves through the titles and the page follows; the arrow
+  // keys step one project at a time while the list is on screen.
+  list.addEventListener('focusin', (event) => {
+    const item = event.target.closest('.work__item');
+    const index = shown.indexOf(item);
+    if (index >= 0 && item !== active) goTo(index, false);
+  });
+  window.addEventListener('keydown', (event) => {
+    const dir = { ArrowDown: 1, ArrowUp: -1 }[event.key];
+    if (!dir || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.target.closest && event.target.closest('input, textarea, select')) return;
+    const index = indexNow();
+    const past = window.scrollY > top() + (shown.length - 1) * step() + 4; // already below the list, on the way to the footer
+    if (past || (dir > 0 && index >= shown.length - 1) || (dir < 0 && index <= 0)) return;
     event.preventDefault();
-  };
-  const onOver = (event) => {
-    hovering = Boolean(event.target.closest && event.target.closest('.tile__link'));
-    wall.classList.toggle('is-hovering', hovering);
-  };
-  const onLeave = () => { hovering = false; wall.classList.remove('is-hovering'); };
-  const onFocus = (event) => {
-    // Keyboard focus: bring the focused tile into view instead of letting the browser scroll the column.
-    const li = event.target.closest && event.target.closest('.tile');
-    const c = li && cols.find((entry) => entry.track.contains(li));
-    if (!c) return;
-    c.col.scrollTop = 0;
-    c.y = Math.max(0, li.offsetTop - window.innerHeight * 0.3) % c.height;
-  };
-  const onResize = () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(build, 180); };
-
-  // Touch-pad style dragging with a finger or pen, in case the wall is used on a touch laptop.
-  let dragY = null;
-  const onDown = (event) => { if (event.pointerType !== 'mouse') dragY = event.clientY; };
-  const onMove = (event) => {
-    if (dragY === null) return;
-    velocity += (dragY - event.clientY) * 0.5;
-    dragY = event.clientY;
-  };
-  const onUp = () => { dragY = null; };
-
-  window.addEventListener('wheel', onWheel, { passive: true });
-  window.addEventListener('keydown', onKey);
-  window.addEventListener('resize', onResize);
-  wall.addEventListener('pointerover', onOver, { passive: true });
-  wall.addEventListener('pointerleave', onLeave);
-  wall.addEventListener('focusin', onFocus);
-  wall.addEventListener('pointerdown', onDown, { passive: true });
-  wall.addEventListener('pointermove', onMove, { passive: true });
-  window.addEventListener('pointerup', onUp, { passive: true });
-
-  build();
-  // Fonts and images can change tile heights slightly once they arrive.
-  const settle = setTimeout(build, 1200);
-
-  const stopTicker = ticker.add((_time, dt) => {
-    const k = dt / 16.7;
-    velocity *= 0.9 ** k;
-    if (Math.abs(velocity) < 0.01) velocity = 0;
-    const ease = hovering ? 0.12 : 1;
-    cols.forEach((c) => {
-      if (!c.height) return;
-      const drift = reduced ? 0 : c.drift * ease;
-      c.y += (drift + velocity * 0.22) * c.dir * k;
-      c.y = ((c.y % c.height) + c.height) % c.height;
-      c.track.style.transform = `translate3d(0, ${(-c.y).toFixed(2)}px, 0)`;
-    });
+    goTo(index + dir);
   });
 
-  return function stop() {
-    stopTicker();
-    clearTimeout(settle);
-    clearTimeout(resizeTimer);
-    window.removeEventListener('wheel', onWheel);
-    window.removeEventListener('keydown', onKey);
-    window.removeEventListener('resize', onResize);
-    window.removeEventListener('pointerup', onUp);
-    wall.removeEventListener('pointerover', onOver);
-    wall.removeEventListener('pointerleave', onLeave);
-    wall.removeEventListener('focusin', onFocus);
-    wall.removeEventListener('pointerdown', onDown);
-    wall.removeEventListener('pointermove', onMove);
-    wall.classList.remove('is-hovering');
-    cols.forEach((c) => {
-      $$('[data-clone]', c.track).forEach((el) => el.remove());
-      c.track.style.transform = '';
-      c.col.scrollTop = 0;
-    });
-  };
+  layout();
+  pick();
+  window.addEventListener('scroll', pick, { passive: true });
+  let width = window.innerWidth;
+  window.addEventListener('resize', () => {
+    layout();
+    // The list is laid out again when the width changes, so the middle title has to be found again.
+    if (window.innerWidth !== width) { width = window.innerWidth; active = null; }
+    pick();
+  });
+  // Coming back with the Back button restores the scroll position after this script has run.
+  window.addEventListener('pageshow', () => { active = null; pick(); });
+  // The serif arrives a moment after the page; the titles change height with it.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { active = null; pick(); });
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }

@@ -3,7 +3,7 @@
 Portfolio site for Ayden Jenson, a videographer and cinematographer in Mankato, MN.
 The focus is business/brand video and creative cinematography, with a small curated photo section.
 
-Ayden is not a developer. When he asks for a change: make it, check it, show it to him in the preview, and tell him in plain words what changed. **Publish only after he says so** (he asked for "preview before publishing" on 2026-11-17): commit the work, leave it unpushed, and ask. Don't hand him commands to run unless he asks. `docs/GUIDE.md` is the guide written for him; keep it true when behavior changes.
+Ayden is not a developer. When he asks for a change: make it, check it, show it to him in the preview, and tell him in plain words what changed. **Publish only after he says so** (he asked for "preview before publishing" on 2026-11-17): commit the work, leave it unpushed, and ask. He sometimes gives the go-ahead up front ("publish when finished") when he will be away; that covers that batch of work only. Don't hand him commands to run unless he asks. `docs/GUIDE.md` is the guide written for him; keep it true when behavior changes.
 
 He finds it hard to picture a design from a description, so when a change is a matter of taste, show the choices before building one: add them to the design options page (`lab/`, below) with a code he can answer with.
 
@@ -20,16 +20,18 @@ media/films/             <slug>.mp4 full films hosted on the site
 media/posters/           <slug>.jpg stills (+ thumbs/<slug>.jpg small copies)
 media/photos/<category>/ photography page, one folder per category
 media/about/             portrait-*.webp
+media/grades/            before/after pairs for the color grading slider: <nn>-<slug>[-label]-after.webp + -before.webp
+                         (a "-before-sim.webp" is a stand-in made from the finished frame, not real ungraded footage)
 src/pages/*.js           HTML templates (one file per page type, plus layout.js and components.js)
 src/lib/*.js             build helpers (media scan, SEO structured data, image/mp4 readers, social logo outlines in icons.js)
 lab/                     design options for Ayden to look at (pages.js, assets/lab.css, assets/lab.js). Preview only: built by
                          `node build.js --lab`, which dev.js always passes, so http://localhost:4321/lab/ exists in the preview
-                         and never on the published site. Each option has a code (A3, C2 ...). When he picks one, build it into
-                         src/ properly and take it out of the lab
+                         and never on the published site. Each option has a code (D1, D4 ...). When he picks one, build it into
+                         src/ properly and take it out of the lab. The top of lab/pages.js lists what he has already picked
 src/assets/css/main.css  the one stylesheet (design tokens at the top)
 src/assets/js/*.js       browser scripts: main.js on every page, then home/work/film/photos/contact
 public/                  copied as-is (favicon, og.jpg, apple-touch-icon)
-tools/media.js           FFmpeg helper that makes loops, films, posters and photo sizes
+tools/media.js           FFmpeg helper that makes loops, films, posters, photo sizes and before/after pairs
 tools/*-sources.json     record of which original file each web file was cut from (local only: gitignored because it holds paths on Ayden's PC)
 build.js / dev.js        build script / local preview server with auto-rebuild
 .github/workflows/deploy.yml   publishes dist/ to GitHub Pages on every push to main
@@ -43,14 +45,17 @@ Media is matched to projects **by file name**: a project with slug `seraphim-stu
 
 ## Design intent
 
-Dark, cinematic, type-led. Large Instrument Serif headings, small uppercase Inter Tight labels, one warm accent (`--accent`), film grain over everything. Ayden's reference for the interaction is xanvierallison.com (his favorite, by far), then kaiblamey.com and danikbartolini.com. The signature pieces are:
+Dark, cinematic, type-led. Large Instrument Serif headings, small uppercase Inter Tight labels, one warm accent (`--accent`), film grain over everything. His name on the home screen is the one exception to the serif: Inter Tight 600 in capitals (his pick, A7, on 2026-11-17). He likes both fonts and said the name font is not needed anywhere else. Ayden's reference for the interaction is xanvierallison.com (his favorite, by far), then kaiblamey.com and danikbartolini.com. The signature pieces are:
 
 - Home hero: his name over the full-screen reel, six project titles dropped at random spots in a 3 x 2 grid. It copies the mechanics of xanvierallison.com's home page on purpose (Ayden asked for "the exact same effect"), so keep these numbers unless he asks otherwise: hovering a title slides a **20%-wide, 20px-blurred, 105%-scaled strip** of that project in from the side of the screen the title is on; clicking opens it full screen, sharp, playing, and swaps the title for "See project"; clicking the name returns to the reel (which comes back from a 30px blur). Everything moves over **0.7s with cubic-bezier(.8, 0, .2, 1)**. A 600px soft blur spot trails the pointer over the name, and 75px blurred, darkened bands sit at the top and bottom. Classes and timing live in `main.css` section 6; `src/assets/js/home.js` only toggles `is-left / is-right / is-hovered / is-active`.
-- Under the name sits one small line (`site.json` → `home.nameLine`, now "Cinematographer / Mankato, MN") spread letter by letter to **exactly the width of the name**. Ayden asked for the lower line to be the name's width or narrower, and for the name not to get bigger. `spread()` in `components.js` makes the letters, `.hero__role` sizes the box, and `home.js` measures the name (`--name-w`). Keep the text short enough to fit: about 30 characters.
-- **No label or image that follows the pointer, anywhere.** Ayden said he does not want a pop-up near the cursor. Hover feedback stays inside the element (corner brackets on cards, the picture that opens inside a services row).
+- Under the name sits one small line (`site.json` → `home.nameLine`, now "Cinematographer / Mankato, MN") spread letter by letter to **exactly the width of the name**. Ayden asked for the lower line to be the name's width or narrower, for the name not to get bigger, and then for less gap under the name and smaller text (that is the `-46px` margin and the 9 to 11px size on `.hero__role`). `spread()` in `components.js` makes the letters, `.hero__role` sizes the box, and `home.js` measures the name (`--name-w`). Keep the text short enough to fit: about 30 characters. The name and the line are centred on the screen as a pair (`margin-top` on `.hero__title`).
+- On phones (900px and narrower) the six titles are scattered as well: one to a row, three above the name and three below, each at a random spot across its row. He asked for the phone layout of xanvierallison.com's home page. `home.js` picks each title's spot once per visit and keeps it in proportion on resize, so the titles do not jump when a phone hides its address bar.
+- **No label or image that follows the pointer, anywhere.** Ayden said he does not want a pop-up near the cursor. Hover feedback stays inside the element (corner brackets on cards, the picture that opens inside a services row). The before/after line moves only while it is being dragged.
+- **No emojis, anywhere** (he said so on 2026-11-17). That includes arrow characters: a typed arrow is not in the site's font files, and phones swap in a coloured emoji. Link arrows are the drawn `ARROW` / `ARROW_UP` from `components.js`.
+- "Before and After" on the home page (after Selected Work): one frame with a line to drag, ungraded on the left and graded on the right, and a list that switches frames (`gradeSection()` in `components.js`, `initGrade()` in `main.js`, pictures in `media/grades/`). He picked it as D5. The section disappears by itself if the folder is empty.
 - Social links are white logos (`socialLinks()` in `components.js`, outlines in `src/lib/icons.js`), not words: bottom right of the home screen, the footer, the Contact page and the phone menu.
 - There is no clock. He had it removed.
-- Work "wall": three endless columns drifting in opposite directions (`work.js`), with an Index list as the alternative and the phone layout.
+- Work page: one project at a time (his pick, C5; the idea is from kaiblamey.com). One film fills the screen, scrolling steps through the list of titles and the footage behind them changes, with the details at the side and category buttons at the bottom (`src/pages/work.js`, `src/assets/js/work.js`). Upright films are shown whole over a blurred copy of themselves on wide screens. Without JavaScript it is a plain list of links.
 - Project page: full-screen player with text controls that fade while the film plays (`film.js`).
 - A soft blur that runs through the letters of a link on hover (`.hover-blur` + `chars()`: 3px, 0.6s, 40ms per letter), reveals on scroll (`data-reveal`), and gentle parallax (`data-parallax`).
 
@@ -82,6 +87,7 @@ On this Windows PC, Node, Git, GitHub CLI and FFmpeg were installed with winget.
 - `client`: every project except personal films. To link a name write `[Name](https://...)`; only `client` and `credits` values accept that.
 - `camera`: "Fujifilm X-T3" for everything made up to November 2026. Ask about newer work.
 - Descriptions say "promotional" or "promotion", never "promo" (a title may say Promo where Ayden wrote it that way). Always "Fujifilm", never "Fuji".
+- Capitals: headings, labels and lists of roles or services are written in Title Case ("Cinematographer, Director, Editor, Colorist", "Brand Films, Commercials, Social Media", "How It Works"). He finds lowercase lists like "Videographer, director, colorist" wrong. Full sentences stay as sentences.
 - Wedding pages have no "Create something like this" link: he no longer takes weddings (`"inquiries": false` on the category in `site.json`). The link on every other project reads "Create something like this".
 
 **Add a preview loop** (what plays on hover and in the home hero). Needs the original video file:
@@ -89,6 +95,9 @@ On this Windows PC, Node, Git, GitHub CLI and FFmpeg were installed with winget.
 
 **Host the full film on the site** (seamless player instead of the YouTube button):
 `node tools/media.js film "<file>" <slug>`. Keep each film under about 30 MB (`--max-mb`). Good for pieces under two minutes. Leave long films on YouTube.
+
+**Add or replace a before/after frame** (the color grading slider on the home page). He sends the same frame twice, with his grade off and on:
+`node tools/media.js grade "<graded still or film>" <nn>-<project-slug> --before "<ungraded still>"` (add `--at 5.3` and `--before-at 5.3` when the inputs are videos, `--crop w:h:x:y` for baked-in bars). The number sets the order. Words after the slug become the name in the list (`05-the-beauty-of-color-grading-dirt-bike` shows as "Dirt Bike"); without them the project title is used. `--fake` instead of `--before` makes a stand-in "before" from the finished frame (`-before-sim.webp`); he asked for that on the SCHEELS and rodeo frames to get started, and the build prints a note until they are replaced with real ungraded frames. Four pairs are real, cut from his film "The Beauty of Color Grading" (three clips stacked per screen, each shown ungraded and then graded).
 
 **Change the six titles over the home reel.** Edit `site.json` → `home.heroProjects`: a list of project slugs, top row first, left to right. If the list is empty the first six featured projects are used. Each one should have a loop, ideally `--hd`; without one the title opens that project's still with a slow drift, and the build prints a note. `tools/media.js loop` also writes `media/loops/<slug>.jpg` and `<slug>-sm.jpg` (the loop's first frame), which the hero shows before the video plays. Only landscape footage works here: the layer fills the screen, so a vertical clip would be cropped to a thin band.
 
@@ -129,8 +138,9 @@ The number at the start of the name sets the order across all categories. To rem
 
 - `docs/NEEDS-FROM-AYDEN.md` is the full list of open questions and things only Ayden can supply. Read it before offering work, and update it when he answers something.
 - 12 projects have no preview loop (the build lists them). They need Ayden's original exports, or 720p downloads of his own uploads from YouTube Studio. This PC and the Passport drive (E:) were searched on 2026-11-17 and do not have them; he believes they are in his Google Drive. Two of the six home titles (Seraphim Studios, Super Bowl LIX) are among them. He plans to send a batch of newer work and to cut a real showreel for the home screen, so the project list will change again.
-- The design options page (`/lab/` in the preview) is waiting for his picks: name font, line under the name, Work page layout, ideas from the other reference sites, a longer project page, the intro sentence.
-- The bio is his old one and he does not like it. A new one is being written from his answers to the bio questions in `docs/NEEDS-FROM-AYDEN.md`.
+- The design options page (`/lab/` in the preview) now only holds the ideas he has not answered (D1 to D4, D6 to D8). His picks on 2026-11-17 (A7 + B1, C5, D5, E1, his own intro sentence) are built in.
+- The bio on the About page is a short placeholder written on 2026-11-17 at his request ("more professional", not "super AI", no over-sharing). He wants a deeper revision later; the bio questions are in `docs/NEEDS-FROM-AYDEN.md`.
+- Two before/after frames (SCHEELS turkey, rodeo) use a stand-in "before". They need the real ungraded frames from him.
 - The domain still points at Adobe Portfolio (see the note under "How it works").
 - Contact form: needs a free Web3Forms key in `site.json` → `form.web3formsKey`. Until then it opens the visitor's email app.
 - The About portrait is the 1200px copy from the old site. A higher-resolution original would be better.

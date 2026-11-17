@@ -2,7 +2,7 @@
 // and preview loops. (There is deliberately no label that follows the
 // pointer: Ayden does not want one.) Page-specific code lives in
 // home.js, work.js, film.js, photos.js and contact.js and is loaded on demand.
-import { $, $$, lerp, wait, reduced, finePointer, saveData, ticker, playLoop, stopLoop } from './util.js';
+import { $, $$, lerp, clamp, wait, reduced, finePointer, saveData, ticker, playLoop, stopLoop } from './util.js';
 
 const html = document.documentElement;
 const page = document.body.dataset.page;
@@ -204,6 +204,113 @@ function initLoops() {
   document.addEventListener('focusin', enter);
 }
 
+/* ---------------------------------------------------- before and after ---- */
+
+// One frame with a line across it: ungraded on the left, graded on the right.
+// Press and drag anywhere on the picture to move the line. It never follows
+// the pointer by itself. The buttons beside it switch to another frame.
+// Markup: gradeSection() in src/pages/components.js.
+function initGrade() {
+  $$('[data-grade]').forEach((root) => {
+    const stage = $('[data-grade-stage]', root);
+    const range = $('input[type="range"]', stage);
+    const after = $('[data-grade-after]', stage);
+    const before = $('[data-grade-before]', stage);
+    const picks = $$('[data-grade-pick]', root);
+    const link = $('[data-grade-link]', root);
+    let touched = false;
+
+    const set = (value) => {
+      const split = clamp(value, 0, 100);
+      stage.style.setProperty('--split', `${split.toFixed(2)}%`);
+      range.value = String(Math.round(split));
+    };
+    const follow = (event) => {
+      const rect = stage.getBoundingClientRect();
+      if (rect.width) set(((event.clientX - rect.left) / rect.width) * 100);
+    };
+
+    // Sideways drags move the line; up-and-down swipes still scroll the page
+    // (touch-action: pan-y in the CSS hands those back to the browser).
+    stage.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      touched = true;
+      stage.classList.add('is-dragging');
+      try { stage.setPointerCapture(event.pointerId); } catch { /* the pointer is already gone */ }
+      follow(event);
+    });
+    stage.addEventListener('pointermove', (event) => { if (stage.classList.contains('is-dragging')) follow(event); });
+    const drop = () => stage.classList.remove('is-dragging');
+    stage.addEventListener('pointerup', drop);
+    stage.addEventListener('pointercancel', drop);
+    stage.addEventListener('lostpointercapture', drop);
+    stage.addEventListener('dragstart', (event) => event.preventDefault());
+    // Keyboard: Tab to the picture, then the arrow keys.
+    range.addEventListener('input', () => { touched = true; stage.style.setProperty('--split', `${range.value}%`); });
+
+    // The first time the picture comes into view the line sways once, to show it can be moved.
+    if (!reduced && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        let start = 0;
+        const sway = (now) => {
+          if (touched) return;
+          if (!start) start = now;
+          const t = Math.min(1, (now - start) / 1900);
+          set(50 + Math.sin(t * Math.PI * 2) * 13 * (1 - t * 0.35));
+          if (t < 1) requestAnimationFrame(sway);
+          else set(50);
+        };
+        setTimeout(() => requestAnimationFrame(sway), 700);
+      }, { threshold: 0.55 });
+      io.observe(stage);
+    }
+
+    // Another frame: both pictures are fetched first, then swapped together.
+    const fetched = new Map();
+    const fetchImage = (src) => {
+      if (!fetched.has(src)) {
+        fetched.set(src, new Promise((resolve) => {
+          const img = new Image();
+          img.onload = img.onerror = () => resolve();
+          img.src = src;
+        }));
+      }
+      return fetched.get(src);
+    };
+    let current = picks.find((b) => b.classList.contains('is-active')) || null;
+    const show = (button) => {
+      if (button === current) return;
+      current = button;
+      const d = button.dataset;
+      picks.forEach((b) => {
+        b.classList.toggle('is-active', b === button);
+        b.setAttribute('aria-pressed', String(b === button));
+      });
+      if (link) {
+        link.hidden = !d.href;
+        if (d.href) link.href = d.href;
+      }
+      stage.classList.add('is-loading');
+      Promise.all([fetchImage(d.after), fetchImage(d.before)]).then(() => {
+        if (current !== button) return; // another frame was chosen while this one loaded
+        after.src = d.after;
+        after.alt = d.alt || '';
+        before.src = d.before;
+        stage.classList.remove('is-loading');
+      });
+    };
+    picks.forEach((button) => {
+      button.addEventListener('click', () => show(button));
+      // Start fetching as soon as the pointer or the keyboard reaches a button.
+      const warm = () => { if (!saveData) { fetchImage(button.dataset.after); fetchImage(button.dataset.before); } };
+      button.addEventListener('pointerenter', warm);
+      button.addEventListener('focus', warm);
+    });
+  });
+}
+
 /* ------------------------------------------------------------------- start ---- */
 
 const modules = {
@@ -219,6 +326,7 @@ initNav();
 initReveal();
 initParallax();
 initLoops();
+initGrade();
 boot();
 
 if (modules[page]) {

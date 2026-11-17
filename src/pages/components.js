@@ -3,6 +3,14 @@ import { esc, html, pad2 } from '../lib/html.js';
 import { SOCIAL_ICONS } from '../lib/icons.js';
 
 /**
+ * The small arrows beside links are drawn, not typed. A typed arrow character
+ * is missing from the site's fonts, and phones then swap in a coloured emoji.
+ * Ayden does not want any emoji on the site.
+ */
+export const ARROW = '<svg class="arrow" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.3 9.7 9.5 2.5M3.9 2.5h5.6v5.6"/></svg>';
+export const ARROW_UP = '<svg class="arrow" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 10.2V2.2M2.6 5.6 6 2.2l3.4 3.4"/></svg>';
+
+/**
  * Split text into per-letter spans so CSS can animate each letter
  * (the blur-in / blur-out hover effect and the intro on the home page).
  * Screen readers get the plain text via the hidden .sr span.
@@ -110,8 +118,48 @@ export function sectionHead({ num, title, id, link }) {
     <header class="section-head" data-reveal>
       <p class="section-head__num" aria-hidden="true">(${pad2(num)})</p>
       <h2 class="section-head__title"${id ? ` id="${id}"` : ''}>${esc(title)}</h2>
-      ${link && html`<a class="link-arrow hover-blur" href="${link.href}">${chars(link.label)}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>`}
+      ${link && html`<a class="link-arrow hover-blur" href="${link.href}">${chars(link.label)}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>`}
     </header>`;
+}
+
+/**
+ * "Before and After": one frame of a film with a line across it. Left of the
+ * line is the frame before color grading, right of it the finished grade.
+ * Visitors drag the line; the list beside the picture switches to another
+ * frame. The pairs are the files in media/grades/ (ctx.grades, see build.js).
+ * With none there, nothing is drawn. Behaviour: initGrade() in main.js.
+ */
+export function gradeSection(ctx, { num, title, text } = {}) {
+  const pairs = ctx.grades || [];
+  if (!pairs.length) return '';
+  const first = pairs[0];
+  const alt = (pair) => `A frame from ${pair.project ? pair.project.title : pair.label} after color grading`;
+  const size = (img) => `width="${img.width}" height="${img.height}"`;
+  return html`
+<section class="grade" data-grade aria-labelledby="grade-title">
+  ${sectionHead({ num, title, id: 'grade-title' })}
+  <div class="grade__body">
+    <div class="grade__stage" data-grade-stage data-reveal>
+      <img class="grade__img" data-grade-after src="${esc(first.after.src)}" alt="${esc(alt(first))}" ${size(first.after)} loading="lazy" decoding="async" draggable="false">
+      <span class="grade__tag grade__tag--after" aria-hidden="true">After</span>
+      <div class="grade__before" aria-hidden="true">
+        <img class="grade__img" data-grade-before src="${esc(first.before.src)}" alt="" ${size(first.before)} loading="lazy" decoding="async" draggable="false">
+        <span class="grade__tag grade__tag--before">Before</span>
+      </div>
+      <span class="grade__line" aria-hidden="true"><span class="grade__grip"><svg viewBox="0 0 24 24" focusable="false"><path d="M9.5 7l-5 5 5 5M14.5 7l5 5-5 5"/></svg></span></span>
+      <input class="grade__range" type="range" min="0" max="100" value="50" aria-label="Before and after color grading. Slide right to show more of the ungraded frame.">
+    </div>
+    <div class="grade__side">
+      ${text ? `<p class="grade__text" data-reveal>${esc(text)}</p>` : ''}
+      ${pairs.length > 1 ? html`
+      <ol class="grade__list" data-reveal>
+        ${pairs.map((pair, i) => html`
+        <li><button class="grade__pick${i === 0 ? ' is-active' : ''}" type="button" data-grade-pick data-after="${esc(pair.after.src)}" data-before="${esc(pair.before.src)}" data-alt="${esc(alt(pair))}" data-href="${pair.project ? pair.project.url : ''}" aria-pressed="${i === 0}"><span aria-hidden="true">${pad2(i + 1)}</span><span>${esc(pair.label)}</span></button></li>`)}
+      </ol>` : ''}
+      <a class="link-arrow hover-blur" href="${first.project ? first.project.url : '/work/'}" data-grade-link${first.project ? '' : ' hidden'}>${chars('See this project')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
+    </div>
+  </div>
+</section>`;
 }
 
 /** Big call-to-action block that closes most pages. */
@@ -122,7 +170,7 @@ export function cta(ctx, { eyebrow = 'Have a project in mind?', label } = {}) {
       <a class="cta__link" href="/contact/">
         <span class="cta__eyebrow">${esc(eyebrow)}</span>
         <span class="cta__big" data-reveal="rise">${esc(text)}</span>
-        <span class="cta__go hover-blur">${chars('Start a project')}<span aria-hidden="true"> &#8599;</span></span>
+        <span class="cta__go hover-blur">${chars('Start a project')}<span class="cta__arrow" aria-hidden="true">${ARROW}</span></span>
       </a>
     </section>`;
 }

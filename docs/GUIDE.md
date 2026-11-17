@@ -7,14 +7,14 @@ Everything here is written for you, not for a developer. The steps are in the or
 - **The new site is online at a test address: https://aydenjenson.github.io**
 - **aydenjenson.com still shows the old Adobe site.** Nothing changes for visitors until you do Step 4.
 - Google is told not to list the test address, so there is no rush.
-- **You asked to see changes before they go online.** So from now on Claude makes a change, shows it to you in the preview on this PC, and publishes only when you say "publish".
+- **You asked to see changes before they go online.** So Claude makes a change, shows it to you in the preview on this PC, and publishes only when you say "publish". When you will be away you can say "publish when finished" up front, as you did on November 17.
 - **Everything I still need from you is in one list: `docs/NEEDS-FROM-AYDEN.md`.**
 
 ## Seeing changes before they go online
 
 Ask Claude: **"Start the preview."** The site opens in the Browser pane inside the Claude app. While the preview is running you can also open it in Chrome at `http://localhost:4321`. It only works on this PC and only while the preview is running.
 
-**Design options page: `http://localhost:4321/lab/`** This page exists only in the preview. It shows choices side by side using your own footage: fonts for your name, layouts for the Work page, ideas from the other sites you like, a longer project page, and wording for the home page. Every choice has a short code such as A3 or C2. Tell Claude the codes you want.
+**Design options page: `http://localhost:4321/lab/`** This page exists only in the preview. It shows ideas that are not built yet, using your own footage. Every idea has a short code such as D1 or D4. Tell Claude the codes you want. Your picks from November 17 are built into the site already: your name in capitals (A7) over one small line (B1), the Work page one project at a time (C5), the before and after slider (D5), project pages as they were (E1), and your own sentence under the reel.
 
 ## What you have
 
@@ -27,11 +27,11 @@ Ask Claude: **"Start the preview."** The site opens in the Browser pane inside t
 
 ## How the home page works
 
-- **Your name** sits in the middle with one small line under it ("Cinematographer / Mankato, MN"). That line is always exactly as wide as your name, on every screen size.
+- **Your name** sits in the middle in capitals, with one small line close under it ("Cinematographer / Mankato, MN"). That line is always exactly as wide as your name, on every screen size. The name is the only place that uses this font; headings everywhere else are in the serif.
 - **Hover a project title:** a blurred strip of that project slides in from the side of the screen the title is on. Move away and it slides back.
 - **Click a title:** the project opens across the whole screen, sharpens and plays, and the title turns into **See project**. Click that to go to the project's page.
 - **Click your name:** back to the reel.
-- **On a phone** there is no hover: tap a title to open it, tap **See project** to go to its page, tap your name to go back.
+- **On a phone** the six titles are scattered too, one to a row: three above your name and three below, the way Xanvier's site does it. There is no hover: tap a title to open it, tap **See project** to go to its page, tap your name to go back.
 - The titles land in slightly different spots each visit. That is on purpose.
 - Nothing follows the mouse around. The only thing that reacts to the pointer is a soft blur over your name.
 - Your Instagram, TikTok and YouTube logos are in the bottom right corner, in white. They are also in the footer and on the Contact page.
@@ -40,8 +40,16 @@ Ask Claude: **"Start the preview."** The site opens in the Browser pane inside t
 
 - **The six titles over the reel** are a list you choose. Right now: Spec Ad - SCHEELS, Reborn Legacy Tattoo, Seraphim Studios, Western Fest Stampede Rodeo, Super Bowl LIX, Bison in the Snow. To change it, tell Claude "put ____ on the home page instead of ____".
 - A title only plays footage when that project has a preview loop. Seraphim Studios and Super Bowl LIX don't have one yet, so they open as a still picture that drifts slowly (see "Adding motion").
-- **The "Selected work" cards** further down the home page are the projects marked as featured.
-- **Everything else** is on the Work page.
+- **The "Selected Work" cards** further down the home page are the projects marked as featured.
+- **Everything else** is on the Work page. It shows one project at a time: one film fills the screen, and scrolling steps through the list of titles while the film behind them changes. The buttons at the bottom filter the list.
+
+**Before and after (the color grading slider)**
+
+Under "Selected Work" on the home page there is one frame with a line across it. Left of the line is the frame before your grade, right of it the finished grade. Visitors drag the line. The list beside it switches to another frame.
+
+- Four of the six frames are real: the "before" and "after" come straight out of your film "The Beauty of Color Grading" (the barber, the tattoo, the dirt bike and the golden hour field).
+- **Two are stand-ins: the SCHEELS turkey and the rodeo.** You asked for faked F-Log on those, so their "before" was made from the finished frame, tuned to match how your real ungraded frames look. Anyone who grades for a living could tell on a close look, so swap them when you can.
+- **To add or replace a frame, send two pictures of the same frame:** one exported with your grade turned off and one with it on, the same size. Any still format works. Tell Claude which project it is from.
 
 ## How every project page is written
 
@@ -205,7 +213,7 @@ Your old site had a Google Analytics tag: a small piece of code that counts visi
 
 ## The fonts
 
-The reference sites use paid or private typefaces (Kai Blamey's is a commercial font called ABC Schengen; Xanvier Allison's files are private to his site), so they can't legally be copied. Yours uses the closest free ones: **Instrument Serif** for the large type and **Inter Tight** for the small capitals. The design options page shows your name in nine fonts, all free.
+The reference sites use paid or private typefaces (Kai Blamey's is a commercial font called ABC Schengen; Xanvier Allison's files are private to his site), so they can't legally be copied. Yours uses the closest free ones: **Instrument Serif** for the large type and **Inter Tight** for the small capitals. Your name on the home screen is set in Inter Tight capitals, which you picked from nine options.
 
 ## Still worth checking
 

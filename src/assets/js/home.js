@@ -8,7 +8,8 @@
 //                       plays; the title is swapped for "See project"
 //      click the name   back to the reel
 //    On phones there is no hover: tap a title to open it, tap "See project" to
-//    go to its page, tap the name to return to the reel.
+//    go to its page, tap the name to return to the reel. The titles are
+//    scattered there too, one to a row (three above the name, three below).
 //    The CSS in main.css (section 6) does the moving; this file only adds and
 //    removes the classes is-left / is-right / is-hovered / is-active.
 // 2. A soft blur spot trails the pointer while it is over the name.
@@ -39,8 +40,8 @@ function initHero() {
   const titleButton = (item) => $('[data-hero-link]', item);
 
   const hoverable = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  // Same condition as the "Phones and touch screens" block in main.css.
-  const compact = matchMedia('(max-width: 900px), (hover: none)');
+  // Same width as the "Phones" block in main.css, where the grid changes from 3 x 2 cells to one column of six.
+  const narrow = matchMedia('(max-width: 900px)');
 
   let locked = false;       // true for a moment while a click is being applied
   let activeItem = null;    // the title that is currently open, if any
@@ -104,7 +105,7 @@ function initHero() {
     const middle = window.innerWidth / 2;
     items.forEach((item) => {
       const rect = item.getBoundingClientRect();
-      const left = compact.matches || rect.left + rect.width / 2 < middle;
+      const left = rect.left + rect.width / 2 < middle;
       [item, layerOf(item)].forEach((el) => {
         if (!el) return;
         el.classList.toggle('is-left', left);
@@ -113,20 +114,23 @@ function initHero() {
     });
   }
 
-  /** Drop every title at a random spot inside its own cell (new on each visit). */
+  // Every title is dropped at a random spot inside its own cell, on phones as
+  // well as on computers. The spot is picked once per visit as a share of the
+  // free room in the cell, so resizing the window (or a phone hiding its
+  // address bar) moves the titles in proportion instead of reshuffling them.
+  const spots = new Map(items.map((item) => [item, [Math.random(), Math.random()]]));
   function place() {
     items.forEach((item) => {
-      if (compact.matches) {
-        item.classList.remove('is-placed');
-        item.style.left = '';
-        item.style.top = '';
-        return;
-      }
+      const [fx, fy] = spots.get(item);
+      // Measure the title at the corner of its cell, where it has the whole
+      // row to itself, so a long title on a phone only wraps if it has to.
+      item.style.left = '0px';
+      item.style.top = '0px';
+      item.classList.add('is-placed');
       const cell = item.parentElement.getBoundingClientRect();
       const self = item.getBoundingClientRect();
-      item.style.left = `${Math.random() * Math.max(0, cell.width - self.width)}px`;
-      item.style.top = `${Math.random() * Math.max(0, cell.height - self.height)}px`;
-      item.classList.add('is-placed');
+      item.style.left = `${(fx * Math.max(0, cell.width - self.width - 1)).toFixed(1)}px`;
+      item.style.top = `${(fy * Math.max(0, cell.height - self.height)).toFixed(1)}px`;
     });
     setSides();
   }
@@ -141,7 +145,7 @@ function initHero() {
 
   let resizeTimer;
   window.addEventListener('resize', () => { fitRole(); clearTimeout(resizeTimer); resizeTimer = setTimeout(place, 150); });
-  compact.addEventListener('change', place);
+  narrow.addEventListener('change', place);
   place();
   fitRole();
   // Fonts can change the width of a title (and of the name) after the first placement.

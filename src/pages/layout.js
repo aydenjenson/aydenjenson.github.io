@@ -1,6 +1,6 @@
 // The shell around every page: <head>, navigation, footer, shared overlays.
 import { esc, html, pad2 } from '../lib/html.js';
-import { chars, socialLinks } from './components.js';
+import { chars, socialLinks, ARROW_UP } from './components.js';
 
 export const NAV = [
   { id: 'work', label: 'Work', href: '/work/' },
@@ -73,10 +73,6 @@ ${(page.preload || []).map((p) => `<link rel="preload" href="${esc(p.href)}" as=
   (function (d) {
     d.classList.add('js');
     try { if (!sessionStorage.getItem('aj-seen')) d.classList.add('first-visit'); } catch (e) {}
-    // Work page: choose the wall layout before anything is drawn, so the list never flashes first.
-    try {
-      if (/^\\/work\\/?$/.test(location.pathname) && matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine)').matches && sessionStorage.getItem('aj-work') !== 'index') d.dataset.work = 'wall';
-    } catch (e) {}
     // The github.io test address should not show up in Google; only the real domain should.
     if (/\\.github\\.io$/.test(location.hostname)) {
       var m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex, nofollow';
@@ -166,7 +162,7 @@ function footer(ctx) {
   <div class="footer__base">
     <p>&copy; ${ctx.year} ${esc(site.name)}. All rights reserved. <a class="footer__privacy hover-blur" href="/privacy/">${chars('Privacy')}</a></p>
     <p>Video production &amp; photography in ${esc(loc.city)}, ${esc(loc.region)}</p>
-    <a class="hover-blur" href="#main" data-top>${chars('Back to top')}<span aria-hidden="true"> &#8593;</span></a>
+    <a class="footer__top hover-blur" href="#main" data-top>${chars('Back to top')}<span aria-hidden="true">${ARROW_UP}</span></a>
   </div>
 </footer>`;
 }

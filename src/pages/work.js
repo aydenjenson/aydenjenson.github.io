@@ -1,49 +1,63 @@
-// Work page: every project, grouped into three columns.
-// "Wall" view: the columns scroll forever in opposite directions (desktop).
-// "Index" view: a plain list you can scan (default on phones, toggle on desktop).
-import { esc, html, pad2, clock } from '../lib/html.js';
-import { projectAttrs, posterImg, loopVideo, chars, titleText } from './components.js';
+// Work page: one project at a time (Ayden picked this layout; the idea comes
+// from kaiblamey.com). One film fills the screen. Scrolling steps through the
+// list of titles, and the footage behind them changes with it.
+//
+//   .work__layers   one full-screen layer per project: its still, and its
+//                   preview loop when it has one (work.js adds the <video>)
+//   .work__window   the part of the screen the list shows through (it fades out at the top and bottom)
+//   .work__list     every title, as a link to the project page
+//   .work__credits  type, client, year and length of the title in the middle
+//   .work__cats     All / Brand & Commercial / Creative & Film / Weddings
+//
+// Without JavaScript the same markup falls back to a plain list of links.
+import { esc, html, clock, plain } from '../lib/html.js';
+import { titleText } from './components.js';
 import { breadcrumbLd, workListLd } from '../lib/seo.js';
+
+/** Picture shown for a project before its loop plays: the loop's first frame, else its poster. */
+const still = (p) => p.loop?.still || p.poster.src;
 
 export function workPage(ctx) {
   const { site } = ctx;
-  const groups = site.work.categories
-    .map((cat) => ({ ...cat, projects: ctx.projects.filter((p) => p.category === cat.id) }))
-    .filter((g) => g.projects.length);
+  const cats = site.work.categories
+    .map((c) => ({ ...c, count: ctx.projects.filter((p) => p.category === c.id).length }))
+    .filter((c) => c.count);
+  // Only the first two pictures load with the page; work.js fetches the rest as they come near.
+  const src = (i, url) => `${i < 2 ? 'src' : 'data-src'}="${esc(url)}"`;
 
   const content = html`
-<section class="work" data-work>
-  <header class="work__head">
-    <h1 class="work__title">${esc(site.work.heading)}<sup>${ctx.projects.length}</sup></h1>
-    <p class="work__lead">${esc(site.work.lead)}</p>
-    <div class="work__views" role="group" aria-label="Layout">
-      <button class="hover-blur is-active" type="button" data-view="wall" aria-pressed="true">${chars('Wall')}</button>
-      <button class="hover-blur" type="button" data-view="index" aria-pressed="false">${chars('Index')}</button>
+<section class="work" data-work aria-labelledby="work-title">
+  <div class="work__stage">
+    <div class="work__layers" aria-hidden="true">
+      ${ctx.projects.map((p, i) => html`
+      <div class="work__layer work__layer--${p.orientation}${i === 0 ? ' is-active' : ''}" data-loop="${esc(p.loop?.sd || '')}" data-loop-hd="${esc(p.loop?.hd || '')}">
+        ${p.orientation === 'portrait' ? `<img class="work__back" ${src(i, p.poster.thumb || p.poster.src)} alt="" decoding="async">` : ''}
+        <img class="work__media" ${src(i, still(p))} alt="" decoding="async">
+      </div>`)}
     </div>
-  </header>
+    <div class="work__dim" aria-hidden="true"></div>
 
-  <div class="wall" data-wall>
-    ${groups.map((g, gi) => html`
-    <section class="wall__col" data-wall-col style="--col:${gi}" aria-labelledby="cat-${g.id}">
-      <h2 class="wall__label" id="cat-${g.id}"><span aria-hidden="true">${pad2(gi + 1)}</span> ${esc(g.label)} <sup>${g.projects.length}</sup></h2>
-      <ol class="wall__track" data-wall-track>
-        ${g.projects.map((p, i) => html`
-        <li class="tile tile--${p.orientation}">
-          <a class="tile__link" href="${p.url}" ${projectAttrs(p)}>
-            <span class="tile__num" aria-hidden="true">${pad2(i + 1)}</span>
-            <span class="tile__media" style="--ar:${p.tileRatio}">
-              ${posterImg(p, { cls: 'tile__img', small: true })}
-              ${loopVideo(p, { mode: 'hover' })}
-            </span>
-            <span class="tile__info">
-              <span class="tile__title">${titleText(p.title)}</span>
-              <span class="tile__kind">${esc(p.kind)}</span>
-              <span class="tile__year">${p.year}${p.duration ? ` <span aria-hidden="true">/</span> ${clock(p.duration)}` : ''}</span>
-            </span>
-          </a>
+    <header class="sr">
+      <h1 id="work-title">${esc(site.work.heading)}</h1>
+      <p>${esc(site.work.lead)}</p>
+    </header>
+
+    <div class="work__window">
+      <ol class="work__list" data-work-list>
+        ${ctx.projects.map((p, i) => html`
+        <li class="work__item${i === 0 ? ' is-active' : ''}" data-category="${esc(p.category)}" data-kind="${esc(p.kind)}" data-client="${esc(plain(p.client || ''))}" data-year="${p.year}" data-length="${p.duration ? clock(p.duration) : ''}">
+          <a href="${p.url}">${titleText(p.title)}</a>
         </li>`)}
       </ol>
-    </section>`)}
+    </div>
+
+    <dl class="work__credits" data-work-credits></dl>
+
+    <div class="work__cats" role="group" aria-label="Filter projects" data-work-cats>
+      <button class="is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+      ${cats.map((c) => `<button type="button" data-filter="${esc(c.id)}" aria-pressed="false">${esc(c.label)}</button>`)}
+    </div>
+    <p class="work__hint" aria-hidden="true">Scroll</p>
   </div>
 </section>`;
 
@@ -53,6 +67,7 @@ export function workPage(ctx) {
     nav: 'work',
     title: `Video Work: Brand Films, Commercials & Creative | ${site.seo.titleSuffix}`,
     description: `Selected video work by ${site.name}, a ${site.location.city}, ${site.location.region} videographer and cinematographer: brand films, commercials, social media content and creative projects.`,
+    preload: [{ href: still(ctx.projects[0]), as: 'image', fetchpriority: 'high' }],
     jsonld: [breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Work', path: '/work/' }]), workListLd(ctx)],
     content,
   };

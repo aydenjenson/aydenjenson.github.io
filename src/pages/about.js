@@ -1,6 +1,6 @@
 // About page: portrait, bio, a few facts and the client list.
 import { esc, html } from '../lib/html.js';
-import { chars, picture, cta } from './components.js';
+import { chars, picture, cta, ARROW } from './components.js';
 import { breadcrumbLd, personLd } from '../lib/seo.js';
 
 export function aboutPage(ctx) {
@@ -25,7 +25,7 @@ export function aboutPage(ctx) {
     <div class="about__col about__col--bio">
       <h2 class="label">Bio</h2>
       ${a.bio.map((p, i) => `<p${i === 0 ? ' class="about__lead"' : ''} data-reveal>${esc(p)}</p>`)}
-      <p data-reveal><a class="link-arrow hover-blur" href="/contact/">${chars('Get in touch')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a></p>
+      <p data-reveal><a class="link-arrow hover-blur" href="/contact/">${chars('Get in touch')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a></p>
     </div>
 
     <div class="about__col about__col--facts">
