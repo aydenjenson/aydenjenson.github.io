@@ -6,8 +6,8 @@
 //   "youtube" the film lives on YouTube. The page shows the poster and a play
 //             button; pressing it loads the normal YouTube player. Nothing is
 //             ever drawn on top of the YouTube player (their terms require that).
-import { esc, html, clock } from '../lib/html.js';
-import { chars, projectAttrs, posterImg, loopVideo, cta } from './components.js';
+import { esc, html, clock, linkify } from '../lib/html.js';
+import { chars, titleText, projectAttrs, posterImg, loopVideo, cta } from './components.js';
 import { breadcrumbLd, videoLd } from '../lib/seo.js';
 import { youtubeWatchUrl } from '../lib/youtube.js';
 
@@ -18,6 +18,22 @@ export function filmPage(ctx, p) {
   const next = ctx.projects[(i + 1) % ctx.projects.length];
   const mode = p.film ? 'file' : 'youtube';
   const meta = `${p.kind} / ${p.year}`;
+
+  // Every project shows the same rows in the same order. A row is left out
+  // only when the project has nothing for it (a personal film has no client).
+  // Anything in "credits" (artist, narration, a note) follows at the end.
+  const rows = [
+    ['Type', esc(p.kind)],
+    p.client && ['Client', linkify(p.client)],
+    p.role && ['Role', esc(p.role)],
+    p.camera && ['Camera', esc(p.camera)],
+    ['Year', p.year],
+    p.duration && ['Length', clock(p.duration)],
+    ...(p.credits || []).map((c) => [esc(c.label), linkify(c.value)]),
+  ].filter(Boolean);
+
+  // Ayden does not take on wedding films any more, so those pages don't invite an inquiry.
+  const invite = site.work.categories.find((c) => c.id === p.category)?.inquiries !== false;
 
   const frame = mode === 'file'
     ? html`
@@ -71,7 +87,7 @@ export function filmPage(ctx, p) {
     <div class="film__ui" data-film-ui>
       <header class="film__head">
         <p class="film__kind">${esc(meta)}</p>
-        <h1 class="film__title">${esc(p.title)}</h1>
+        <h1 class="film__title">${titleText(p.title)}</h1>
       </header>
       ${mode === 'file' ? html`
       <button class="film__sound" type="button" data-film-sound><span class="film__sound-dot" aria-hidden="true"></span>Play with sound</button>
@@ -85,18 +101,16 @@ export function filmPage(ctx, p) {
   <section class="details" id="details" aria-label="About this project">
     <div class="details__main">
       <p class="label">${esc(p.categoryLabel)}</p>
-      <h2 class="details__title" data-reveal="rise">${esc(p.title)}</h2>
+      <h2 class="details__title" data-reveal="rise">${titleText(p.title)}</h2>
       ${p.description ? `<p class="details__text" data-reveal>${esc(p.description)}</p>` : ''}
+      ${p.ytId || invite ? html`
       <p class="details__links" data-reveal>
         ${p.ytId ? `<a class="link-arrow hover-blur" href="${youtubeWatchUrl(p.ytId)}" target="_blank" rel="noopener">${chars('Watch on YouTube')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>` : ''}
-        <a class="link-arrow hover-blur" href="/contact/">${chars('Start a project like this')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>
-      </p>
+        ${invite ? `<a class="link-arrow hover-blur" href="/contact/">${chars('Create something like this')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>` : ''}
+      </p>` : ''}
     </div>
     <dl class="details__credits" data-reveal>
-      <div><dt>Type</dt><dd>${esc(p.kind)}</dd></div>
-      <div><dt>Year</dt><dd>${p.year}</dd></div>
-      ${p.duration ? `<div><dt>Length</dt><dd>${clock(p.duration)}</dd></div>` : ''}
-      ${(p.credits || []).map((c) => `<div><dt>${esc(c.label)}</dt><dd>${esc(c.value)}</dd></div>`)}
+      ${rows.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`)}
     </dl>
   </section>
 
@@ -106,7 +120,7 @@ export function filmPage(ctx, p) {
       ${loopVideo(next, { mode: 'view' })}
     </span>
     <span class="next__eyebrow">Next project</span>
-    <span class="next__title">${esc(next.title)}</span>
+    <span class="next__title">${titleText(next.title)}</span>
     <span class="next__kind">${esc(next.kind)} / ${next.year}</span>
   </a>
 </article>
@@ -120,8 +134,17 @@ ${cta(ctx)}`;
     .map((text) => `${text} ${credit}`)
     .find((text) => text.length <= 160)
     || `${p.title}: ${p.kind.toLowerCase()} by ${site.name}, videographer and cinematographer in ${site.location.city}, ${site.location.region}.`;
-  const longTitle = `${p.title} | ${p.kind} by ${site.seo.titleSuffix}`;
-  const title = longTitle.length <= 65 ? longTitle : `${p.title} | ${site.seo.titleSuffix}`;
+  // The fullest version that fits; a long "Name - What it is" title falls back to the name alone.
+  // The type is left out when the title already says it ("2025 Showreel", "OxCB - Event Promotion").
+  const shortName = p.title.split(' - ')[0];
+  const says = p.title.toLowerCase().includes(p.kind.toLowerCase());
+  const titles = [
+    !says && `${p.title} | ${p.kind} by ${site.seo.titleSuffix}`,
+    `${p.title} | ${site.seo.titleSuffix}`,
+    !says && `${shortName} | ${p.kind} by ${site.seo.titleSuffix}`,
+    `${shortName} | ${site.seo.titleSuffix}`,
+  ].filter(Boolean);
+  const title = titles.find((t) => t.length <= 62) || titles[titles.length - 1];
 
   return {
     path: p.url,

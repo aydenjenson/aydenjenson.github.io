@@ -63,7 +63,7 @@ ${cta(ctx)}`;
     id: 'about',
     nav: 'about',
     title: `About ${site.name} | ${site.location.city}, ${site.location.region} Videographer & Cinematographer`,
-    description: `${site.name} is a videographer, cinematographer and photographer based in ${site.location.city}, ${site.location.regionName}, working with businesses across Southern Minnesota.`,
+    description: `${site.name} is a videographer, cinematographer and photographer based in ${site.location.city}, ${site.location.regionName}, working with businesses in Minnesota and beyond.`,
     image: portrait?.src,
     ogType: 'profile',
     jsonld: [personLd(ctx), breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'About', path: '/about/' }])],

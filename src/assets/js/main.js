@@ -1,5 +1,5 @@
-// Runs on every page: page transitions, navigation, scroll reveals, parallax,
-// clocks and preview loops. (There is deliberately no label that follows the
+// Runs on every page: page transitions, navigation, scroll reveals, parallax
+// and preview loops. (There is deliberately no label that follows the
 // pointer: Ayden does not want one.) Page-specific code lives in
 // home.js, work.js, film.js, photos.js and contact.js and is loaded on demand.
 import { $, $$, lerp, wait, reduced, finePointer, saveData, ticker, playLoop, stopLoop } from './util.js';
@@ -177,22 +177,6 @@ function initParallax() {
   });
 }
 
-/* ------------------------------------------------------------------ clocks ---- */
-
-function initClocks() {
-  const clocks = $$('[data-clock]');
-  if (!clocks.length) return;
-  const update = () => {
-    clocks.forEach((el) => {
-      try {
-        el.textContent = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: el.dataset.tz || 'America/Chicago' }).format(new Date());
-      } catch { el.textContent = ''; }
-    });
-  };
-  update();
-  setInterval(update, 20000);
-}
-
 /* ------------------------------------------------------------ preview loops ---- */
 
 function initLoops() {
@@ -234,7 +218,6 @@ initLinks();
 initNav();
 initReveal();
 initParallax();
-initClocks();
 initLoops();
 boot();
 

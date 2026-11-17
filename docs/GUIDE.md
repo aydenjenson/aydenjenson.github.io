@@ -4,44 +4,63 @@ Everything here is written for you, not for a developer. The steps are in the or
 
 ## Where things stand (November 17, 2026)
 
-- **The new site is online at a test address: https://aydenjenson.github.io** Open it on your computer and your phone.
+- **The new site is online at a test address: https://aydenjenson.github.io**
 - **aydenjenson.com still shows the old Adobe site.** Nothing changes for visitors until you do Step 4.
 - Google is told not to list the test address, so there is no rush.
-- **Everything I need from you is in one list: `docs/NEEDS-FROM-AYDEN.md`.** Start there.
+- **You asked to see changes before they go online.** So from now on Claude makes a change, shows it to you in the preview on this PC, and publishes only when you say "publish".
+- **Everything I still need from you is in one list: `docs/NEEDS-FROM-AYDEN.md`.**
+
+## Seeing changes before they go online
+
+Ask Claude: **"Start the preview."** The site opens in the Browser pane inside the Claude app. While the preview is running you can also open it in Chrome at `http://localhost:4321`. It only works on this PC and only while the preview is running.
+
+**Design options page: `http://localhost:4321/lab/`** This page exists only in the preview. It shows choices side by side using your own footage: fonts for your name, layouts for the Work page, ideas from the other sites you like, a longer project page, and wording for the home page. Every choice has a short code such as A3 or C2. Tell Claude the codes you want.
 
 ## What you have
 
-- A complete site: Home, Work, a page for each of 27 projects, Photography, Services, About, Contact, and a short Privacy page linked in the footer.
-- 11 of your films play straight from the site with its own player. The other 16 play from YouTube when the visitor presses play.
-- 14 projects have a silent preview loop that plays on hover. The other 13 show a still until you add a loop (see "Adding motion").
-- 26 photos from your `PORTFOLIO\PHOTOS` folder on the Passport drive.
+- A complete site: Home, Work, a page for each of 23 projects, Photography, Services, About, Contact, and a short Privacy page linked in the footer.
+- 8 of your films play straight from the site with its own player. The other 15 play from YouTube when the visitor presses play.
+- 11 projects have a silent preview loop that plays on hover. The other 12 show a still until you add a loop (see "Adding motion").
+- 26 photos from your `PORTFOLIO\PHOTOS` folder on the Passport drive, sorted into People, Events and Branding.
 - Search setup for "videographer / cinematographer in Mankato, MN": page titles, descriptions, a Services page, a sitemap and the structured data Google reads.
 - No monthly cost. Hosting is free on GitHub Pages. You keep paying only for the domain at Namecheap.
 
 ## How the home page works
 
+- **Your name** sits in the middle with one small line under it ("Cinematographer / Mankato, MN"). That line is always exactly as wide as your name, on every screen size.
 - **Hover a project title:** a blurred strip of that project slides in from the side of the screen the title is on. Move away and it slides back.
 - **Click a title:** the project opens across the whole screen, sharpens and plays, and the title turns into **See project**. Click that to go to the project's page.
 - **Click your name:** back to the reel.
 - **On a phone** there is no hover: tap a title to open it, tap **See project** to go to its page, tap your name to go back.
 - The titles land in slightly different spots each visit. That is on purpose.
 - Nothing follows the mouse around. The only thing that reacts to the pointer is a soft blur over your name.
+- Your Instagram, TikTok and YouTube logos are in the bottom right corner, in white. They are also in the footer and on the Contact page.
 
 **Which projects show up where**
 
-- **The six titles over the reel** are a list you choose. Right now: SCHEELS, Reborn Legacy Tattoo, Seraphim Studios, Western Fest Rodeo, Super Bowl LIX, Bison in the Snow. To change it, tell Claude "put ____ on the home page instead of ____".
+- **The six titles over the reel** are a list you choose. Right now: Spec Ad - SCHEELS, Reborn Legacy Tattoo, Seraphim Studios, Western Fest Stampede Rodeo, Super Bowl LIX, Bison in the Snow. To change it, tell Claude "put ____ on the home page instead of ____".
 - A title only plays footage when that project has a preview loop. Seraphim Studios and Super Bowl LIX don't have one yet, so they open as a still picture that drifts slowly (see "Adding motion").
 - **The "Selected work" cards** further down the home page are the projects marked as featured.
+- **Everything else** is on the Work page.
+
+## How every project page is written
+
+You asked for all of them to match, so they do:
+
+- **Title:** `Name - What it is`. Wedding films use first names only.
+- **Details, always in this order:** Type, Client, Role, Camera, Year, Length. A personal film has no Client line.
+- **Role** is "Cinematographer, Editor, Colorist". "Director" is added in front on commercials and pieces with planned shots.
+- **Camera** is Fujifilm X-T3 on everything so far.
+- Descriptions say "promotional" or "promotion", not "promo", and always "Fujifilm".
+- The link under each description reads **Create something like this**. Wedding films don't have it.
 
 ## Step 1. Look it over
 
-Open **https://aydenjenson.github.io** and click through every page, on a computer and on your phone. Write down anything you want changed, then go through `docs/NEEDS-FROM-AYDEN.md`.
-
-To see changes before they go online, ask Claude: **"Start the preview."** The site opens in the Browser pane.
+Open the preview (see above) and click through every page. Then open the design options page and note the codes you like. Then go through `docs/NEEDS-FROM-AYDEN.md`.
 
 ## Step 2. Put it online (done)
 
-This was done on November 17, 2026. Your GitHub account is `aydenjenson`, the site's files live at `github.com/aydenjenson/aydenjenson.github.io`, and every change Claude publishes shows up at `https://aydenjenson.github.io` about two minutes later.
+This was done on November 17, 2026. Your GitHub account is `aydenjenson`, the site's files live at `github.com/aydenjenson/aydenjenson.github.io`, and every change Claude publishes shows up at `https://aydenjenson.github.io` about a minute later.
 
 Your real domain still shows the old Adobe site at this point. Nothing has changed for visitors yet.
 
@@ -49,9 +68,9 @@ Your real domain still shows the old Adobe site at this point. Nothing has chang
 
 Until you do this, the form opens the visitor's email app instead of sending by itself.
 
-1. Go to **web3forms.com**, press "Create your Form", and enter the email address where you want inquiries to arrive.
+1. Go to **web3forms.com**, press "Create your Form", and enter the email address where you want inquiries to arrive (`aydenjensonmedia@gmail.com`).
 2. They email you an "access key" (a long code). It is safe to share.
-3. Tell Claude: **"My Web3Forms key is ____. Add it and publish."**
+3. Tell Claude: **"My Web3Forms key is ____. Add it."**
 
 Free plan: 250 messages a month.
 
@@ -98,29 +117,45 @@ Old links such as `/videography` and `/about-2` forward to the new pages automat
 3. **Google Search Console** (search.google.com/search-console). Add `aydenjenson.com`, follow the verification step, then submit this sitemap: `https://aydenjenson.com/sitemap.xml`.
 4. **Fix your links.** Your YouTube handle is now `@aydenjenson` (the link on the old site pointed to a handle that no longer exists). Put `aydenjenson.com` in your YouTube, Instagram and TikTok bios, and ask clients who post your videos to credit and link you.
 
+**About the words "videographer" and "Mankato".** The line under your name now says Cinematographer, as you asked. "Videographer" is still in the page titles, the descriptions Google shows, the footer of every page and the Services page, because that is the word local clients type into Google. "Mankato, MN" is in all of those places too. Both help.
+
+## Sending me new videos
+
+You said you have a lot of new work to add and may cut a new showreel. Here is what is useful.
+
+| For | Shape | What to send |
+|---|---|---|
+| The video behind your name (your showreel) | Horizontal only | One file, 30 to 90 seconds. Sound does not matter: it plays silent. It loops, so a clean first and last shot helps. |
+| The six titles on the home screen | Horizontal only | The finished export of each. I cut an 8 to 10 second silent preview from it. A vertical video would be cropped to a thin band here. |
+| Every other project | Horizontal or vertical | The finished export. Vertical videos keep their tall shape on the Work page and on their own page. |
+
+- **How many:** the six home titles plus as many more as are strong. About 12 to 20 projects in total is a good size. Fewer, better pieces beat a long list.
+- **Format:** the normal export you would post (MP4 or MOV, 1080p or 4K). I make the web-size copies.
+- **Length:** under about two minutes can play straight from the site. Longer films should be on YouTube, and I link them.
+- **For each one, tell me:** the title, the client (or "personal"), one sentence about it, the year, and the YouTube link if it has one.
+- **Where:** put them in one folder on this PC, for example `Documents\website-new-videos`, and tell Claude the folder.
+
 ## Updating the site
 
 ### The easy way: ask Claude
 
 Open this project in the Claude app and say what you want. Examples:
 
-- "Add my new video. Here's the YouTube link: ____. It's a brand promo for ____, shot in 2026."
-- "Here's the export for the Seraphim Studios promo: `C:\...\seraphim.mp4`. Make the preview loop and host the full film on the site."
+- "Add my new video. Here's the YouTube link: ____. It's a social media promotion for ____, shot in 2026."
+- "Here's the export for the Seraphim Studios video: `C:\...\seraphim.mp4`. Make the preview loop and host the full film on the site."
 - "Replace photo 14 with `E:\...\DSCF1234.jpg`."
-- "Remove the two music videos."
-- "Feature the rodeo film first on the home page."
-- "Change my contact email to ____."
+- "Put the rodeo film first on the home page."
 - "Rewrite the Brand Films description on the Services page to say ____."
 
-Claude makes the change, checks it and publishes it. The live site updates about two minutes later.
+Claude makes the change, checks it, and shows you the preview. Say **"publish"** and the test address updates about a minute later.
 
 ### By yourself, in a browser: Pages CMS
 
 1. Go to **app.pagescms.org** and sign in with GitHub. Allow it to access the website repository.
 2. Open the repository. You get forms for **Video projects** and **Site text and settings**, and a **Media** area for photos.
-3. Change something and press Save. The site republishes by itself.
+3. Change something and press Save. This publishes straight away, with no preview.
 
-To add a YouTube video this way: Video projects → add an item → fill in Title, the web address name (lowercase words joined by dashes), Column, and the YouTube link → Save.
+To add a YouTube video this way: Video projects → add an item → fill in Title, the web address name (lowercase words joined by dashes), Column, Client, Role, Camera and the YouTube link → Save.
 
 To add a photo this way: Media → Photos → open a category folder → upload. Export it from Lightroom first at about 2500 pixels on the long edge, JPEG or WebP, and start the file name with a number (`27-something.jpg`) because photos are shown in number order.
 
@@ -134,8 +169,8 @@ Cutting preview loops and making web-sized copies of films. These need the origi
 
 A preview loop is an 8 to 10 second silent clip. It is what plays when someone hovers a project, and behind your name on the home page.
 
-These 13 projects don't have one yet and show a still instead:
-Seraphim Studios, OxCB, Gigli Holidays, Iron Alliance, Super Bowl LIX, Fresh Air, New Ulm Roll In, both music videos, and four weddings (Kylie + Arnold, Justin + Veronica, Dylan + Riley, Skylar + Devin).
+These 12 projects don't have one yet and show a still instead:
+Seraphim Studios, OxCB, Iron Alliance, Super Bowl LIX, Fresh Air, New Ulm Roll In, both music videos, and four weddings (Kylie + Arnold, Justin + Veronica, Dylan + Riley, Skylar + Devin).
 
 Do Seraphim Studios and Super Bowl LIX first, because they are two of the six titles on the home page. Fresh Air is next: it is one of the "Selected work" cards.
 
@@ -148,7 +183,7 @@ How to get the files:
 
 Put the files in one folder and tell Claude: **"Make preview loops from the files in `C:\...\folder`."**
 
-The loop behind your name on the home page is a stand-in I cut from the SCHEELS, tattoo, rodeo and bison footage. When you have an export of your real reel, tell Claude to use it instead.
+The loop behind your name on the home page is a stand-in I cut from the SCHEELS, tattoo, rodeo and bison footage. When you have your new showreel, tell Claude to use it instead.
 
 ## What it costs
 
@@ -160,31 +195,33 @@ The loop behind your name on the home page is a stand-in I cut from the SCHEELS,
 | Editor (Pages CMS) | free |
 | Fonts (Instrument Serif, Inter Tight) | free, open licence |
 
-GitHub Pages allows a site of about 1 GB and 100 GB of traffic a month. The site is about 250 MB now. That is plenty for a portfolio. If you ever host many long films, the videos can move to separate storage without changing the site.
+GitHub Pages allows a site of about 1 GB and 100 GB of traffic a month. The site is about 185 MB now. That is plenty for a portfolio. If you ever host many long films, the videos can move to separate storage without changing the site.
 
-One thing to know: the files for a GitHub Pages site are public. That is normal for a website, but don't put anything private in the project folder.
+**The site's files are public on GitHub, and that is fine.** Everything in them is already on the website for anyone to see. There are no passwords in them. Notes that name your folders or unpublished client work are kept on this PC only. Paying about $4 a month to make the files private would not make the site any safer, so I don't recommend it. Just don't put anything private in the project folder.
+
+## Visitor numbers (Google Analytics)
+
+Your old site had a Google Analytics tag: a small piece of code that counts visitors and shows which pages they open and how they found you. I moved the same tag (`G-CK0P2DL9MX`) to the new site, so your numbers carry on in the same account. To see them, sign in at **analytics.google.com** with the Google account that set it up. You don't need to do anything else.
 
 ## The fonts
 
-The reference sites use paid or private typefaces (Kai Blamey's is a commercial font called ABC Schengen; Xanvier Allison's files are private to his site), so they can't legally be copied. Yours uses the closest free ones: **Instrument Serif** for the large type and **Inter Tight** for the small capitals.
+The reference sites use paid or private typefaces (Kai Blamey's is a commercial font called ABC Schengen; Xanvier Allison's files are private to his site), so they can't legally be copied. Yours uses the closest free ones: **Instrument Serif** for the large type and **Inter Tight** for the small capitals. The design options page shows your name in nine fonts, all free.
 
-## Things I guessed. Please check them.
+## Still worth checking
 
-- **Contact email** is `aydenjenson23@gmail.com`, taken from one of your YouTube descriptions. No phone number is shown.
-- **Project descriptions** are short and written from what I could see in the footage and your YouTube descriptions. Correct anything that is off.
-- **Four projects are new to the site**, found in your Downloads folder: Old Town Vintage sale promo, Wealth From Within, Chill Connect, and The Beauty of Color Grading. I named "Chill Connect" after the file name. Remove any you don't want public.
-- **Project categories**, **which six titles sit over the reel** on the home page, and **which six are the "Selected work" cards**.
-- **The Privacy page** (link at the bottom of every page). I wrote it from how the site actually works. Google asks for one on any site that uses Google Analytics.
-- **Services page**: the service descriptions, the five process steps, the common questions and the list of towns are my draft.
-- **"Worked with" list** on the About page: Seraphim Studios, Reborn Legacy Tattoo, Gigli, Allstar Nutrition, Bodyart, Iron Alliance, OxCB. Taken from your video titles.
-- **Bio**: your original text, with one sentence changed from "portrait sessions, weddings, short films, or social media content" to "a brand film, a commercial, a short film or content for social media" to match the work you want more of.
-- **About portrait** is the one from your current site at the size Adobe offers (about 1200 pixels). A full-size original will look sharper.
-- **The 26 photos** are my pick from your portfolio folder. Swap freely.
-- **Visitor statistics**: the site keeps your existing Google Analytics tag (`G-CK0P2DL9MX`) so your numbers continue.
-- **SCHEELS** is labeled as spec work on its page, with a note that it was not commissioned by SCHEELS.
+- **Project categories.** Which column each project sits in on the Work page (Brand & Commercial, Creative & Film, Weddings).
+- **"Director"** was added to the role on: Spec Ad - SCHEELS, Reborn Legacy Tattoo, Seraphim Studios, the Allstar Nutrition giveaway, OxCB, both music videos, and Justin + Veronica. Say if any should not have it.
+- **Common questions** on the Services page (at the bottom of that page). There are four: cost, travel, vertical video, photography.
+- **Services page**: the service descriptions and the five process steps are my draft.
+- **"Worked with" list** on the About page. You said you want to add and remove names.
+- **Bio.** Still your old one. A new one is waiting on your answers to the bio questions.
+- **About portrait** is the one from your old site at the size Adobe offers (about 1200 pixels). A full-size original will look sharper.
+- **The 26 photos** are my pick from your portfolio folder. Four of them (a gas pump, a diner, a turkey in the woods, a trail) don't fit People, Events or Branding. They show under "All" only until you decide.
+- **The Privacy page** was rewritten to be shorter and more formal. Read it once.
 
 ## If something goes wrong
 
 - **The live site didn't update.** On GitHub, open the **Actions** tab. A red X means the last publish failed. Tell Claude "the publish failed" and it will read the error.
 - **A video won't play on the site.** Tell Claude which project.
 - **You want to undo a change.** Every change is saved in history. Tell Claude "undo the last change" or "put it back how it was yesterday".
+- **The preview address doesn't open.** The preview is not running. Ask Claude to start it.

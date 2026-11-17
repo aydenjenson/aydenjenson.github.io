@@ -15,46 +15,47 @@ export function privacyPage(ctx) {
   const hasYouTube = ctx.projects.some((p) => p.ytId);
   const out = (href, label) => `<a href="${href}" target="_blank" rel="noopener">${esc(label)}</a>`;
 
+  // Ayden asked for this page to be short, professional and free of filler.
+  // Each block says what is collected, by whom, and why, and nothing else.
   const blocks = [
     hasAnalytics && {
       title: 'Analytics',
       body: [
-        `I use Google Analytics to see how many people visit and which pages they look at. It sets cookies in your browser and collects things like the pages you open, your approximate location (such as your city), the device and browser you use, and how you found the site.`,
-        `Google explains how it handles that information in its ${out('https://policies.google.com/privacy', 'privacy policy')}. If you would rather not be counted, Google offers a ${out('https://tools.google.com/dlpage/gaoptout', 'browser add-on that turns Analytics off')}.`,
+        `This site uses Google Analytics to measure traffic. It sets cookies and collects usage data: pages viewed, approximate location, device and browser type, and referring site. Google processes this data under its ${out('https://policies.google.com/privacy', 'Privacy Policy')}. To opt out, install the ${out('https://tools.google.com/dlpage/gaoptout', 'Google Analytics opt-out add-on')}.`,
       ],
     },
     {
       title: 'Contact form',
       body: [
         formSends
-          ? `When you send a message through the contact form, the name, email, business and message you enter are delivered to my inbox by Web3Forms, a form service. I use them to reply to you about your project.`
-          : `The contact form opens a new message in your own email app, so what you write reaches me as a normal email. I use it to reply to you about your project.`,
+          ? `Messages sent through the contact form are delivered by Web3Forms. The name, email address, business name and message you provide are used only to respond to your inquiry.`
+          : `The contact form opens a message in your own email application. The information you send is used only to respond to your inquiry.`,
       ],
     },
     {
       title: 'Video',
       body: [
         hasYouTube
-          ? `Some films here are hosted on YouTube. YouTube's player only loads after you press play, and it uses YouTube's privacy-enhanced address (youtube-nocookie.com). From that point Google's privacy policy applies to the player. The other films, and every preview that plays on its own, are files on this site and involve no one else.`
-          : `Every film and preview on this site is a file hosted on the site itself. No outside video player is loaded.`,
+          ? `Some films are hosted on YouTube. The YouTube player loads only after you press play and uses YouTube's privacy-enhanced mode (youtube-nocookie.com). Google's Privacy Policy applies once the player loads. All other video is served directly from this site.`
+          : `All video is served directly from this site. No third-party video player is used.`,
       ],
     },
     {
       title: 'Hosting',
       body: [
-        `The site is hosted on GitHub Pages. Like any web host, GitHub keeps technical logs that include visitors' IP addresses, for security. See the ${out('https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement', 'GitHub privacy statement')}.`,
+        `This site is hosted on GitHub Pages. GitHub may log visitor IP addresses for security purposes, as described in the ${out('https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement', 'GitHub Privacy Statement')}.`,
       ],
     },
     {
-      title: 'In your browser',
+      title: 'Browser storage',
       body: [
-        `${hasAnalytics ? 'Apart from the analytics cookies, the' : 'The'} site keeps two small notes in your browser tab: whether you have already seen the opening animation, and which layout you picked on the Work page. They never leave your device and are cleared when you close the tab.`,
+        `The site stores two settings in your browser for the current session: whether the opening animation has played, and your layout choice on the Work page. Neither leaves your device.`,
       ],
     },
     {
-      title: 'Questions',
+      title: 'Your information',
       body: [
-        `If you have a question about any of this, or want me to delete a message you sent, write to <a href="mailto:${esc(email)}">${esc(email)}</a>.`,
+        `Personal information is used only for the purposes described above and is never sold. To ask a question or request deletion of a message you sent, email <a href="mailto:${esc(email)}">${esc(email)}</a>.`,
       ],
     },
   ].filter(Boolean);

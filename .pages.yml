@@ -51,7 +51,7 @@ content:
             required: true
             pattern: "^[a-z0-9]+(-[a-z0-9]+)*$"
           - name: kind
-            label: Type (for example Brand promo, Wedding film)
+            label: Type (for example Social Media Promotion, Event Recap, Short Film)
             type: string
           - name: category
             label: Column on the Work page
@@ -63,8 +63,17 @@ content:
                   label: Brand & Commercial
                 - name: creative
                   label: Creative & Film
-                - name: weddings-events
-                  label: Weddings & Events
+                - name: weddings
+                  label: Weddings
+          - name: client
+            label: Client (leave empty for a personal film). To link a name, write [Name](https://...)
+            type: string
+          - name: role
+            label: Role (for example Cinematographer, Editor, Colorist)
+            type: string
+          - name: camera
+            label: Camera (for example Fujifilm X-T3)
+            type: string
           - name: year
             label: Year
             type: number
@@ -92,7 +101,7 @@ content:
             label: Description
             type: text
           - name: credits
-            label: Credits
+            label: Extra credits (artist, narration, a note). Type, client, role, camera, year and length are added automatically
             type: object
             list: true
             fields:
@@ -148,9 +157,24 @@ content:
             label: The six titles over the reel (each project's web address name, top row first)
             type: string
             list: true
+          - name: nameLine
+            label: The small line under your name (each entry is one part; parts are joined with a slash)
+            type: string
+            list: true
           - name: statement
             label: Intro statement
             type: text
+          - name: facts
+            label: The three facts under the intro statement
+            type: object
+            list: true
+            fields:
+              - name: label
+                label: Label
+                type: string
+              - name: value
+                label: Text
+                type: string
           - name: aboutHeading
             label: About teaser heading
             type: string

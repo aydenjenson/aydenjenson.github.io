@@ -131,12 +131,21 @@ function initHero() {
     setSides();
   }
 
+  /** The small line under the name is spread to exactly the name's width (see .hero__role in main.css). */
+  const title = $('.hero__title', hero);
+  const nameText = $('.chars', nameButton);
+  function fitRole() {
+    const width = nameText ? nameText.getBoundingClientRect().width : 0;
+    if (title && width) title.style.setProperty('--name-w', `${width.toFixed(1)}px`);
+  }
+
   let resizeTimer;
-  window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(place, 150); });
+  window.addEventListener('resize', () => { fitRole(); clearTimeout(resizeTimer); resizeTimer = setTimeout(place, 150); });
   compact.addEventListener('change', place);
   place();
-  // Fonts can change the width of a title after the first placement.
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  fitRole();
+  // Fonts can change the width of a title (and of the name) after the first placement.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { place(); fitRole(); });
 
   /* ---- hover: a strip of the project slides in ---- */
 

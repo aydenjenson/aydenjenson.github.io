@@ -1,6 +1,6 @@
 // Contact page and the 404 page.
 import { esc, html } from '../lib/html.js';
-import { chars } from './components.js';
+import { chars, socialLinks } from './components.js';
 import { breadcrumbLd, businessLd } from '../lib/seo.js';
 
 export function contactPage(ctx) {
@@ -65,13 +65,11 @@ export function contactPage(ctx) {
       </div>` : ''}
       <div data-reveal>
         <p class="label">Social</p>
-        <ul>
-          ${site.socials.map((s) => `<li><a class="hover-blur" href="${esc(s.url)}" target="_blank" rel="noopener">${chars(s.label)}<span aria-hidden="true"> &#8599;</span></a></li>`)}
-        </ul>
+        ${socialLinks(site)}
       </div>
       <div data-reveal>
         <p class="label">Based in</p>
-        <p>${esc(loc.city)}, ${esc(loc.regionName)}<br><span class="muted"><span data-clock data-tz="${esc(loc.timezone)}">--:--</span> local time</span></p>
+        <p>${esc(loc.city)}, ${esc(loc.regionName)}<br><span class="muted">Open to travel</span></p>
       </div>
       ${site.contact.responseTime ? `<p class="muted" data-reveal>${esc(site.contact.responseTime)}</p>` : ''}
     </aside>

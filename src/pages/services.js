@@ -57,13 +57,8 @@ export function servicesPage(ctx) {
   </section>
 
   <section class="areas" aria-labelledby="areas-title">
-    <div>
-      <h2 class="section-title" id="areas-title" data-reveal="rise">${esc(s.areasHeading)}</h2>
-      <p data-reveal>${esc(s.areasText)}</p>
-    </div>
-    <ul class="areas__list" data-reveal>
-      ${s.areas.map((a) => `<li>${esc(a)}, ${esc(loc.region)}</li>`)}
-    </ul>
+    <h2 class="section-title" id="areas-title" data-reveal="rise">${esc(s.areasHeading)}</h2>
+    <p class="areas__text" data-reveal>${esc(s.areasText)}</p>
   </section>
 
   <section class="faq" aria-labelledby="faq-title">
@@ -84,7 +79,7 @@ ${cta(ctx, { eyebrow: `Video production in ${loc.city}, ${loc.region}` })}`;
     id: 'services',
     nav: 'services',
     title: `Video Production Services in ${loc.city}, ${loc.region} | ${site.seo.titleSuffix}`,
-    description: `Brand films, commercials, social media content, event coverage and photography in ${loc.city}, ${loc.regionName} and across Southern Minnesota. See how it works and get a quote.`,
+    description: `Brand films, commercials, social media content and photography in ${loc.city}, ${loc.regionName} and beyond. See how it works and get a quote.`,
     jsonld: [
       businessLd(ctx),
       faqLd(s.faq),

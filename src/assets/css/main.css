@@ -119,7 +119,7 @@ sup { line-height: 0; }
 .tile__num, .tile__kind, .tile__year, .wall__label, .work__views, .film__kind, .film__bar,
 .film__nav, .filters, .photo__meta, .lightbox, .footer, .svc__num, .svc__arrow, .service__num,
 .service__caption, .process__num, .next__eyebrow, .next__kind, .cta__eyebrow, .cta__go,
-.details__credits dt, .facts dt, .field label, .field legend, .form__status, .menu__num, .menu__foot {
+.details__credits dt, .facts dt, .statement__facts dt, .field label, .field legend, .form__status, .menu__num, .menu__foot {
   font-family: var(--sans);
   font-size: 11.5px;
   font-weight: 600;
@@ -140,6 +140,22 @@ sup { line-height: 0; }
 .chars { display: inline; }
 .w { display: inline-block; white-space: nowrap; }
 .ch { display: inline-block; }
+
+/* Social links: a row of white logos (see socialLinks() in src/pages/components.js).
+   Hovering one runs the same soft blur as the text links and dims the others. */
+.social { display: flex; flex-direction: row; align-items: center; gap: 2px; margin: 0 -11px; }
+.social .social__link { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; color: var(--fg); }
+.social__icon { width: 18px; height: 18px; fill: currentColor; transition: opacity 0.4s var(--ease); }
+@media (hover: hover) {
+  .social:hover .social__icon { opacity: 0.4; }
+  .social .social__link:hover .social__icon { opacity: 1; animation: ch-blur 0.6s ease-in-out; }
+}
+
+/* Capitals spread edge to edge across their box (see spread() in components.js) */
+.spread { display: flex; justify-content: space-between; align-items: baseline; white-space: nowrap; }
+.spread i { flex: none; font-style: normal; }
+.spread .spread__gap { flex: 0 0 0.3em; }
+.spread__sep { color: var(--fg-faint); }
 
 .link-arrow { display: inline-flex; align-items: baseline; gap: 8px; padding: 6px 0; }
 .link-arrow__icon { transition: transform 0.5s var(--ease); }
@@ -299,8 +315,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .menu__num { color: var(--fg-faint); width: 28px; }
 .menu__link.is-current .menu__num { color: var(--accent); }
 .menu__label { font-family: var(--serif); font-size: clamp(42px, 12vw, 76px); line-height: 1.08; letter-spacing: -0.02em; }
-.menu__foot { display: flex; flex-direction: column; gap: 10px; color: var(--fg-dim); }
-.menu__foot span { display: flex; gap: 18px; }
+.menu__foot { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; color: var(--fg-dim); }
 
 /* 5. Shared overlays -------------------------------------------------------- */
 
@@ -395,6 +410,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 }
 
 .hero__title {
+  --name-size: clamp(46px, 4.75vw, 110px);
   position: absolute; left: 50%; top: 50%; z-index: 2;
   transform: translate(-50%, -50%);
   width: max-content; max-width: 100vw;
@@ -405,19 +421,25 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
   display: block; margin: 0 auto;
   width: calc(500px + 10vw); max-width: 100vw; padding: 50px 12px;
   font-family: var(--serif);
-  font-size: clamp(46px, 4.75vw, 110px);
+  font-size: var(--name-size);
   line-height: 1;
   letter-spacing: 0;
   color: var(--fg);
   cursor: crosshair;
 }
 .hero__name.is-active { cursor: pointer; }
+/* The small line under the name. Its box is exactly as wide as the name and the
+   letters are spread across it, so the two lines start and end together.
+   home.js measures the name (--name-w); the calc is the same width worked out
+   for the default font, used until the script has run. */
 .hero__role {
-  display: block; margin-top: -30px; pointer-events: none;
-  font-size: 11.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
-  color: var(--fg-dim);
+  display: block; width: var(--name-w, calc(var(--name-size) * 4.57)); max-width: calc(100vw - var(--pad) * 2);
+  margin: -36px auto 0; pointer-events: none;
+  /* Scales with the name, so the spacing between letters looks the same at every size */
+  font-size: clamp(10px, calc(var(--name-size) * 0.168), 13px);
+  font-weight: 600; line-height: 1.3; letter-spacing: 0; text-transform: uppercase;
+  color: var(--fg);
 }
-.hero__role-sep { margin: 0 0.5em; color: var(--fg-faint); }
 
 /* A soft spot of blur that trails the pointer while it is over the name */
 .hero__lens {
@@ -473,7 +495,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .hero__reel-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: rec 1.6s ease-in-out infinite; }
 @keyframes rec { 50% { opacity: 0.25; } }
 .hero__reel-time { color: var(--fg-dim); }
-.hero__clock { text-align: right; color: var(--fg-dim); }
+.hero__social { justify-self: end; }
 
 /* Entrance: everything but the name waits for .is-ready */
 .js .hero__item, .js .hero__role, .js .hero__foot, .js .nav {
@@ -511,14 +533,16 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 }
 .js .word { opacity: 0.16; transition: opacity 0.6s var(--ease); }
 .js .word.is-on { opacity: 1; }
-.statement__meta {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--pad);
+/* Three facts under the statement, all set the same way: a small label over one line of text */
+.statement__facts {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px var(--pad);
   margin-top: clamp(56px, 10vh, 130px); padding-top: 18px;
   border-top: 1px solid var(--line);
-  max-width: 980px;
+  max-width: 1080px;
 }
-.statement__meta p:not(.label) { color: var(--fg-dim); max-width: 26ch; }
-.statement__meta a { color: var(--fg); }
+.statement__facts dt { color: var(--fg-dim); margin-bottom: 10px; }
+.statement__facts dd { font-size: clamp(15px, 1.2vw, 18px); line-height: 1.35; text-wrap: balance; }
+.statement__links { display: flex; flex-wrap: wrap; gap: 8px 30px; margin-top: clamp(28px, 5vh, 52px); }
 
 .selected { padding-bottom: clamp(90px, 16vh, 220px); }
 .selected__grid {
@@ -801,6 +825,8 @@ html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
   padding: 12px 0; border-top: 1px solid var(--line);
 }
 .details__credits dt, .facts dt { color: var(--fg-dim); padding-top: 2px; }
+.details__credits dd a { border-bottom: 1px solid var(--fg-faint); transition: border-color 0.3s; }
+.details__credits dd a:hover { border-color: var(--fg); }
 
 .next {
   position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
@@ -927,10 +953,8 @@ html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
 .process__step p { color: var(--fg-dim); text-wrap: pretty; }
 
 .areas { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--pad); align-items: start; }
-.areas > div { grid-column: 1 / span 5; display: flex; flex-direction: column; gap: 20px; }
-.areas > div p { color: var(--fg-dim); max-width: 40ch; font-size: clamp(15px, 1.2vw, 18px); }
-.areas__list { grid-column: 7 / span 6; columns: 2; column-gap: var(--pad); }
-.areas__list li { padding: 11px 0; border-top: 1px solid var(--line); break-inside: avoid; }
+.areas .section-title { grid-column: 1 / span 5; }
+.areas__text { grid-column: 7 / span 6; font-family: var(--serif); font-size: clamp(26px, 2.8vw, 46px); line-height: 1.1; letter-spacing: -0.012em; text-wrap: balance; }
 
 .faq { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--pad); align-items: start; }
 .faq .section-title { grid-column: 1 / span 5; }
@@ -1030,8 +1054,8 @@ html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
 .footer__col { display: flex; flex-direction: column; gap: 6px; color: var(--fg-dim); }
 .footer__col ul { display: flex; flex-direction: column; }
 .footer__col a { display: inline-block; padding: 4px 0; color: var(--fg); }
+.footer__col .social { flex-direction: row; margin-top: -6px; }
 .footer__name { font-family: var(--serif); font-size: clamp(28px, 2.6vw, 40px); line-height: 1; letter-spacing: -0.015em; text-transform: none; color: var(--fg); margin-bottom: 8px; }
-.footer__clock { margin-top: 10px; }
 .footer__base {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
   margin-top: clamp(44px, 8vh, 96px); padding-top: 14px; border-top: 1px solid var(--line);
@@ -1046,7 +1070,6 @@ html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
   .nav__links { display: none; }
   .nav__toggle { display: inline-flex; }
 
-  .statement__meta { grid-template-columns: 1fr 1fr; }
   .selected__grid { row-gap: 56px; }
   .card--a, .card--b, .card--c, .card--d, .card--e, .card--f { grid-column: 1 / -1; margin-top: 0; }
   .card--b, .card--e { grid-column: 3 / -1; }
@@ -1067,7 +1090,7 @@ html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
   .service__text, .service:nth-child(even) .service__text { grid-column: 1 / -1; order: 1; }
   .service__example, .service:nth-child(even) .service__example { grid-column: 1 / -1; order: 2; }
   .process__steps { grid-template-columns: 1fr 1fr; row-gap: 36px; }
-  .areas > div, .areas__list, .faq .section-title, .faq__list { grid-column: 1 / -1; }
+  .areas .section-title, .areas__text, .faq .section-title, .faq__list { grid-column: 1 / -1; }
 
   .contact__grid { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
@@ -1097,16 +1120,16 @@ html[data-work='wall'] .wall__track:hover .tile__link { padding-left: 0; }
 
 @media (max-width: 600px) {
   body { font-size: 14.5px; }
-  .hero__role-sep { display: none; }
-  .hero__role { max-width: 26ch; margin-inline: auto; line-height: 1.5; }
-  .statement__meta { grid-template-columns: 1fr; gap: 22px; }
+  /* The three facts become rows: label on the left, text on the right */
+  .statement__facts { grid-template-columns: 1fr; gap: 0; padding-top: 0; border-top: 0; }
+  .statement__facts > div { display: grid; grid-template-columns: 84px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); }
+  .statement__facts dt { margin: 0; padding-top: 2px; }
   .section-head { grid-template-columns: 44px 1fr auto; }
   .card--b, .card--e, .card--c { grid-column: 1 / -1; }
   .tile__link { grid-template-columns: 26px 92px minmax(0, 1fr); gap: 12px; }
   .tile__year { display: none; }
   .photos__grid { columns: 1; }
   .process__steps { grid-template-columns: 1fr; }
-  .areas__list { columns: 1; }
   .footer__grid { grid-template-columns: 1fr; }
   .film__controls { grid-template-columns: auto 1fr auto; }
   .film__controls-group { gap: 14px; }

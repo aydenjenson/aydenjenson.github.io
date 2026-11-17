@@ -30,7 +30,8 @@ let queued = null;
 function rebuild(reason) {
   if (building) { queued = reason || 'more changes'; return; }
   building = true;
-  const child = spawn(process.execPath, [path.join(ROOT, 'build.js')], { cwd: ROOT });
+  // --lab adds the design options pages (http://localhost:4321/lab/). They exist only in this preview.
+  const child = spawn(process.execPath, [path.join(ROOT, 'build.js'), '--lab'], { cwd: ROOT });
   let output = '';
   child.stdout.on('data', (chunk) => { output += chunk; });
   child.stderr.on('data', (chunk) => { output += chunk; });
@@ -107,7 +108,7 @@ const changed = (what) => {
   clearTimeout(timer);
   timer = setTimeout(() => rebuild(`${what} changed`), 250);
 };
-for (const dir of ['content', 'src', 'media', 'public']) {
+for (const dir of ['content', 'src', 'media', 'public', 'lab']) {
   const full = path.join(ROOT, dir);
   if (!fs.existsSync(full)) continue;
   fs.watch(full, { recursive: true }, (_event, name) => changed(`${dir}/${String(name || '').replace(/\\/g, '/')}`));

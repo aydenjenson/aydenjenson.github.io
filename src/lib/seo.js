@@ -28,7 +28,10 @@ export function businessLd(ctx) {
       addressCountry: loc.country,
     },
     geo: { '@type': 'GeoCoordinates', latitude: loc.latitude, longitude: loc.longitude },
-    areaServed: (site.services.areas || []).map((name) => ({ '@type': 'City', name: `${name}, ${loc.region}` })),
+    areaServed: [
+      { '@type': 'City', name: `${loc.city}, ${loc.region}` },
+      { '@type': 'State', name: loc.regionName },
+    ],
     founder: { '@id': id(ctx, 'person') },
     sameAs: site.socials.map((s) => s.url),
     knowsAbout: ['Videography', 'Cinematography', 'Video production', 'Commercial video', 'Brand films', 'Social media video', 'Photography', 'Color grading'],

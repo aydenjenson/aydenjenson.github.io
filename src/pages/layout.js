@@ -1,6 +1,6 @@
 // The shell around every page: <head>, navigation, footer, shared overlays.
 import { esc, html, pad2 } from '../lib/html.js';
-import { chars } from './components.js';
+import { chars, socialLinks } from './components.js';
 
 export const NAV = [
   { id: 'work', label: 'Work', href: '/work/' },
@@ -22,6 +22,7 @@ export const NAV = [
  *   footer      false to hide the footer (full-screen pages)
  *   noindex     true to keep the page out of search engines
  *   preload     [{ href, as, type }] extra <link rel="preload"> (optional)
+ *   head        extra HTML for the end of <head> (only the design options pages in lab/ use it)
  * }
  */
 export function layout(ctx, page) {
@@ -86,6 +87,7 @@ ${(page.preload || []).map((p) => `<link rel="preload" href="${esc(p.href)}" as=
   })(document.documentElement);
 </script>
 ${jsonld.map((obj) => `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`).join('\n')}
+${page.head || ''}
 </head>
 <body class="page page--${page.id}" data-page="${page.id}">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -112,7 +114,7 @@ ${jsonld.map((obj) => `<script type="application/ld+json">${JSON.stringify(obj).
   </nav>
   <div class="menu__foot">
     <a href="mailto:${esc(site.contact.email)}">${esc(site.contact.email)}</a>
-    <span>${site.socials.map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join(' ')}</span>
+    ${socialLinks(site)}
   </div>
 </div>
 
@@ -141,7 +143,6 @@ function footer(ctx) {
     <div class="footer__col footer__col--brand">
       <p class="footer__name">${esc(site.name)}</p>
       <p>${esc(site.role)}<br>${esc(loc.city)}, ${esc(loc.regionName)}</p>
-      <p class="footer__clock"><span class="dot" aria-hidden="true"></span><span data-clock data-tz="${esc(loc.timezone)}">--:--</span> in ${esc(loc.city)}</p>
     </div>
     <nav class="footer__col" aria-label="Footer">
       <p class="label">Menu</p>
@@ -151,9 +152,7 @@ function footer(ctx) {
     </nav>
     <div class="footer__col">
       <p class="label">Follow</p>
-      <ul>
-        ${site.socials.map((s) => `<li><a class="hover-blur" href="${esc(s.url)}" target="_blank" rel="noopener">${chars(s.label)}<span aria-hidden="true"> &#8599;</span></a></li>`)}
-      </ul>
+      ${socialLinks(site)}
     </div>
     <div class="footer__col">
       <p class="label">Contact</p>

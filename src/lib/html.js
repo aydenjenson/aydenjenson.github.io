@@ -7,6 +7,28 @@ export function esc(value = '') {
   ));
 }
 
+const LINK = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+
+/**
+ * Escape text, and turn [Name](https://...) into a link that opens in a new
+ * tab. This is the only markup allowed inside content text (used for a
+ * project's client and credits).
+ */
+export function linkify(value = '') {
+  const text = String(value);
+  let out = '';
+  let last = 0;
+  for (const m of text.matchAll(LINK)) {
+    out += esc(text.slice(last, m.index));
+    out += `<a href="${esc(m[2])}" target="_blank" rel="noopener">${esc(m[1])}</a>`;
+    last = m.index + m[0].length;
+  }
+  return out + esc(text.slice(last));
+}
+
+/** The same text without the link markup: "[Name](https://...) | Shop" -> "Name | Shop". */
+export const plain = (value = '') => String(value).replace(LINK, '$1');
+
 /**
  * Tagged template for writing HTML.
  *   html`<ul>${items.map((i) => html`<li>${esc(i)}</li>`)}</ul>`

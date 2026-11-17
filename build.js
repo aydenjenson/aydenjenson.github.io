@@ -30,6 +30,11 @@ const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(ROOT, 'dist');
 const CHECK_ONLY = process.argv.includes('--check');
 const QUIET = process.argv.includes('--quiet');
+// `--lab` adds the design options pages in lab/ (choices for Ayden to look at
+// before anything is built for real). The local preview always passes it; a
+// normal build, and so the published site, never includes them.
+const LAB = process.argv.includes('--lab');
+const labPages = LAB ? (await import('./lab/pages.js')).labPages : null;
 
 const warnings = [];
 const warn = (msg) => warnings.push(msg);
@@ -175,6 +180,7 @@ function buildPhotos(site, media, photoNotes) {
   const photoCategories = folders.map((folder) => ({
     folder,
     label: labelFor(folder),
+    tab: configured.find((c) => c.folder === folder)?.tab !== false,
     count: photos.filter((p) => p.category === folder).length,
   }));
   return { photos, photoCategories };
@@ -324,6 +330,7 @@ export function build() {
     privacyPage(ctx),
     notFoundPage(ctx),
   ];
+  if (labPages) pages.push(...labPages(ctx));
 
   for (const slug of site.home?.heroProjects || []) {
     const p = projects.find((x) => x.slug === slug);
@@ -356,6 +363,7 @@ export function build() {
   copyDir(path.join(ROOT, 'src', 'assets'), path.join(DIST, 'assets'));
   copyDir(path.join(ROOT, 'media'), path.join(DIST, 'media'), (name) => !name.startsWith('.') && !/\.(md|txt)$/i.test(name));
   copyDir(path.join(ROOT, 'public'), DIST);
+  if (LAB) copyDir(path.join(ROOT, 'lab', 'assets'), path.join(DIST, 'lab-assets'));
 
   writeFile('sitemap.xml', sitemap(ctx, pages));
   if (!fs.existsSync(path.join(ROOT, 'public', 'robots.txt'))) {

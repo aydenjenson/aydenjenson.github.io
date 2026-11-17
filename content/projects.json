@@ -2,192 +2,153 @@
   "projects": [
     {
       "slug": "scheels-turkey-hunting",
-      "title": "SCHEELS — Turkey Hunting",
-      "kind": "Spec commercial",
+      "title": "Spec Ad - SCHEELS",
+      "kind": "Spec Commercial",
       "category": "brand",
       "year": 2025,
       "youtube": "https://www.youtube.com/watch?v=DYl0yJDnSpI",
       "date": "2025-01-16",
       "duration": 35,
       "featured": true,
-      "description": "A self-initiated spec commercial built around a single turkey hunt, from the blind to the walk out. Shot as an experiment in telling a full story in thirty-five seconds.",
+      "description": "A passion project spec commercial built around a single Minnesota turkey hunt, with the purpose of creating brand recognition through sound design and cinematics.",
+      "role": "Director, Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3",
       "credits": [
-        { "label": "Role", "value": "Director, cinematographer, editor, colorist" },
-        { "label": "Hunter", "value": "Andrew Anderman" },
+        { "label": "Hunter", "value": "Andrew Andermann" },
         { "label": "Narration", "value": "Gabe Martin" },
         { "label": "Note", "value": "Spec work. Not commissioned by or affiliated with SCHEELS." }
       ]
     },
     {
       "slug": "reborn-legacy-tattoo",
-      "title": "Reborn Legacy Tattoo",
-      "kind": "Brand promo",
+      "title": "Reborn Legacy Tattoo - Social Media Promo",
+      "kind": "Social Media Promotion",
       "category": "brand",
       "year": 2025,
       "youtube": "https://www.youtube.com/watch?v=SEQfg7e9x3U",
       "date": "2025-04-15",
       "duration": 22,
       "featured": true,
-      "description": "Inside the shop at Reborn Legacy Tattoo. A short promo that stays close to the work: the stencil, the machine and the artist's focus.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" },
-        { "label": "Client", "value": "Reborn Legacy Tattoo" }
-      ]
+      "description": "A social media promotional edit filmed inside Reborn Legacy Tattoo.",
+      "client": "[Dominic Whitlow](https://www.facebook.com/dominic.whitlow.206642/) | Reborn Legacy",
+      "role": "Director, Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "seraphim-studios",
-      "title": "Seraphim Studios — Promo",
-      "kind": "Brand promo",
+      "title": "Seraphim Studios - Social Promo",
+      "kind": "Social Media Promotion",
       "category": "brand",
       "year": 2025,
       "youtube": "https://www.youtube.com/watch?v=AjwAc7Xz_D4",
       "date": "2025-04-15",
       "duration": 15,
       "featured": true,
-      "description": "A fifteen-second promo for the barbers at Seraphim Studios, cut to play in a social feed.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" },
-        { "label": "Client", "value": "Seraphim Studios" }
-      ]
+      "description": "A fifteen-second promotional video for the barbers at Seraphim Studios, cut for social media.",
+      "client": "Seraphim Studios",
+      "role": "Director, Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
-      "slug": "old-town-vintage",
-      "title": "Old Town Vintage — Sale Promo",
-      "kind": "Social promo",
-      "category": "brand",
-      "year": 2025,
-      "youtube": "",
-      "date": "2025-03-14",
-      "description": "A vertical promo for a one-day sale at Old Town Vintage in Mankato, hosted from the shop floor.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor" },
-        { "label": "Client", "value": "Old Town Vintage" }
-      ]
-    },
-    {
-      "slug": "fitness-for-10-giveaway",
-      "title": "Fitness for 10 — Giveaway",
-      "kind": "Brand promo",
+      "slug": "allstar-nutrition-giveaway",
+      "title": "Allstar Nutrition & Mankato Partners - Social Media Giveaway",
+      "kind": "Social Media Giveaway",
       "category": "brand",
       "year": 2024,
       "youtube": "https://www.youtube.com/watch?v=jbDLBUD7WVE",
       "date": "2024-12-09",
       "duration": 79,
-      "description": "A hosted promo announcing a giveaway from Fitness for 10 and its Mankato partner businesses.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor" },
-        { "label": "Client", "value": "Fitness for 10" }
-      ]
+      "description": "A promotional video for a social media giveaway hosted by Allstar Nutrition in partnership with local Mankato businesses.",
+      "client": "Allstar Nutrition",
+      "role": "Director, Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "wealth-from-within",
-      "title": "Wealth From Within — Wellness Club",
-      "kind": "Event reel",
+      "title": "Wealth From Within - Pilates & Pancakes Promo",
+      "kind": "Social Media Recap",
       "category": "brand",
       "year": 2025,
       "youtube": "",
       "date": "2025-06-09",
-      "description": "A vertical recap of an outdoor workout and breakfast with the Wealth From Within health and wellness club.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" },
-        { "label": "Client", "value": "Wealth From Within" }
-      ]
+      "description": "A social media recap of the Pilates & Pancakes event put on by Wealth From Within Wellness Club and hosted by JP Fitness.",
+      "client": "Wealth From Within Wellness Club, JP Fitness",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
-      "slug": "oxcb-event-promo",
-      "title": "OxCB — Event Promo",
-      "kind": "Event promo",
+      "slug": "chill-connect",
+      "title": "Chill & Connect - Summer Series",
+      "kind": "Social Media Recap",
+      "category": "brand",
+      "year": 2025,
+      "youtube": "",
+      "date": "2025-05-18",
+      "description": "A social media recap of the first Chill & Connect Summer Series breathwork and cold plunge event.",
+      "client": "Chill & Connect",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
+    },
+    {
+      "slug": "oxcb-event-promotion",
+      "title": "OxCB - Event Promotion",
+      "kind": "Event Promotion",
       "category": "brand",
       "year": 2025,
       "youtube": "https://www.youtube.com/watch?v=ZiWKTAsRYvw",
       "date": "2025-03-27",
       "duration": 35,
-      "description": "A promo cut to build anticipation for an OxCB event.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor" },
-        { "label": "Client", "value": "OxCB" }
-      ]
+      "description": "A promotional cut to announce and build anticipation for a collaboration event.",
+      "client": "Mobile Charm Bar x OrinLaen",
+      "role": "Director, Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
-      "slug": "allstar-bodyart-tournament",
-      "title": "Allstar Nutrition x Bodyart — Tournament Recap",
-      "kind": "Event recap",
+      "slug": "allstar-body-art-tournament",
+      "title": "Allstar Nutrition x Body Art Nutrition - Tournament Recap",
+      "kind": "Event Recap",
       "category": "brand",
       "year": 2024,
       "youtube": "https://www.youtube.com/watch?v=a8u7bEsddLY",
       "date": "2024-12-09",
       "duration": 37,
-      "description": "A recap of the outdoor basketball tournament from Allstar Nutrition and Bodyart.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor" },
-        { "label": "Client", "value": "Allstar Nutrition, Bodyart" }
-      ]
-    },
-    {
-      "slug": "gigli-holidays",
-      "title": "Gigli — Holidays Reel",
-      "kind": "Social reel",
-      "category": "brand",
-      "year": 2024,
-      "youtube": "https://www.youtube.com/watch?v=WImg0j6rIXg",
-      "date": "2024-12-09",
-      "duration": 32,
-      "aspect": "9:16",
-      "description": "A vertical holiday reel for Gigli.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor" },
-        { "label": "Client", "value": "Gigli" }
-      ]
+      "description": "A recap video of an outdoor basketball tournament hosted as an Allstar Nutrition x Body Art Nutrition collaboration event.",
+      "client": "Allstar Nutrition, Body Art Nutrition",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "iron-alliance-lifting",
-      "title": "Iron Alliance — Lifting Reel",
-      "kind": "Fitness reel",
+      "title": "Iron Alliance - Allstar Nutrition Team Lift",
+      "kind": "Hype Video",
       "category": "brand",
       "year": 2024,
       "youtube": "https://www.youtube.com/watch?v=H0ikelLG_oY",
       "date": "2024-12-14",
       "duration": 18,
-      "description": "Eighteen seconds of heavy lifting for Iron Alliance.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor" },
-        { "label": "Client", "value": "Iron Alliance" }
-      ]
-    },
-    {
-      "slug": "chest-fly-variations",
-      "title": "Chest Fly Variations",
-      "kind": "Fitness content",
-      "category": "brand",
-      "year": 2024,
-      "youtube": "https://www.youtube.com/watch?v=Yn8lMW4hBgQ",
-      "date": "2024-12-09",
-      "duration": 92,
-      "aspect": "9:16",
-      "description": "Vertical training content walking through chest fly variations, shot and cut for social.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor" }
-      ]
+      "description": "A hype video to promote Allstar Nutrition Ambassador Program team events.",
+      "client": "Allstar Nutrition",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
 
     {
       "slug": "showreel",
-      "title": "Showreel",
-      "kind": "Reel",
+      "title": "2025 Showreel",
+      "kind": "Showreel",
       "category": "creative",
-      "year": 2026,
+      "year": 2025,
       "youtube": "https://www.youtube.com/watch?v=OS3owj3iHsc",
       "date": "2026-06-17",
       "duration": 141,
-      "description": "Two minutes of recent work: brand films, commercials, events and personal projects, shot in Minnesota and on the road.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" }
-      ]
+      "description": "A short showcase of work leading up to 2025: brand films, commercials, events, and personal projects.",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "super-bowl-lix",
-      "title": "Super Bowl LIX — Through My Lens",
-      "kind": "Travel film",
+      "title": "Super Bowl LIX - Through My Lens",
+      "kind": "Travel Film",
       "category": "creative",
       "year": 2025,
       "youtube": "https://www.youtube.com/watch?v=uina4ZogomI",
@@ -195,17 +156,14 @@
       "duration": 45,
       "aspect": "4:3",
       "featured": true,
-      "description": "Super Bowl LIX weekend through my lens. A personal film shot on a Fuji X-T3 and graded with a 35mm film emulation.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" },
-        { "label": "Camera", "value": "Fujifilm X-T3" },
-        { "label": "Grade", "value": "Cineprint 35" }
-      ]
+      "description": "Super Bowl LIX weekend recap film.",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "fresh-air",
-      "title": "Fresh Air",
-      "kind": "Short film",
+      "title": "Fresh Air - Travel",
+      "kind": "Short Film",
       "category": "creative",
       "year": 2024,
       "youtube": "https://www.youtube.com/watch?v=XAF1jFEXgl4",
@@ -213,207 +171,162 @@
       "duration": 32,
       "aspect": "4:3",
       "featured": true,
-      "description": "A personal short shot on the Fuji X-T3 and graded with a 35mm film emulation.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" },
-        { "label": "Camera", "value": "Fujifilm X-T3" },
-        { "label": "Grade", "value": "Cineprint 35" }
-      ]
+      "description": "A personal short capturing travels from Minnesota to Colorado, graded with a 35mm film emulation.",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "western-fest-rodeo",
       "title": "Western Fest Stampede Rodeo",
-      "kind": "Event film",
+      "kind": "Event Film",
       "category": "creative",
       "year": 2025,
       "youtube": "https://www.youtube.com/watch?v=8VwQCaW2msM",
       "date": "2025-06-23",
       "duration": 42,
       "featured": true,
-      "description": "The Western Fest PRCA Stampede Rodeo in Granite Falls, Minnesota. Shot on Fujifilm, edited and colored in DaVinci Resolve.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" },
-        { "label": "Location", "value": "Granite Falls, Minnesota" }
-      ]
+      "description": "The Western Fest PRCA Stampede Rodeo in Granite Falls, Minnesota.",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "bison-in-the-snow",
       "title": "Bison in the Snow",
-      "kind": "Nature short",
+      "kind": "Nature Film",
       "category": "creative",
       "year": 2024,
       "youtube": "https://www.youtube.com/watch?v=x1HZrO5tWcE",
       "date": "2024-12-09",
       "duration": 27,
       "description": "A cold day out with a long lens, looking for bison in the snow.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" }
-      ]
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "the-beauty-of-color-grading",
       "title": "The Beauty of Color Grading",
-      "kind": "Color study",
+      "kind": "Skill Showcase",
       "category": "creative",
       "year": 2025,
       "youtube": "",
       "date": "2025-04-08",
-      "description": "Before and after. The same shots straight out of the camera and after the grade.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, colorist" },
-        { "label": "Software", "value": "DaVinci Resolve" }
-      ]
+      "description": "Showcasing the before and after of my color grading on a variety of shots.",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "new-ulm-roll-in",
       "title": "New Ulm Roll In",
-      "kind": "Event film",
+      "kind": "Event Film",
       "category": "creative",
       "year": 2025,
       "youtube": "https://www.youtube.com/watch?v=Mfd_8c6-6FY",
       "date": "2025-06-17",
       "duration": 33,
       "description": "A short film from the New Ulm Roll In.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" },
-        { "label": "Location", "value": "New Ulm, Minnesota" }
-      ]
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "lil-otto-star",
-      "title": "Lil Otto — Star",
-      "kind": "Music video",
+      "title": "Lil Otto - Star",
+      "kind": "Music Video",
       "category": "creative",
       "year": 2021,
       "youtube": "https://www.youtube.com/watch?v=jlQbAY7xx8Q",
       "date": "2021-07-02",
       "duration": 157,
-      "description": "Official music video for Lil Otto's \"Star\", shot under the Blacklight Visuals name.",
+      "description": "Official music video for Lil Otto's \"Star\".",
+      "role": "Director, Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3",
       "credits": [
-        { "label": "Role", "value": "Director, cinematographer, editor" },
-        { "label": "Artist", "value": "Lil Otto" },
-        { "label": "Produced by", "value": "Ramsey Beatz" }
+        { "label": "Artist", "value": "Lil Otto" }
       ]
     },
     {
       "slug": "trayaye-packtouchdown",
-      "title": "Trayaye — PackTouchDown",
-      "kind": "Music video",
+      "title": "Trayaye - PackTouchDown",
+      "kind": "Music Video",
       "category": "creative",
       "year": 2020,
       "youtube": "https://www.youtube.com/watch?v=OvDpL7EVDaM",
       "date": "2020-10-16",
       "duration": 145,
-      "description": "Music video for Trayaye's \"PackTouchDown\", shot under the Blacklight Visuals name.",
+      "description": "Music video for Trayaye's \"PackTouchDown\".",
+      "role": "Director, Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3",
       "credits": [
-        { "label": "Role", "value": "Director, cinematographer, editor" },
-        { "label": "Artist", "value": "Trayaye" },
-        { "label": "Produced by", "value": "BuddyBeats" }
+        { "label": "Artist", "value": "Trayaye" }
       ]
     },
 
     {
       "slug": "kylie-arnold-wedding",
       "title": "Kylie + Arnold",
-      "kind": "Wedding film",
-      "category": "weddings-events",
+      "kind": "Wedding Film",
+      "category": "weddings",
       "year": 2026,
       "youtube": "https://www.youtube.com/watch?v=XwHTzNqV0tY",
       "date": "2026-04-13",
       "duration": 488,
-      "description": "The wedding film of Kylie and Arnold Bolland.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" }
-      ]
+      "description": "The wedding film of Kylie and Arnold.",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
-      "slug": "justin-veronica-the-wedding",
-      "title": "Justin + Veronica — The Wedding",
-      "kind": "Wedding film",
-      "category": "weddings-events",
+      "slug": "justin-veronica-wedding",
+      "title": "Justin + Veronica",
+      "kind": "Wedding Film",
+      "category": "weddings",
       "year": 2025,
       "youtube": "https://www.youtube.com/watch?v=2oTc3tjxS9w",
       "date": "2025-08-04",
       "duration": 177,
-      "description": "A Wes Anderson inspired, just-for-fun edit of Justin and Veronica's wedding day.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" }
-      ]
+      "description": "A Wes Anderson-inspired concept wedding short film.",
+      "role": "Director, Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "dylan-riley-wedding",
-      "title": "Dylan + Riley — Evergreen, Colorado",
-      "kind": "Wedding film",
-      "category": "weddings-events",
+      "title": "Dylan + Riley",
+      "kind": "Wedding Film",
+      "category": "weddings",
       "year": 2024,
       "youtube": "https://www.youtube.com/watch?v=dFlz4SUGXdE",
       "date": "2024-11-12",
       "duration": 316,
-      "description": "Dylan and Riley Hardel's wedding in Evergreen, Colorado, filmed with Jesse Yeakle.",
+      "description": "Dylan and Riley's wedding in Evergreen, Colorado.",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3, Fujifilm X-H2",
       "credits": [
-        { "label": "Filmed by", "value": "Ayden Jenson and Jesse Yeakle" },
-        { "label": "Cameras", "value": "Fujifilm X-T3, Fujifilm X-H2" },
-        { "label": "Grade", "value": "Cineprint 35" }
+        { "label": "Filmed with", "value": "Jesse Yeakle" }
       ]
     },
     {
       "slug": "skylar-devin-wedding",
       "title": "Skylar + Devin",
-      "kind": "Wedding film",
-      "category": "weddings-events",
+      "kind": "Wedding Film",
+      "category": "weddings",
       "year": 2024,
       "youtube": "https://www.youtube.com/watch?v=lCP2WrZEhp4",
       "date": "2024-10-11",
       "duration": 252,
-      "description": "Skylar and Devin's wedding film, shot on the Fuji X-T3 and graded with a 16mm film emulation.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor, colorist" },
-        { "label": "Camera", "value": "Fujifilm X-T3" },
-        { "label": "Grade", "value": "Cineprint 16" }
-      ]
+      "description": "Skylar and Devin's wedding film.",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     },
     {
       "slug": "john-mia-wedding",
-      "title": "John + Mia — Golf Course Wedding",
-      "kind": "Wedding film",
-      "category": "weddings-events",
+      "title": "John + Mia",
+      "kind": "Wedding Film",
+      "category": "weddings",
       "year": 2022,
       "youtube": "https://www.youtube.com/watch?v=-4O4Y_AL3kM",
       "date": "2022-11-02",
       "duration": 376,
-      "description": "John and Mia's wedding day on a scenic golf course.",
-      "credits": [
-        { "label": "Role", "value": "Filmed and edited by Ayden Jenson" },
-        { "label": "Camera", "value": "Fujifilm X-T3" }
-      ]
-    },
-    {
-      "slug": "chill-connect",
-      "title": "Chill Connect",
-      "kind": "Event reel",
-      "category": "weddings-events",
-      "year": 2025,
-      "youtube": "",
-      "date": "2025-05-18",
-      "description": "A vertical recap of a cold plunge and recovery day with a full house.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor" }
-      ]
-    },
-    {
-      "slug": "totally-rad-vintage-fest",
-      "title": "Totally Rad Vintage Fest",
-      "kind": "Event recap",
-      "category": "weddings-events",
-      "year": 2023,
-      "youtube": "https://www.youtube.com/watch?v=-g0QljXtam4",
-      "date": "2024-12-09",
-      "duration": 54,
-      "aspect": "9:16",
-      "description": "A vertical recap from the floor of Totally Rad Vintage Fest 2023.",
-      "credits": [
-        { "label": "Role", "value": "Cinematographer, editor" }
-      ]
+      "description": "John and Mia's wedding day on a scenic golf course in Janesville, Minnesota.",
+      "role": "Cinematographer, Editor, Colorist",
+      "camera": "Fujifilm X-T3"
     }
   ]
 }

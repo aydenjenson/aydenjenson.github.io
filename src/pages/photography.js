@@ -6,7 +6,9 @@ import { breadcrumbLd } from '../lib/seo.js';
 
 export function photographyPage(ctx) {
   const { site, photos } = ctx;
-  const cats = ctx.photoCategories.filter((c) => c.count > 0);
+  // A category marked "tab": false in site.json keeps its photos on the page
+  // (under All) but gets no filter button of its own.
+  const cats = ctx.photoCategories.filter((c) => c.count > 0 && c.tab !== false);
 
   const content = html`
 <section class="photos" data-photos>
@@ -46,7 +48,7 @@ ${cta(ctx, { eyebrow: 'Need photos for your brand?' })}`;
     id: 'photography',
     nav: 'photography',
     title: `Photography | ${site.location.city}, ${site.location.region} Photographer | ${site.seo.titleSuffix}`,
-    description: `Photography by ${site.name}, based in ${site.location.city}, ${site.location.regionName}: brand and business, portraits, events and the outdoors.`,
+    description: `Photography by ${site.name}, based in ${site.location.city}, ${site.location.regionName}: people, events and branding.`,
     image: photos[0]?.src,
     jsonld: [
       breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Photography', path: '/photography/' }]),

@@ -2,7 +2,7 @@
 // "Wall" view: the columns scroll forever in opposite directions (desktop).
 // "Index" view: a plain list you can scan (default on phones, toggle on desktop).
 import { esc, html, pad2, clock } from '../lib/html.js';
-import { projectAttrs, posterImg, loopVideo, chars } from './components.js';
+import { projectAttrs, posterImg, loopVideo, chars, titleText } from './components.js';
 import { breadcrumbLd, workListLd } from '../lib/seo.js';
 
 export function workPage(ctx) {
@@ -36,7 +36,7 @@ export function workPage(ctx) {
               ${loopVideo(p, { mode: 'hover' })}
             </span>
             <span class="tile__info">
-              <span class="tile__title">${esc(p.title)}</span>
+              <span class="tile__title">${titleText(p.title)}</span>
               <span class="tile__kind">${esc(p.kind)}</span>
               <span class="tile__year">${p.year}${p.duration ? ` <span aria-hidden="true">/</span> ${clock(p.duration)}` : ''}</span>
             </span>
@@ -52,7 +52,7 @@ export function workPage(ctx) {
     id: 'work',
     nav: 'work',
     title: `Video Work: Brand Films, Commercials & Creative | ${site.seo.titleSuffix}`,
-    description: `Selected video work by ${site.name}, a ${site.location.city}, ${site.location.region} videographer and cinematographer: brand films, commercials, social content, weddings and events.`,
+    description: `Selected video work by ${site.name}, a ${site.location.city}, ${site.location.region} videographer and cinematographer: brand films, commercials, social media content and creative projects.`,
     jsonld: [breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Work', path: '/work/' }]), workListLd(ctx)],
     content,
   };

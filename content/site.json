@@ -10,12 +10,11 @@
     "regionName": "Minnesota",
     "country": "US",
     "latitude": 44.1636,
-    "longitude": -94.0,
-    "timezone": "America/Chicago"
+    "longitude": -94.0
   },
 
   "contact": {
-    "email": "aydenjenson23@gmail.com",
+    "email": "aydenjensonmedia@gmail.com",
     "phone": "",
     "responseTime": "I usually reply within a day or two."
   },
@@ -28,7 +27,7 @@
 
   "form": {
     "web3formsKey": "",
-    "projectTypes": ["Brand film", "Commercial / ad", "Social media content", "Event coverage", "Photography", "Something else"]
+    "projectTypes": ["Brand film", "Commercial", "Social media", "Photography", "Something else"]
   },
 
   "analytics": {
@@ -38,7 +37,7 @@
   "seo": {
     "titleSuffix": "Ayden Jenson",
     "homeTitle": "Ayden Jenson | Videographer & Cinematographer in Mankato, MN",
-    "description": "Ayden Jenson is a videographer and cinematographer in Mankato, MN, making brand films, commercials and social content for businesses across Southern Minnesota.",
+    "description": "Ayden Jenson is a videographer and cinematographer in Mankato, MN, making brand films, commercials and social media content for businesses in Minnesota and beyond.",
     "keywords": ["Mankato videographer", "Mankato cinematographer", "video production Mankato MN", "commercial videographer Minnesota", "brand films", "social media video"]
   },
 
@@ -52,11 +51,17 @@
       "super-bowl-lix",
       "bison-in-the-snow"
     ],
+    "nameLine": ["Cinematographer", "Mankato, MN"],
     "statement": "I'm Ayden, a videographer and cinematographer based in Mankato, Minnesota. I make brand films, commercials and social content for businesses that want to look as good as the work they do.",
+    "facts": [
+      { "label": "Based in", "value": "Mankato, Minnesota" },
+      { "label": "Making", "value": "Brand films, commercials, social media" },
+      { "label": "Open to", "value": "Travel, in Minnesota and beyond" }
+    ],
     "workHeading": "Selected work",
     "servicesHeading": "What I do",
     "photoHeading": "Stills",
-    "photoText": "Photography that sits next to the motion work: brand, people, events and whatever I find along the way.",
+    "photoText": "Photography that sits next to the motion work: people, events and branding.",
     "aboutHeading": "A camera has been by my side through it all.",
     "cta": "Let's make something."
   },
@@ -74,17 +79,15 @@
     ],
     "facts": [
       { "label": "Based in", "value": "Mankato, Minnesota" },
-      { "label": "Working", "value": "Southern Minnesota, the Twin Cities and on location wherever the project goes" },
-      { "label": "Cameras", "value": "Fujifilm X-series" },
-      { "label": "Edit & color", "value": "DaVinci Resolve" }
+      { "label": "Working", "value": "Minnesota and beyond. Open to travel." }
     ],
     "clientsHeading": "Worked with",
-    "clients": ["Seraphim Studios", "Reborn Legacy Tattoo", "Gigli", "Allstar Nutrition", "Bodyart", "Iron Alliance", "OxCB"]
+    "clients": ["Seraphim Studios", "Reborn Legacy Tattoo", "Gigli", "Allstar Nutrition", "Body Art Nutrition", "Iron Alliance", "Mobile Charm Bar", "OrinLaen"]
   },
 
   "services": {
     "heading": "Video production in Mankato, MN",
-    "lead": "Brand films, commercials and social content for businesses in Mankato and across Southern Minnesota, with photography to match.",
+    "lead": "Brand films, commercials and social media content for businesses in Mankato, MN and beyond, with photography to match.",
     "items": [
       {
         "slug": "brand-films",
@@ -95,29 +98,22 @@
       },
       {
         "slug": "commercials",
-        "title": "Commercials & Ads",
+        "title": "Commercials",
         "summary": "Short, sharp spots built for paid social, pre-roll and local TV.",
         "body": "Fifteen to sixty seconds with one clear idea. I handle concept, shooting, editing, color and sound, and deliver each spot in the sizes your ad platforms ask for.",
         "project": "scheels-turkey-hunting"
       },
       {
-        "slug": "social-content",
-        "title": "Social Media Content",
+        "slug": "social-media",
+        "title": "Social Media",
         "summary": "Reels, TikToks and shorts shot and cut for the vertical screen.",
         "body": "One shoot day can cover weeks of posts. I shoot with your content calendar in mind and deliver vertical edits that are ready to publish, so your feed stays consistent without you having to film it yourself.",
         "project": "reborn-legacy-tattoo"
       },
       {
-        "slug": "events",
-        "title": "Events & Recaps",
-        "summary": "Grand openings, tournaments, festivals and shows, turned around while people are still talking about them.",
-        "body": "I cover the event start to finish and cut a highlight film that shows what it felt like to be there, plus short clips for promoting the next one.",
-        "project": "western-fest-rodeo"
-      },
-      {
         "slug": "photography",
         "title": "Photography",
-        "summary": "Brand, portrait and event photography that matches the look of your video.",
+        "summary": "People, event and branding photography that matches the look of your video.",
         "body": "Stills and motion from the same shoot keep everything you publish looking like it belongs together. Photography can be booked on its own or added to any video project.",
         "project": "",
         "href": "/photography/"
@@ -132,8 +128,7 @@
       { "title": "Deliver", "text": "Final files sized for every place you plan to post them." }
     ],
     "areasHeading": "Where I work",
-    "areasText": "Based in Mankato and working throughout Southern Minnesota. Happy to travel for the right project.",
-    "areas": ["Mankato", "North Mankato", "St. Peter", "New Ulm", "Lake Crystal", "Waseca", "Owatonna", "Albert Lea", "Faribault", "Rochester", "Minneapolis", "St. Paul"],
+    "areasText": "Mankato, MN and beyond. Open to travel.",
     "faqHeading": "Common questions",
     "faq": [
       {
@@ -142,11 +137,7 @@
       },
       {
         "q": "Do you work outside of Mankato?",
-        "a": "Yes. Most of my work is in Mankato and Southern Minnesota, and I travel to the Twin Cities and out of state for the right project."
-      },
-      {
-        "q": "What do you shoot on?",
-        "a": "Fujifilm X-series cameras, with editing and color grading in DaVinci Resolve. I like a filmic look with natural color."
+        "a": "Yes. I'm based in Mankato, MN and open to travel for projects elsewhere."
       },
       {
         "q": "Can you make vertical videos for Instagram and TikTok?",
@@ -161,22 +152,22 @@
 
   "photography": {
     "heading": "Photography",
-    "lead": "A small set of favorites. Brand work, people, events and the outdoors.",
+    "lead": "A small set of favorites: people, events and branding.",
     "categories": [
-      { "folder": "brand", "label": "Brand" },
       { "folder": "people", "label": "People" },
       { "folder": "events", "label": "Events" },
-      { "folder": "explore", "label": "Explore" }
+      { "folder": "brand", "label": "Branding" },
+      { "folder": "explore", "label": "Explore", "tab": false }
     ]
   },
 
   "work": {
     "heading": "Work",
-    "lead": "Brand films, commercials, creative projects, weddings and events.",
+    "lead": "Brand films, commercials and creative projects.",
     "categories": [
       { "id": "brand", "label": "Brand & Commercial" },
       { "id": "creative", "label": "Creative & Film" },
-      { "id": "weddings-events", "label": "Weddings & Events" }
+      { "id": "weddings", "label": "Weddings", "inquiries": false }
     ]
   },
 

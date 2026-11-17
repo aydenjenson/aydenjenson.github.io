@@ -6,7 +6,7 @@
 //   click a title   the project opens full screen, sharpens and plays; the title becomes "See project"
 //   click the name  back to the reel
 import { esc, html, pad2, clock } from '../lib/html.js';
-import { chars, words, projectAttrs, posterImg, loopVideo, picture, sectionHead, cta } from './components.js';
+import { chars, words, spread, titleText, socialLinks, projectAttrs, posterImg, loopVideo, picture, sectionHead, cta } from './components.js';
 import { businessLd, personLd, websiteLd } from '../lib/seo.js';
 
 // The hero is a grid of 3 columns x 2 rows; each cell holds one title.
@@ -21,7 +21,6 @@ const stillSmall = (p) => p.loop?.stillSmall || p.poster.thumb || p.poster.src;
 
 export function homePage(ctx) {
   const { site } = ctx;
-  const loc = site.location;
   // The six titles over the reel: the list in site.json (home.heroProjects), or
   // the featured projects when that list is empty. Top row first, left to right.
   const chosen = (site.home.heroProjects || []).map((slug) => ctx.projects.find((p) => p.slug === slug)).filter(Boolean);
@@ -49,7 +48,7 @@ export function homePage(ctx) {
 
   <h1 class="hero__title">
     <button class="hero__name" type="button" data-hero-name aria-label="${esc(site.name)}. Show the reel">${chars(site.name)}</button>
-    <span class="hero__role">${esc(site.role)} <span class="hero__role-sep" aria-hidden="true">/</span> ${esc(loc.city)}, ${esc(loc.regionName)}</span>
+    <span class="hero__role">${spread(site.home.nameLine?.length ? site.home.nameLine : [site.role])}</span>
   </h1>
   <div class="hero__lens" data-hero-lens aria-hidden="true"></div>
 
@@ -68,18 +67,20 @@ export function homePage(ctx) {
     <a class="hero__reel-link hover-blur" href="${reel.url}">
       <span class="hero__reel-dot" aria-hidden="true"></span>${chars('Play reel')}${reel.duration ? `<span class="hero__reel-time">${clock(reel.duration)}</span>` : ''}
     </a>
-    <p class="hero__clock"><span data-clock data-tz="${esc(loc.timezone)}">--:--</span> ${esc(loc.city)}, ${esc(loc.region)}</p>
+    ${socialLinks(site, { cls: 'hero__social' })}
   </div>
 </section>`;
 
   const statement = html`
 <section class="statement" id="intro" data-statement aria-label="Introduction">
   <p class="statement__text" data-words>${words(site.home.statement)}</p>
-  <div class="statement__meta" data-reveal>
-    <div><p class="label">Based in</p><p>${esc(loc.city)}, ${esc(loc.regionName)}</p></div>
-    <div><p class="label">Making</p><p>Brand films, commercials, social content and photography</p></div>
-    <div><p class="label">More</p><p><a class="hover-blur" href="/about/">${chars('About Ayden')}</a><br><a class="hover-blur" href="/services/">${chars('Services')}</a></p></div>
-  </div>
+  <dl class="statement__facts" data-reveal>
+    ${(site.home.facts || []).map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`)}
+  </dl>
+  <p class="statement__links" data-reveal>
+    <a class="link-arrow hover-blur" href="/about/">${chars('About Ayden')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>
+    <a class="link-arrow hover-blur" href="/services/">${chars('Services')}<span class="link-arrow__icon" aria-hidden="true">&#8599;</span></a>
+  </p>
 </section>`;
 
   const selected = html`
@@ -96,7 +97,7 @@ export function homePage(ctx) {
         </div>
         <div class="card__meta">
           <span class="card__num" aria-hidden="true">${pad2(i + 1)}</span>
-          <h3 class="card__title">${esc(p.title)}</h3>
+          <h3 class="card__title">${titleText(p.title)}</h3>
           <p class="card__kind">${esc(p.kind)}<span aria-hidden="true"> / </span>${p.year}</p>
         </div>
       </a>
