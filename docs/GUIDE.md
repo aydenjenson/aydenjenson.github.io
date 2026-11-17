@@ -2,11 +2,18 @@
 
 Everything here is written for you, not for a developer. The steps are in the order to do them.
 
+## Where things stand (November 17, 2026)
+
+- **The new site is online at a test address: https://aydenjenson.github.io** Open it on your computer and your phone.
+- **aydenjenson.com still shows the old Adobe site.** Nothing changes for visitors until you do Step 4.
+- Google is told not to list the test address, so there is no rush.
+- **Everything I need from you is in one list: `docs/NEEDS-FROM-AYDEN.md`.** Start there.
+
 ## What you have
 
-- A complete site: Home, Work, a page for each of 27 projects, Photography, Services, About, Contact.
+- A complete site: Home, Work, a page for each of 27 projects, Photography, Services, About, Contact, and a short Privacy page linked in the footer.
 - 11 of your films play straight from the site with its own player. The other 16 play from YouTube when the visitor presses play.
-- 13 projects have a silent preview loop that plays on hover. The other 14 show a still until you add a loop (see "Adding motion").
+- 14 projects have a silent preview loop that plays on hover. The other 13 show a still until you add a loop (see "Adding motion").
 - 26 photos from your `PORTFOLIO\PHOTOS` folder on the Passport drive.
 - Search setup for "videographer / cinematographer in Mankato, MN": page titles, descriptions, a Services page, a sitemap and the structured data Google reads.
 - No monthly cost. Hosting is free on GitHub Pages. You keep paying only for the domain at Namecheap.
@@ -18,17 +25,23 @@ Everything here is written for you, not for a developer. The steps are in the or
 - **Click your name:** back to the reel.
 - **On a phone** there is no hover: tap a title to open it, tap **See project** to go to its page, tap your name to go back.
 - The titles land in slightly different spots each visit. That is on purpose.
+- Nothing follows the mouse around. The only thing that reacts to the pointer is a soft blur over your name.
+
+**Which projects show up where**
+
+- **The six titles over the reel** are a list you choose. Right now: SCHEELS, Reborn Legacy Tattoo, Seraphim Studios, Western Fest Rodeo, Super Bowl LIX, Bison in the Snow. To change it, tell Claude "put ____ on the home page instead of ____".
+- A title only plays footage when that project has a preview loop. Seraphim Studios and Super Bowl LIX don't have one yet, so they open as a still picture that drifts slowly (see "Adding motion").
+- **The "Selected work" cards** further down the home page are the projects marked as featured.
 
 ## Step 1. Look it over
 
-Ask Claude: **"Start the preview."** The site opens in the Browser pane. Click through every page and write down anything you want changed. Check the items under "Things I guessed" at the bottom of this guide.
+Open **https://aydenjenson.github.io** and click through every page, on a computer and on your phone. Write down anything you want changed, then go through `docs/NEEDS-FROM-AYDEN.md`.
 
-## Step 2. Put it online (about 10 minutes)
+To see changes before they go online, ask Claude: **"Start the preview."** The site opens in the Browser pane.
 
-1. Make a free account at **github.com**. Your username becomes part of a test address, so keep it simple (for example `aydenjenson`).
-2. Tell Claude: **"I made my GitHub account. Publish the site."**
-3. Claude will ask you to approve a sign-in in your browser once. After that it creates the storage space for the site (a "repository"), uploads everything and switches on publishing.
-4. About two minutes later the site is live at a test address: `https://aydenjenson.github.io`. Open it on your phone and on a computer.
+## Step 2. Put it online (done)
+
+This was done on November 17, 2026. Your GitHub account is `aydenjenson`, the site's files live at `github.com/aydenjenson/aydenjenson.github.io`, and every change Claude publishes shows up at `https://aydenjenson.github.io` about two minutes later.
 
 Your real domain still shows the old Adobe site at this point. Nothing has changed for visitors yet.
 
@@ -121,10 +134,12 @@ Cutting preview loops and making web-sized copies of films. These need the origi
 
 A preview loop is an 8 to 10 second silent clip. It is what plays when someone hovers a project, and behind your name on the home page.
 
-These 14 projects don't have one yet and show a still instead:
-Seraphim Studios, OxCB, Gigli Holidays, Iron Alliance, Super Bowl LIX, Fresh Air, New Ulm Roll In, both music videos and the five weddings.
+These 13 projects don't have one yet and show a still instead:
+Seraphim Studios, OxCB, Gigli Holidays, Iron Alliance, Super Bowl LIX, Fresh Air, New Ulm Roll In, both music videos, and four weddings (Kylie + Arnold, Justin + Veronica, Dylan + Riley, Skylar + Devin).
 
-Three of those (Seraphim Studios, Super Bowl LIX, Fresh Air) are featured on the home page, so do those first.
+Do Seraphim Studios and Super Bowl LIX first, because they are two of the six titles on the home page. Fresh Air is next: it is one of the "Selected work" cards.
+
+I searched this PC and the Passport drive for these and did not find them, so they are most likely in your Google Drive.
 
 How to get the files:
 
@@ -158,7 +173,8 @@ The reference sites use paid or private typefaces (Kai Blamey's is a commercial 
 - **Contact email** is `aydenjenson23@gmail.com`, taken from one of your YouTube descriptions. No phone number is shown.
 - **Project descriptions** are short and written from what I could see in the footage and your YouTube descriptions. Correct anything that is off.
 - **Four projects are new to the site**, found in your Downloads folder: Old Town Vintage sale promo, Wealth From Within, Chill Connect, and The Beauty of Color Grading. I named "Chill Connect" after the file name. Remove any you don't want public.
-- **Project categories and which six are featured** on the home page.
+- **Project categories**, **which six titles sit over the reel** on the home page, and **which six are the "Selected work" cards**.
+- **The Privacy page** (link at the bottom of every page). I wrote it from how the site actually works. Google asks for one on any site that uses Google Analytics.
 - **Services page**: the service descriptions, the five process steps, the common questions and the list of towns are my draft.
 - **"Worked with" list** on the About page: Seraphim Studios, Reborn Legacy Tattoo, Gigli, Allstar Nutrition, Bodyart, Iron Alliance, OxCB. Taken from your video titles.
 - **Bio**: your original text, with one sentence changed from "portrait sessions, weddings, short films, or social media content" to "a brand film, a commercial, a short film or content for social media" to match the work you want more of.

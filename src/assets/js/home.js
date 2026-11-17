@@ -1,7 +1,7 @@
 // Home page behaviour.
 //
-// 1. Hero. Every featured project has a full-screen layer parked off one side
-//    of the screen (the side its title sits on).
+// 1. Hero. Each of the six projects named over the reel has a full-screen layer
+//    parked off one side of the screen (the side its title sits on).
 //      hover a title    a blurred strip of that project slides in from its side
 //      leave the title  the strip slides back out
 //      click a title    the layer opens across the whole screen, sharpens and
@@ -36,6 +36,7 @@ function initHero() {
   const layers = new Map($$('[data-hero-layer]', hero).map((el) => [el.dataset.heroLayer, el]));
   const layerOf = (item) => layers.get(item.dataset.project);
   const seeLink = (item) => $('[data-hero-see]', item);
+  const titleButton = (item) => $('[data-hero-link]', item);
 
   const hoverable = matchMedia('(hover: hover) and (pointer: fine)').matches;
   // Same condition as the "Phones and touch screens" block in main.css.
@@ -149,7 +150,7 @@ function initHero() {
   };
   const unpeek = (item) => {
     const layer = layerOf(item);
-    if (!layer || locked) return;
+    if (!layer) return; // never skipped while "locked": a missed leave would strand the strip on screen
     layer.classList.remove('is-hovered');
     pauseTimer = setTimeout(() => {
       if (layer === activeLayer) return;
@@ -177,7 +178,14 @@ function initHero() {
 
   /* ---- click: open a project, or go back to the reel ---- */
 
-  function open(item) {
+  /** Put a title back to normal after its project closes. */
+  function release(item) {
+    item.classList.remove('is-active');
+    titleButton(item).removeAttribute('tabindex');
+    seeLink(item).tabIndex = -1;
+  }
+
+  function open(item, viaKeyboard = false) {
     const layer = layerOf(item);
     if (!layer) return;
     locked = true;
@@ -191,15 +199,15 @@ function initHero() {
     item.classList.add('is-active');
     layer.classList.add('is-active');
     nameButton.classList.add('is-active');
+    // The title is swapped for "See project", so the keyboard follows what is visible.
+    titleButton(item).tabIndex = -1;
     seeLink(item).tabIndex = 0;
     // Two frames later, so the new layer has started opening before the old one lets go.
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      if (previousItem && previousItem !== item) {
-        previousItem.classList.remove('is-active');
-        seeLink(previousItem).tabIndex = -1;
-      }
-      if (previousLayer && previousLayer !== layer) previousLayer.classList.remove('is-active');
+      if (previousItem && previousItem !== item) release(previousItem);
+      if (previousLayer && previousLayer !== layer) previousLayer.classList.remove('is-active', 'is-hovered');
       locked = false;
+      if (viaKeyboard) seeLink(item).focus({ preventScroll: true });
     }));
     setTimeout(() => play(layer), T * 0.5);
   }
@@ -211,8 +219,9 @@ function initHero() {
     if (!reduced && reel.animate) {
       reel.animate([{ filter: 'blur(30px)' }, { filter: 'blur(0px)' }], { duration: T, delay: T * 0.25, easing: 'ease-out', fill: 'backwards' });
     }
-    items.forEach((item) => { item.classList.remove('is-active'); seeLink(item).tabIndex = -1; });
-    layers.forEach((layer) => layer.classList.remove('is-active'));
+    items.forEach(release);
+    // The pointer (or the keyboard) is on the name now, so no title is hovered: clear any strip too.
+    layers.forEach((layer) => layer.classList.remove('is-active', 'is-hovered'));
     nameButton.classList.remove('is-active');
     activeItem = null;
     activeLayer = reel;
@@ -229,7 +238,8 @@ function initHero() {
       item.style.pointerEvents = 'none';
       setTimeout(() => { item.style.pointerEvents = ''; }, T);
     });
-    if (link) open(link.closest('[data-hero-item]'));
+    // event.detail is 0 when the "click" came from Enter or Space rather than a pointer.
+    if (link) open(link.closest('[data-hero-item]'), event.detail === 0);
     else backToReel();
   });
 

@@ -25,8 +25,9 @@ export function homePage(ctx) {
   // The six titles over the reel: the list in site.json (home.heroProjects), or
   // the featured projects when that list is empty. Top row first, left to right.
   const chosen = (site.home.heroProjects || []).map((slug) => ctx.projects.find((p) => p.slug === slug)).filter(Boolean);
-  const featured = (chosen.length ? chosen : ctx.featured).slice(0, HERO_TITLES);
-  const reel = ctx.projects.find((p) => p.slug === site.home.reelProject) || featured[0];
+  const heroProjects = (chosen.length ? chosen : ctx.featured).slice(0, HERO_TITLES);
+  const reel = ctx.projects.find((p) => p.slug === site.home.reelProject) || heroProjects[0];
+  // The "Selected work" cards further down are the projects marked "featured": true.
   const cards = ctx.featured.slice(0, CARD_LAYOUT.length);
   const stills = pickStills(ctx.photos, 10);
   const portrait = ctx.media.about.portrait;
@@ -37,7 +38,7 @@ export function homePage(ctx) {
     <div class="hero__reel" data-hero-reel data-loop="${esc(reel.loop?.sd || '')}" data-loop-hd="${esc(reel.loop?.hd || '')}">
       <img class="hero__img" src="${esc(still(reel))}" alt="" fetchpriority="high" decoding="async">
     </div>
-    ${featured.map((p) => html`
+    ${heroProjects.map((p) => html`
     <div class="hero__layer" data-hero-layer="${esc(p.slug)}" data-loop="${esc(p.loop?.sd || '')}" data-loop-hd="${esc(p.loop?.hd || '')}" data-still="${esc(still(p))}">
       <img class="hero__img" data-src="${esc(stillSmall(p))}" alt="" decoding="async">
     </div>`)}
@@ -53,7 +54,7 @@ export function homePage(ctx) {
   <div class="hero__lens" data-hero-lens aria-hidden="true"></div>
 
   <div class="hero__grid" data-hero-grid>
-    ${featured.map((p, i) => html`
+    ${heroProjects.map((p, i) => html`
     <div class="hero__cell">
       <div class="hero__item" data-hero-item data-project="${esc(p.slug)}" style="--n:${i}">
         <button class="hero__link hover-blur" type="button" data-hero-link>${chars(p.title)}</button>

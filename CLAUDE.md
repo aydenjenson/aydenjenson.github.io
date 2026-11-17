@@ -28,7 +28,10 @@ tools/*-sources.json     record of which original file each web file was cut fro
 build.js / dev.js        build script / local preview server with auto-rebuild
 .github/workflows/deploy.yml   publishes dist/ to GitHub Pages on every push to main
 .pages.yml               form editor config for Pages CMS (app.pagescms.org)
+docs/                    GUIDE.md (Ayden's launch and update guide) and NEEDS-FROM-AYDEN.md (open questions and things only he can supply; local only, gitignored like the sources files because it names unpublished client work; remove items as he answers them)
 ```
+
+Published from `github.com/aydenjenson/aydenjenson.github.io` (public). Until the domain is switched, the live copy is the test address `https://aydenjenson.github.io`, which a small script in `layout.js` marks noindex. `aydenjenson.com` still points at the old Adobe Portfolio site; the DNS steps are in `docs/GUIDE.md` Step 4 and only Ayden can do them (Namecheap).
 
 Media is matched to projects **by file name**: a project with slug `seraphim-studios` automatically uses `media/loops/seraphim-studios.mp4`, `media/films/seraphim-studios.mp4` and `media/posters/seraphim-studios.jpg` if they exist. Nothing else needs to be edited.
 
@@ -67,7 +70,9 @@ On this Windows PC, Node, Git, GitHub CLI and FFmpeg were installed with winget.
 **Host the full film on the site** (seamless player instead of the YouTube button):
 `node tools/media.js film "<file>" <slug>`. Keep each film under about 30 MB (`--max-mb`). Good for pieces under two minutes. Leave long films on YouTube.
 
-**Feature a project on the home page.** Set `"featured": true`. The first 6 featured projects are the scattered hero titles and the "Selected work" cards. Featured projects should have a loop, ideally `--hd`; without one the hero shows that project's poster as a still. `tools/media.js loop` also writes `media/loops/<slug>.jpg` and `<slug>-sm.jpg` (the loop's first frame), which the hero shows before the video plays.
+**Change the six titles over the home reel.** Edit `site.json` → `home.heroProjects`: a list of project slugs, top row first, left to right. If the list is empty the first six featured projects are used. Each one should have a loop, ideally `--hd`; without one the title opens that project's still with a slow drift, and the build prints a note. `tools/media.js loop` also writes `media/loops/<slug>.jpg` and `<slug>-sm.jpg` (the loop's first frame), which the hero shows before the video plays. Only landscape footage works here: the layer fills the screen, so a vertical clip would be cropped to a thin band.
+
+**Feature a project in "Selected work".** Set `"featured": true`. The first six featured projects are the cards further down the home page.
 
 **Change the home hero background.** It is the loop of the project named in `site.json` → `home.reelProject` (`showreel`). Replace `media/loops/showreel-hd.mp4` and `media/loops/showreel.mp4`. The current one is a stand-in montage cut from other projects; Ayden's real reel is on YouTube only.
 
@@ -75,7 +80,7 @@ On this Windows PC, Node, Git, GitHub CLI and FFmpeg were installed with winget.
 `node tools/media.js photo "<file or folder>" <category> --name 27-short-name`.
 The number at the start of the name sets the order across all categories. To remove a photo, delete its `-900`, `-1700` and `-2500` files. Add alt text in `content/photos.json`. Category folders and labels are listed in `site.json` → `photography.categories`. Ayden wants this section small: only his best work.
 
-**Change text, contact details, services, FAQ, service areas.** All in `content/site.json`.
+**Change text, contact details, services, FAQ, service areas.** All in `content/site.json`. The one exception is the Privacy page: its wording lives in `src/pages/privacy.js` because it follows the settings (the analytics section appears only while `analytics.ga4` is set, and the contact form paragraph depends on `form.web3formsKey`). If a new outside service is added to the site, add it there too.
 
 **Remove a project.** Delete it from `projects.json` (or set `"hidden": true`) and delete its files in `media/`.
 
@@ -100,7 +105,9 @@ The number at the start of the name sets the order across all categories. To rem
 
 ## Not done yet / worth offering
 
-- 14 projects have no preview loop (the build lists them). They need Ayden's original exports, or 720p downloads of his own uploads from YouTube Studio.
+- `docs/NEEDS-FROM-AYDEN.md` is the full list of open questions and things only Ayden can supply. Read it before offering work, and update it when he answers something.
+- 13 projects have no preview loop (the build lists them). They need Ayden's original exports, or 720p downloads of his own uploads from YouTube Studio. This PC and the Passport drive (E:) were searched on 2026-11-17 and do not have them; he believes they are in his Google Drive. Two of the six home titles (Seraphim Studios, Super Bowl LIX) are among them.
+- The domain still points at Adobe Portfolio (see the note under "How it works").
 - Contact form: needs a free Web3Forms key in `site.json` → `form.web3formsKey`. Until then it opens the visitor's email app.
 - The About portrait is the 1200px copy from the old site. A higher-resolution original would be better.
 - `content/site.json` service descriptions, FAQ answers, process steps and the client list were drafted for Ayden and need his review.

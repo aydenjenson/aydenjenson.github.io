@@ -1,4 +1,4 @@
-# Build output (Cloudflare builds this itself from the source)
+# Build output (GitHub Actions builds this itself from the source)
 dist/
 
 # Node
@@ -19,6 +19,10 @@ _originals/
 # local folder paths, so they stay on this PC and are not published.
 tools/media-sources.json
 tools/photo-sources.json
+
+# The list of open questions for Ayden. It names unpublished client work and
+# files on his drives, so it stays on this PC too.
+docs/NEEDS-FROM-AYDEN.md
 
 # OS / editor noise
 .DS_Store

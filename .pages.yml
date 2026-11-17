@@ -81,7 +81,7 @@ content:
             label: Shape, only for YouTube videos that are not widescreen (4:3 or 9:16)
             type: string
           - name: featured
-            label: Feature on the home page
+            label: Show in "Selected work" on the home page (first six)
             type: boolean
             default: false
           - name: hidden
@@ -144,6 +144,10 @@ content:
         label: Home page
         type: object
         fields:
+          - name: heroProjects
+            label: The six titles over the reel (each project's web address name, top row first)
+            type: string
+            list: true
           - name: statement
             label: Intro statement
             type: text

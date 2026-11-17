@@ -373,8 +373,11 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
   scale: 1 !important;
   filter: blur(0px) !important;
 }
-/* A project with no footage yet shows its still; a slow drift keeps it alive. */
-.hero__layer.is-active:not(.has-video) .hero__img { animation: hero-still 22s ease-in-out infinite alternate; }
+/* A project with no footage yet shows its still; a slow drift keeps it alive.
+   The drift is paused (not removed) when the layer closes, so the picture
+   holds its size while it slides away instead of snapping back. */
+.hero__layer:not(.has-video) .hero__img { animation: hero-still 22s ease-in-out infinite alternate paused; }
+.hero__layer.is-active:not(.has-video) .hero__img { animation-play-state: running; }
 @keyframes hero-still { from { scale: 1; } to { scale: 1.09; } }
 .hero__dim { z-index: 20; background: rgba(0, 0, 0, 0.25); pointer-events: none; }
 
