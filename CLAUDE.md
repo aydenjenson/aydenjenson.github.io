@@ -36,10 +36,11 @@ Media is matched to projects **by file name**: a project with slug `seraphim-stu
 
 Dark, cinematic, type-led. Large Instrument Serif headings, small uppercase Inter Tight labels, one warm accent (`--accent`), film grain over everything. Ayden's reference for the interaction is xanvierallison.com (his favorite, by far), then kaiblamey.com and danikbartolini.com. The signature pieces are:
 
-- Home hero: his name over full-screen footage, project titles scattered around it; hovering a title wipes the footage over to that project (`src/assets/js/home.js`).
+- Home hero: his name over the full-screen reel, six project titles dropped at random spots in a 3 x 2 grid. It copies the mechanics of xanvierallison.com's home page on purpose (Ayden asked for "the exact same effect"), so keep these numbers unless he asks otherwise: hovering a title slides a **20%-wide, 20px-blurred, 105%-scaled strip** of that project in from the side of the screen the title is on; clicking opens it full screen, sharp, playing, and swaps the title for "See project"; clicking the name returns to the reel (which comes back from a 30px blur). Everything moves over **0.7s with cubic-bezier(.8, 0, .2, 1)**. A 600px soft blur spot trails the pointer over the name, and 75px blurred, darkened bands sit at the top and bottom. Classes and timing live in `main.css` section 6; `src/assets/js/home.js` only toggles `is-left / is-right / is-hovered / is-active`.
+- **No label or image that follows the pointer, anywhere.** Ayden said he does not want a pop-up near the cursor. Hover feedback stays inside the element (corner brackets on cards, the picture that opens inside a services row).
 - Work "wall": three endless columns drifting in opposite directions (`work.js`), with an Index list as the alternative and the phone layout.
 - Project page: full-screen player with text controls that fade while the film plays (`film.js`).
-- Letters that blur out and back in on hover (`.hover-blur` + `chars()`), reveals on scroll (`data-reveal`), and gentle parallax (`data-parallax`).
+- A soft blur that runs through the letters of a link on hover (`.hover-blur` + `chars()`: 3px, 0.6s, 40ms per letter), reveals on scroll (`data-reveal`), and gentle parallax (`data-parallax`).
 
 New sections should reuse those pieces rather than add new effects.
 
@@ -49,7 +50,7 @@ New sections should reuse those pieces rather than add new effects.
 node build.js           build into dist/ and print notes (missing loops, missing form key, ...)
 node build.js --check   validate content only
 node tools/check.js     after a build: every internal link resolves, SEO tags present, structured data valid
-node dev.js             preview at http://localhost:4321 with auto-rebuild (.claude/launch.json runs this as "site")
+node dev.js             preview at http://localhost:4321 with auto-rebuild (.claude/launch.json runs this as "site"; it uses the full path to dev.js because the app may start it from another folder)
 node tools/media.js     list the media commands
 ```
 
@@ -66,7 +67,7 @@ On this Windows PC, Node, Git, GitHub CLI and FFmpeg were installed with winget.
 **Host the full film on the site** (seamless player instead of the YouTube button):
 `node tools/media.js film "<file>" <slug>`. Keep each film under about 30 MB (`--max-mb`). Good for pieces under two minutes. Leave long films on YouTube.
 
-**Feature a project on the home page.** Set `"featured": true`. The first 8 featured projects appear as the scattered hero titles and the first 6 as "Selected work" cards. Featured projects should have a loop, ideally `--hd`.
+**Feature a project on the home page.** Set `"featured": true`. The first 6 featured projects are the scattered hero titles and the "Selected work" cards. Featured projects should have a loop, ideally `--hd`; without one the hero shows that project's poster as a still. `tools/media.js loop` also writes `media/loops/<slug>.jpg` and `<slug>-sm.jpg` (the loop's first frame), which the hero shows before the video plays.
 
 **Change the home hero background.** It is the loop of the project named in `site.json` → `home.reelProject` (`showreel`). Replace `media/loops/showreel-hd.mp4` and `media/loops/showreel.mp4`. The current one is a stand-in montage cut from other projects; Ayden's real reel is on YouTube only.
 

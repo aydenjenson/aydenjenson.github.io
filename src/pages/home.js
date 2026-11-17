@@ -1,66 +1,67 @@
-// Home page: full-screen video hero with scattered project titles, then the
+// Home page: full-screen reel with project titles scattered over it, then the
 // scrolling sections (statement, selected work, services, stills, about).
+//
+// How the hero behaves (see src/assets/js/home.js):
+//   hover a title   a blurred strip of that project slides in from the side the title is on
+//   click a title   the project opens full screen, sharpens and plays; the title becomes "See project"
+//   click the name  back to the reel
 import { esc, html, pad2, clock } from '../lib/html.js';
 import { chars, words, projectAttrs, posterImg, loopVideo, picture, sectionHead, cta } from './components.js';
 import { businessLd, personLd, websiteLd } from '../lib/seo.js';
 
-// Where the featured titles sit on the hero, in % of the screen (centre point),
-// plus a depth used for the mouse parallax. Add more spots to feature more.
-const SPOTS = [
-  { x: 18, y: 25, depth: 0.6 },
-  { x: 57, y: 18, depth: 0.95 },
-  { x: 80, y: 36, depth: 0.5 },
-  { x: 27, y: 70, depth: 0.85 },
-  { x: 64, y: 78, depth: 0.55 },
-  { x: 83, y: 64, depth: 1 },
-  { x: 14, y: 50, depth: 0.7 },
-  { x: 43, y: 87, depth: 0.65 },
-];
+// The hero is a grid of 3 columns x 2 rows; each cell holds one title.
+const HERO_TITLES = 6;
 
 // Column placement of the "selected work" cards (a loose, staggered grid).
 const CARD_LAYOUT = ['a', 'b', 'c', 'd', 'e', 'f'];
 
+/** Image shown for a project before its loop plays: the loop's first frame, else its poster. */
+const still = (p) => p.loop?.still || p.poster.src;
+const stillSmall = (p) => p.loop?.stillSmall || p.poster.thumb || p.poster.src;
+
 export function homePage(ctx) {
   const { site } = ctx;
   const loc = site.location;
-  const featured = ctx.featured.slice(0, SPOTS.length);
+  const featured = ctx.featured.slice(0, HERO_TITLES);
   const reel = ctx.projects.find((p) => p.slug === site.home.reelProject) || featured[0];
-  const cards = featured.slice(0, CARD_LAYOUT.length);
+  const cards = ctx.featured.slice(0, CARD_LAYOUT.length);
   const stills = pickStills(ctx.photos, 10);
   const portrait = ctx.media.about.portrait;
 
   const hero = html`
 <section class="hero" data-hero aria-label="Featured work">
   <div class="hero__media" aria-hidden="true">
-    <div class="hero__stack" data-hero-stack>
-      <div class="hero__layer is-base" data-hero-base ${projectAttrs(reel)}>
-        ${posterImg(reel, { lazy: false, cls: 'hero__img' })}
-      </div>
+    <div class="hero__reel" data-hero-reel data-loop="${esc(reel.loop?.sd || '')}" data-loop-hd="${esc(reel.loop?.hd || '')}">
+      <img class="hero__img" src="${esc(still(reel))}" alt="" fetchpriority="high" decoding="async">
     </div>
-    <div class="hero__shade"></div>
+    ${featured.map((p) => html`
+    <div class="hero__layer" data-hero-layer="${esc(p.slug)}" data-loop="${esc(p.loop?.sd || '')}" data-loop-hd="${esc(p.loop?.hd || '')}" data-still="${esc(still(p))}">
+      <img class="hero__img" data-src="${esc(stillSmall(p))}" alt="" decoding="async">
+    </div>`)}
+    <div class="hero__dim"></div>
   </div>
+  <div class="hero__bar hero__bar--top" aria-hidden="true"></div>
+  <div class="hero__bar hero__bar--bottom" aria-hidden="true"></div>
 
   <h1 class="hero__title">
-    <span class="hero__name" data-hero-name>${chars(site.name)}</span>
+    <button class="hero__name" type="button" data-hero-name aria-label="${esc(site.name)}. Show the reel">${chars(site.name)}</button>
     <span class="hero__role">${esc(site.role)} <span class="hero__role-sep" aria-hidden="true">/</span> ${esc(loc.city)}, ${esc(loc.regionName)}</span>
   </h1>
+  <div class="hero__lens" data-hero-lens aria-hidden="true"></div>
 
-  <ul class="hero__list" data-hero-list aria-label="Featured projects">
+  <div class="hero__grid" data-hero-grid>
     ${featured.map((p, i) => html`
-    <li class="hero__item" style="--x:${SPOTS[i].x};--y:${SPOTS[i].y};--depth:${SPOTS[i].depth};--n:${i}">
-      <a class="hero__link hover-blur" href="${p.url}" data-hero-link data-cursor="View" ${projectAttrs(p)}>
-        <span class="hero__num" aria-hidden="true">${pad2(i + 1)}</span>
-        <span class="hero__label">${chars(p.title)}</span>
-      </a>
-    </li>`)}
-  </ul>
+    <div class="hero__cell">
+      <div class="hero__item" data-hero-item data-project="${esc(p.slug)}" style="--n:${i}">
+        <button class="hero__link hover-blur" type="button" data-hero-link>${chars(p.title)}</button>
+        <a class="hero__see hover-blur" href="${p.url}" data-hero-see tabindex="-1" aria-label="See project: ${esc(p.title)}"><span aria-hidden="true">${chars('See project')}</span></a>
+      </div>
+    </div>`)}
+  </div>
 
   <div class="hero__foot">
-    <p class="hero__now" data-hero-now>
-      <span class="hero__now-kind" data-hero-now-kind>${esc(reel.kind)}</span>
-      <span class="hero__now-title" data-hero-now-title>${esc(reel.title)}</span>
-    </p>
-    <a class="hero__reel hover-blur" href="${reel.url}" data-cursor="Play">
+    <a class="hero__scroll hover-blur" href="#intro">${chars('Scroll')}</a>
+    <a class="hero__reel-link hover-blur" href="${reel.url}">
       <span class="hero__reel-dot" aria-hidden="true"></span>${chars('Play reel')}${reel.duration ? `<span class="hero__reel-time">${clock(reel.duration)}</span>` : ''}
     </a>
     <p class="hero__clock"><span data-clock data-tz="${esc(loc.timezone)}">--:--</span> ${esc(loc.city)}, ${esc(loc.region)}</p>
@@ -83,7 +84,7 @@ export function homePage(ctx) {
   <div class="selected__grid">
     ${cards.map((p, i) => html`
     <article class="card card--${CARD_LAYOUT[i]}" data-parallax="${[0.05, -0.04, 0.03, -0.05, 0.04, -0.03][i]}">
-      <a class="card__link" href="${p.url}" data-cursor="Play" ${projectAttrs(p)}>
+      <a class="card__link" href="${p.url}" ${projectAttrs(p)}>
         <div class="card__media" data-reveal="clip">
           ${posterImg(p, { cls: 'card__img' })}
           ${loopVideo(p, { mode: 'view' })}
@@ -102,22 +103,23 @@ export function homePage(ctx) {
   const services = html`
 <section class="svc-teaser" aria-labelledby="svc-title">
   ${sectionHead({ num: 2, title: site.home.servicesHeading, id: 'svc-title', link: { href: '/services/', label: 'Services' } })}
-  <ul class="svc-list" data-svc-list>
+  <ul class="svc-list">
     ${site.services.items.map((s, i) => {
+      // A small picture opens up inside the row on hover (it does not follow the pointer).
       const project = ctx.projects.find((p) => p.slug === s.project);
-      const preview = project ? project.poster.src : (stills[0]?.src || '');
+      const thumb = project ? (project.poster.thumb || project.poster.src) : (stills[0]?.sources[0]?.src || '');
       return html`
     <li class="svc" data-reveal style="--d:${i * 60}ms">
-      <a class="svc__link" href="${s.href || `/services/#${s.slug}`}"${preview ? ` data-preview="${esc(preview)}"` : ''}>
+      <a class="svc__link" href="${s.href || `/services/#${s.slug}`}">
         <span class="svc__num" aria-hidden="true">${pad2(i + 1)}</span>
         <span class="svc__title">${esc(s.title)}</span>
         <span class="svc__summary">${esc(s.summary)}</span>
+        <span class="svc__thumb" aria-hidden="true">${thumb ? `<img src="${esc(thumb)}" alt="" loading="lazy" decoding="async">` : ''}</span>
         <span class="svc__arrow" aria-hidden="true">&#8599;</span>
       </a>
     </li>`;
     })}
   </ul>
-  <div class="svc-preview" data-svc-preview aria-hidden="true"><img alt="" decoding="async"></div>
 </section>`;
 
   const stillsSection = stills.length ? html`
@@ -154,7 +156,7 @@ export function homePage(ctx) {
     nav: 'home',
     title: site.seo.homeTitle,
     description: site.seo.description,
-    preload: [{ href: reel.poster.src, as: 'image', fetchpriority: 'high' }],
+    preload: [{ href: still(reel), as: 'image', fetchpriority: 'high' }],
     jsonld: [websiteLd(ctx), businessLd(ctx), personLd(ctx)],
     content: [hero, statement, selected, services, stillsSection, about, cta(ctx)].join('\n'),
   };

@@ -29,7 +29,7 @@ export function workPage(ctx) {
       <ol class="wall__track" data-wall-track>
         ${g.projects.map((p, i) => html`
         <li class="tile tile--${p.orientation}">
-          <a class="tile__link" href="${p.url}" data-cursor="Play" ${projectAttrs(p)}>
+          <a class="tile__link" href="${p.url}" ${projectAttrs(p)}>
             <span class="tile__num" aria-hidden="true">${pad2(i + 1)}</span>
             <span class="tile__media" style="--ar:${p.tileRatio}">
               ${posterImg(p, { cls: 'tile__img', small: true })}

@@ -23,7 +23,7 @@ export function photographyPage(ctx) {
   ${photos.length ? html`
   <div class="photos__grid" data-photos-grid>
     ${photos.map((img, i) => html`
-    <a class="photo" href="${esc(img.full.src)}" data-photo data-category="${esc(img.category)}" data-label="${esc(img.categoryLabel)}" data-w="${img.full.width}" data-h="${img.full.height}" style="--ar:${(img.width / img.height).toFixed(4)}" data-cursor="Open" aria-label="Open photo ${i + 1}: ${esc(img.alt)}">
+    <a class="photo" href="${esc(img.full.src)}" data-photo data-category="${esc(img.category)}" data-label="${esc(img.categoryLabel)}" data-w="${img.full.width}" data-h="${img.full.height}" style="--ar:${(img.width / img.height).toFixed(4)}" aria-label="Open photo ${i + 1}: ${esc(img.alt)}">
       ${picture(img, { alt: img.alt, sizes: '(min-width: 1100px) 32vw, (min-width: 640px) 48vw, 96vw', lazy: i > 2 })}
       <span class="photo__meta" aria-hidden="true"><span>${pad2(i + 1)}</span><span>${esc(img.categoryLabel)}</span></span>
     </a>`)}

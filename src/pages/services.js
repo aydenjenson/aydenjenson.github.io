@@ -32,7 +32,7 @@ export function servicesPage(ctx) {
         </p>
       </div>
       ${project ? html`
-      <a class="service__example" href="${project.url}" data-cursor="Play" ${projectAttrs(project)}>
+      <a class="service__example" href="${project.url}" ${projectAttrs(project)}>
         <span class="service__media" data-reveal="clip">
           ${posterImg(project, { cls: 'service__img' })}
           ${loopVideo(project, { mode: 'view' })}

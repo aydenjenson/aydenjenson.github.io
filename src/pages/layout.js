@@ -123,7 +123,7 @@ ${page.content}
 ${page.footer === false ? '' : footer(ctx)}
 
 <div class="curtain" aria-hidden="true"></div>
-<div class="cursor" aria-hidden="true" data-cursor-el><span></span></div>
+${page.id === 'home' ? '<div class="intro-line" aria-hidden="true"></div>' : ''}
 
 <script type="module" src="${ctx.asset('/assets/js/main.js')}"></script>
 ${site.analytics?.ga4 ? analytics(site.analytics.ga4) : ''}

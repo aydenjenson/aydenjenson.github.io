@@ -21,6 +21,7 @@
 //   node tools/media.js og <image-or-video> [--at 4]   -> public/og.jpg (link preview image)
 //   node tools/media.js youtube-posters        Download YouTube thumbnails for projects with no poster
 //   node tools/media.js thumbs                 Rebuild the small poster copies in media/posters/thumbs/
+//   node tools/media.js loop-stills            Rebuild the first-frame images next to each loop
 //   node tools/media.js batch <file.json>      Run many of the above from a list (see tools/media-sources.json)
 //
 // Originals are never modified. Run `node build.js` afterwards to see the result.
@@ -170,7 +171,28 @@ function makeLoop(input, slug, { start, dur, hd = false, at, crop } = {}) {
 
   encode(1280, 27, 1800, `${slug}.mp4`);
   if (hd) encode(1920, 24, 4500, `${slug}-hd.mp4`);
+  makeLoopStills(slug);
   makePoster(input, slug, { at: at !== undefined ? at : from + Math.min(1.5, length / 2), force: at !== undefined, crop });
+}
+
+/**
+ * First frame of a loop as an image: media/loops/<slug>.jpg plus a tiny
+ * <slug>-sm.jpg. The home page shows these (blurred) before the loop plays,
+ * so the picture never jumps when the video starts.
+ */
+function makeLoopStills(slug) {
+  const dir = path.join(MEDIA, 'loops');
+  const source = [`${slug}-hd.mp4`, `${slug}.mp4`].map((f) => path.join(dir, f)).find((f) => fs.existsSync(f));
+  if (!source) return;
+  run('ffmpeg', ['-v', 'error', '-y', '-i', source, '-frames:v', '1', '-update', '1', '-vf', 'format=yuvj420p', '-q:v', '3', path.join(dir, `${slug}.jpg`)]);
+  run('ffmpeg', ['-v', 'error', '-y', '-i', source, '-frames:v', '1', '-update', '1', '-vf', `${scaleFilter(480)},format=yuvj420p`, '-q:v', '6', path.join(dir, `${slug}-sm.jpg`)]);
+  console.log(`  still   media/loops/${slug}.jpg and ${slug}-sm.jpg`);
+}
+
+function makeAllLoopStills() {
+  const dir = path.join(MEDIA, 'loops');
+  const slugs = [...new Set(fs.readdirSync(dir).filter((f) => f.endsWith('.mp4')).map((f) => f.replace(/(-hd)?\.mp4$/, '')))];
+  slugs.forEach(makeLoopStills);
 }
 
 function makeFilm(input, slug, { maxMb = 30 } = {}) {
@@ -294,6 +316,7 @@ async function dispatch(cmd, positional, flags) {
     case 'og': return makeOg(needFile(a), flags);
     case 'youtube-posters': await youtubePosters(); return makeAllThumbs();
     case 'thumbs': return makeAllThumbs();
+    case 'loop-stills': return makeAllLoopStills();
     case 'batch': return batch(a);
     default:
       console.log(fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n').slice(1, 27).map((l) => l.replace(/^\/\/ ?/, '')).join('\n'));

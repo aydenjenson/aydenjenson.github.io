@@ -34,6 +34,14 @@ export function scanMedia(root) {
     loops[slug] = loops[slug] || {};
     loops[slug][hd ? 'hd' : 'sd'] = url('loops', f.name);
   }
+  // First-frame images that sit next to each loop: <slug>.jpg and <slug>-sm.jpg
+  for (const f of list(path.join(mediaDir, 'loops'))) {
+    if (!f.isFile() || !/\.jpe?g$/i.test(f.name)) continue;
+    const base = f.name.replace(/\.jpe?g$/i, '');
+    const small = base.endsWith('-sm');
+    const slug = small ? base.slice(0, -3) : base;
+    if (loops[slug]) loops[slug][small ? 'stillSmall' : 'still'] = url('loops', f.name);
+  }
 
   // ---- self-hosted films ---------------------------------------------------
   const films = {};

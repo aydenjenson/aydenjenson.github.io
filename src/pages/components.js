@@ -86,7 +86,7 @@ export function cta(ctx, { eyebrow = 'Have a project in mind?', label } = {}) {
   const text = label || ctx.site.home.cta;
   return html`
     <section class="cta" aria-label="Start a project">
-      <a class="cta__link" href="/contact/" data-cursor="Say hello">
+      <a class="cta__link" href="/contact/">
         <span class="cta__eyebrow">${esc(eyebrow)}</span>
         <span class="cta__big" data-reveal="rise">${esc(text)}</span>
         <span class="cta__go hover-blur">${chars('Start a project')}<span aria-hidden="true"> &#8599;</span></span>

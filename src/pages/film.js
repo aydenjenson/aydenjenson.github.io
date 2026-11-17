@@ -25,7 +25,7 @@ export function filmPage(ctx, p) {
     : html`
       ${posterImg(p, { lazy: false, cls: 'film__poster' })}
       <div class="film__embed" data-film-embed data-yt="${esc(p.ytId)}" data-title="${esc(p.title)}"></div>
-      <button class="film__play" type="button" data-film-play data-cursor="Play" aria-label="Play ${esc(p.title)}">
+      <button class="film__play" type="button" data-film-play aria-label="Play ${esc(p.title)}">
         <span class="film__play-icon" aria-hidden="true"></span>
         <span class="film__play-label">Play film${p.duration ? ` <span>${clock(p.duration)}</span>` : ''}</span>
       </button>
@@ -100,7 +100,7 @@ export function filmPage(ctx, p) {
     </dl>
   </section>
 
-  <a class="next next--${next.orientation}" href="${next.url}" data-cursor="Next" ${projectAttrs(next)}>
+  <a class="next next--${next.orientation}" href="${next.url}" ${projectAttrs(next)}>
     <span class="next__media" aria-hidden="true">
       ${posterImg(next, { cls: 'next__img' })}
       ${loopVideo(next, { mode: 'view' })}

@@ -48,7 +48,7 @@ export function contactPage(ctx) {
         <textarea id="f-message" name="message" rows="5" required></textarea>
       </div>
       <div class="form__foot" data-reveal>
-        <button class="button" type="submit" data-cursor="Send"><span>Send message</span><span aria-hidden="true">&#8599;</span></button>
+        <button class="button" type="submit"><span>Send message</span><span aria-hidden="true">&#8599;</span></button>
         <p class="form__status" data-form-status role="status" aria-live="polite"></p>
       </div>
     </form>

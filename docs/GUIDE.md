@@ -11,6 +11,14 @@ Everything here is written for you, not for a developer. The steps are in the or
 - Search setup for "videographer / cinematographer in Mankato, MN": page titles, descriptions, a Services page, a sitemap and the structured data Google reads.
 - No monthly cost. Hosting is free on GitHub Pages. You keep paying only for the domain at Namecheap.
 
+## How the home page works
+
+- **Hover a project title:** a blurred strip of that project slides in from the side of the screen the title is on. Move away and it slides back.
+- **Click a title:** the project opens across the whole screen, sharpens and plays, and the title turns into **See project**. Click that to go to the project's page.
+- **Click your name:** back to the reel.
+- **On a phone** there is no hover: tap a title to open it, tap **See project** to go to its page, tap your name to go back.
+- The titles land in slightly different spots each visit. That is on purpose.
+
 ## Step 1. Look it over
 
 Ask Claude: **"Start the preview."** The site opens in the Browser pane. Click through every page and write down anything you want changed. Check the items under "Things I guessed" at the bottom of this guide.

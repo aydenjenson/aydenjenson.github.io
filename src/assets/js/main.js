@@ -1,5 +1,6 @@
-// Runs on every page: page transitions, navigation, cursor label, scroll
-// reveals, parallax, clocks and preview loops. Page-specific code lives in
+// Runs on every page: page transitions, navigation, scroll reveals, parallax,
+// clocks and preview loops. (There is deliberately no label that follows the
+// pointer: Ayden does not want one.) Page-specific code lives in
 // home.js, work.js, film.js, photos.js and contact.js and is loaded on demand.
 import { $, $$, lerp, wait, reduced, finePointer, saveData, ticker, playLoop, stopLoop } from './util.js';
 
@@ -120,36 +121,6 @@ function initNav() {
   matchMedia('(min-width: 901px)').addEventListener('change', (mq) => { if (mq.matches) setOpen(false); });
 }
 
-/* --------------------------------------------------------- cursor label ---- */
-
-function initCursor() {
-  const el = $('[data-cursor-el]');
-  if (!el || !finePointer) return;
-  const label = $('span', el);
-  let tx = -200, ty = -200, x = tx, y = ty, active = false;
-
-  window.addEventListener('pointermove', (event) => { tx = event.clientX; ty = event.clientY; }, { passive: true });
-  document.addEventListener('pointerover', (event) => {
-    const target = event.target.closest && event.target.closest('[data-cursor]');
-    if (target) {
-      label.textContent = target.dataset.cursor;
-      el.classList.add('is-on');
-      active = true;
-    } else if (active) {
-      el.classList.remove('is-on');
-      active = false;
-    }
-  }, { passive: true });
-  document.addEventListener('pointerleave', () => el.classList.remove('is-on'));
-
-  ticker.add(() => {
-    x = lerp(x, tx, 0.22);
-    y = lerp(y, ty, 0.22);
-    el.style.setProperty('--x', `${x.toFixed(1)}px`);
-    el.style.setProperty('--y', `${y.toFixed(1)}px`);
-  });
-}
-
 /* -------------------------------------------------------- scroll reveals ---- */
 
 function initReveal() {
@@ -261,7 +232,6 @@ const modules = {
 
 initLinks();
 initNav();
-initCursor();
 initReveal();
 initParallax();
 initClocks();
