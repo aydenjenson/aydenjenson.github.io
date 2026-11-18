@@ -75,12 +75,13 @@ export function homePage(ctx) {
   // stack them as two lines of equal width. Each word is its own span because
   // the words light up one after another as the page scrolls (home.js).
   // --ems is roughly how wide the whole line is, in ems, in the heading serif
-  // (about 0.36 of an em per character, measured on "Create content WORTH
-  // watching."). main.css uses it to size the line to the width of the page
-  // before the script fits it exactly.
+  // (Gambarino: about 0.45 of an em per character, measured on "Create content
+  // WORTH watching."; a different serif needs a different number). main.css
+  // uses it to size the line to the width of the page before the script fits
+  // it exactly.
   const taglineWords = String(site.home.statement || '').split(/\s+/).filter(Boolean);
   const taglineCut = Math.ceil(taglineWords.length / 2);
-  const taglineEms = Math.max(4, taglineWords.join(' ').length * 0.363).toFixed(2);
+  const taglineEms = Math.max(4, taglineWords.join(' ').length * 0.45).toFixed(2);
   const taglineLine = (list, start) => `<span class="statement__line">${list.map((w, i) => `<span class="word" style="--i:${start + i}">${esc(w)}</span>`).join(' ')}</span>`;
   const statement = html`
 <section class="statement" id="intro" data-statement aria-label="Introduction">
@@ -168,7 +169,11 @@ export function homePage(ctx) {
     nav: 'home',
     title: site.seo.homeTitle,
     description: site.seo.description,
-    preload: [{ href: still(reel), as: 'image', fetchpriority: 'high' }],
+    // The name's font is only used on this page, so it is only fetched early here.
+    preload: [
+      { href: '/assets/fonts/Marcellus-Regular.ttf', as: 'font', type: 'font/ttf' },
+      { href: still(reel), as: 'image', fetchpriority: 'high' },
+    ],
     jsonld: [websiteLd(ctx), businessLd(ctx), personLd(ctx)],
     content: [hero, statement, selected, grade, services, stillsSection, about, cta(ctx)].join('\n'),
   };

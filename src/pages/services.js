@@ -1,7 +1,7 @@
 // Services page. This is the page written for Google as much as for people:
 // plain text about what Ayden offers and where.
 import { esc, html } from '../lib/html.js';
-import { chars, projectAttrs, posterImg, loopVideo, cta, ARROW } from './components.js';
+import { chars, projectAttrs, posterImg, loopVideo, picture, cta, ARROW } from './components.js';
 import { breadcrumbLd, businessLd } from '../lib/seo.js';
 
 export function servicesPage(ctx) {
@@ -26,6 +26,10 @@ export function servicesPage(ctx) {
   <div class="services__list">
     ${s.items.map((item) => {
       const project = ctx.projects.find((p) => p.slug === item.project);
+      // A row with no film to show (Photography) shows a photograph instead:
+      // the one named in site.json ("photo": "brand/01-dumbbells"), or without
+      // that the first photo in Ayden's order. It links where the row links.
+      const photo = !project && item.href ? (ctx.photos.find((p) => p.id === item.photo) || ctx.photos[0]) : null;
       return html`
     <article class="service" id="${esc(item.slug)}">
       <div class="service__text">
@@ -45,6 +49,14 @@ export function servicesPage(ctx) {
         </span>
         <span class="service__caption"><span>Example</span><span>${esc(project.title)}</span></span>
       </a>` : ''}
+      ${photo ? html`
+      <a class="service__example" href="${esc(item.href)}">
+        <span class="service__media" data-reveal="clip">
+          ${picture(photo, { alt: photo.alt, sizes: '(min-width: 900px) 40vw, 92vw', cls: 'service__img' })}
+          <span class="brackets" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        </span>
+        <span class="service__caption"><span>Example</span><span>${esc(photo.categoryLabel)}</span></span>
+      </a>` : ''}
     </article>`;
     })}
   </div>
@@ -61,7 +73,7 @@ ${cta(ctx, { eyebrow: `Video production in ${loc.city}, ${loc.region}` })}`;
     id: 'services',
     nav: 'services',
     title: `Video Production Services in ${loc.city}, ${loc.region} | ${site.seo.titleSuffix}`,
-    description: `Brand films, commercials, social media content, and photography in ${loc.city}, ${loc.regionName}, and beyond. Get a quote.`,
+    description: `Brand films, commercials, social media content, and photography in ${loc.city}, ${loc.regionName} and beyond. Get a quote.`,
     jsonld: [
       businessLd(ctx),
       breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]),

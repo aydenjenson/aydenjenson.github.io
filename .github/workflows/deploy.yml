@@ -30,6 +30,12 @@ jobs:
           node-version: 22
           # The site has no packages to install, so there is nothing to cache.
           package-manager-cache: false
+      # The heading font may be hosted on the site but not kept in this public
+      # repository (its license says so), so it is downloaded from the foundry
+      # here. If that download fails, this step stops the publish and the live
+      # site stays exactly as it was. See tools/fonts.js.
+      - name: Fetch the heading font
+        run: node tools/fonts.js
       - name: Build the site
         run: node build.js
       - name: Prepare GitHub Pages

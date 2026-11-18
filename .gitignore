@@ -24,6 +24,13 @@ tools/photo-sources.json
 # files on his drives, so it stays on this PC too.
 docs/NEEDS-FROM-AYDEN.md
 
+# The heading font, Gambarino. Its license (ITF Free Font License, Fontshare)
+# allows hosting it on Ayden's own website but not passing the file on through
+# a public repository, and this repository is public. `node tools/fonts.js`
+# downloads it from Fontshare: once on this PC, and again each time the site
+# is published (see .github/workflows/deploy.yml).
+src/assets/fonts/Gambarino-Regular.woff2
+
 # OS / editor noise
 .DS_Store
 Thumbs.db

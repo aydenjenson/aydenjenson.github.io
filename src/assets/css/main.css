@@ -18,18 +18,27 @@
   font-style: normal;
   font-display: swap;
 }
+/* Headings: Gambarino, by Theo Guillard, published by Indian Type Foundry on
+   Fontshare under the ITF Free Font License (fontshare.com/licenses/itf-ffl).
+   The license allows hosting it on Ayden's own site but not keeping the file in
+   a public repository, and forbids changing the file. So it is used exactly as
+   Fontshare supplies it and fetched by tools/fonts.js; it is not in git. */
 @font-face {
-  font-family: 'Instrument Serif';
-  src: url('/assets/fonts/instrumentserif-normal.woff2') format('woff2');
+  font-family: 'Gambarino';
+  src: url('/assets/fonts/Gambarino-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
+/* His name on the home screen: Marcellus, by Brian J. Bonislawsky (Astigmatic),
+   SIL Open Font License; the license text sits beside the file. The license
+   keeps the name "Marcellus" for unmodified copies, so this is the original
+   TrueType file, not converted and not cut down. */
 @font-face {
-  font-family: 'Instrument Serif';
-  src: url('/assets/fonts/instrumentserif-italic.woff2') format('woff2');
+  font-family: 'Marcellus';
+  src: url('/assets/fonts/Marcellus-Regular.ttf') format('truetype');
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   font-display: swap;
 }
 
@@ -44,8 +53,16 @@
   --accent: #f0843c;        /* tungsten orange, used sparingly */
 
   /* Type */
-  --serif: 'Instrument Serif', 'Times New Roman', Times, serif;
+  --serif: 'Gambarino', 'Times New Roman', Times, serif;
+  /* Gambarino's letters are about a quarter wider than those of Instrument
+     Serif, the font every heading size here was first tuned for. Ayden chose
+     (2026-11-18) to keep the line lengths, so every size set in the serif is
+     multiplied by this: headings break where they always did, and the letters
+     are about 15% shorter. A new serif needs a new number here, nothing else. */
+  --serif-k: 0.8;
   --sans: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* His name on the home screen, and only there */
+  --name: 'Marcellus', 'Times New Roman', Times, serif;
 
   /* Space */
   --pad: clamp(16px, 2.2vw, 36px);
@@ -187,7 +204,7 @@ sup { line-height: 0; }
 .section-title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(34px, 4.4vw, 72px);
+  font-size: calc(clamp(34px, 4.4vw, 72px) * var(--serif-k));
   line-height: 1;
   letter-spacing: -0.015em;
 }
@@ -198,7 +215,7 @@ sup { line-height: 0; }
 .page-title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(56px, 10.5vw, 190px);
+  font-size: calc(clamp(56px, 10.5vw, 190px) * var(--serif-k));
   line-height: 0.9;
   letter-spacing: -0.03em;
   text-wrap: balance;
@@ -322,7 +339,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .menu__link:nth-child(4) { transition-delay: 0.27s; }
 .menu__link:nth-child(5) { transition-delay: 0.32s; }
 .menu__link:nth-child(6) { transition-delay: 0.37s; }
-.menu__label { font-family: var(--serif); font-size: clamp(42px, 12vw, 76px); line-height: 1.08; letter-spacing: -0.02em; }
+.menu__label { font-family: var(--serif); font-size: calc(clamp(42px, 12vw, 76px) * var(--serif-k)); line-height: 1.08; letter-spacing: -0.02em; }
 .menu__foot { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; color: var(--fg-dim); }
 
 /* 5. Shared overlays -------------------------------------------------------- */
@@ -417,17 +434,24 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
   .hero__bar--bottom { background: linear-gradient(0deg, rgba(13, 10, 8, 0.6), transparent); }
 }
 
-/* The name is the one place that uses Inter Tight in capitals (Ayden's pick);
-   headings everywhere else stay in the serif. On 2026-11-17 he asked for the
-   name and the line under it to be scaled up, with the name clearly the larger
-   of the two and the centre of the screen. Of four sizes he picked the largest
-   (about 75% bigger than the first version in this font), "but make line
-   spacing between the two less" (see .hero__role). */
+/* His name has its own font: Marcellus in capitals (Ayden's pick on 2026-11-18,
+   from eight shown to him; before that it was Inter Tight 600). It is used
+   nowhere else. On 2026-11-17 he asked for the name and the line under it to
+   be scaled up, with the name clearly the larger of the two and the centre of
+   the screen. Of four sizes he picked the largest, "but make line spacing
+   between the two less" (see .hero__role).
+
+   --name-size is the size the name would be in Inter Tight, the font these
+   numbers were first worked out in. The name is always 7.26 x --name-size wide,
+   whatever its font: --name-k is what the font has to be multiplied by to come
+   out at that width (Marcellus is a little wider per letter). A different name
+   font needs a new --name-k and a look at the gap in .hero__role; nothing else. */
 .hero__title {
   /* 40px at the small end, except on the very narrowest phones (320px), where
      the name is held to the width of the screen's text column so it and the
      line under it still start and end together. 7.27 is the name's width in ems. */
   --name-size: clamp(min(40px, calc((100vw - var(--pad) * 2) / 7.27)), 4.75vw, 110px);
+  --name-k: 0.9676;
   position: absolute; left: 50%; top: 50%; z-index: 2;
   transform: translate(-50%, -50%);
   /* The button's padding sits above the name and the small line hangs below it;
@@ -443,11 +467,11 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
      the name would break onto two lines on a very wide monitor. */
   width: max(calc(500px + 10vw), calc(var(--name-size) * 7.26 + 120px)); max-width: 100vw; padding: 50px 12px;
   white-space: nowrap;
-  font-family: var(--sans);
-  font-size: var(--name-size);
-  font-weight: 600;
+  font-family: var(--name);
+  font-size: calc(var(--name-size) * var(--name-k));
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--fg);
   cursor: crosshair;
@@ -463,7 +487,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
    size. (He asked twice for this gap to be smaller.) */
 .hero__role {
   display: block; width: var(--name-w, calc(var(--name-size) * 7.26)); max-width: calc(100vw - var(--pad) * 2);
-  margin: calc(-50px - var(--name-size) * 0.0614) auto 0; pointer-events: none;
+  margin: calc(-50px - var(--name-size) * 0.081) auto 0; pointer-events: none;
   /* Scales with the name, so the spacing between letters looks the same at every size */
   font-size: clamp(11px, calc(var(--name-size) * 0.225), 17px);
   font-weight: 600; line-height: 1.3; letter-spacing: 0; text-transform: uppercase;
@@ -566,7 +590,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .statement { padding: clamp(48px, 8vh, 104px) var(--pad) clamp(36px, 6vh, 80px); overflow-x: clip; }
 .statement__text {
   font-family: var(--serif);
-  font-size: min(calc((100vw - var(--pad) * 2) / var(--ems, 10.9)), 240px);
+  font-size: min(calc((100vw - var(--pad) * 2) / var(--ems, 13.5)), 240px);
   line-height: 1;
   letter-spacing: -0.02em;
   text-align: center;
@@ -574,7 +598,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 }
 .statement__line { white-space: nowrap; }
 @media (max-width: 600px) {
-  .statement__text { font-size: 14.5vw; line-height: 0.96; text-align: left; white-space: normal; }
+  .statement__text { font-size: 11.5vw; line-height: 0.96; text-align: left; white-space: normal; }
   .statement__line { display: block; width: max-content; max-width: none; }
 }
 .js .word { opacity: 0.16; transition: opacity 0.6s var(--ease); }
@@ -603,7 +627,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
   display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 10px;
   padding-top: 14px;
 }
-.card__title { font-family: var(--serif); font-weight: 400; font-size: clamp(22px, 2.1vw, 34px); line-height: 1.05; letter-spacing: -0.01em; }
+.card__title { font-family: var(--serif); font-weight: 400; font-size: calc(clamp(22px, 2.1vw, 34px) * var(--serif-k)); line-height: 1.05; letter-spacing: -0.01em; }
 .card__kind { color: var(--fg-dim); white-space: nowrap; }
 
 .svc-teaser { padding-bottom: var(--gap-section); }
@@ -616,7 +640,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
   transition: opacity 0.45s var(--ease), padding 0.6s var(--ease);
 }
 .svc:first-child .svc__link { border-top: 0; }
-.svc__title { font-family: var(--serif); font-size: clamp(34px, 5.4vw, 92px); line-height: 0.98; letter-spacing: -0.02em; }
+.svc__title { font-family: var(--serif); font-size: calc(clamp(34px, 5.4vw, 92px) * var(--serif-k)); line-height: 0.98; letter-spacing: -0.02em; }
 /* A small picture that opens up at the end of the row on hover. Its space is
    always reserved, so nothing in the row shifts, and it never follows the pointer. */
 .svc__thumb {
@@ -658,7 +682,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .about-teaser__img > div { height: 116%; margin-top: -8%; }
 .about-teaser__img img { object-fit: cover; }
 .about-teaser__text { grid-column: 7 / span 5; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
-.about-teaser__title { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 4.6vw, 76px); line-height: 1; letter-spacing: -0.02em; text-wrap: balance; }
+.about-teaser__title { font-family: var(--serif); font-weight: 400; font-size: calc(clamp(34px, 4.6vw, 76px) * var(--serif-k)); line-height: 1; letter-spacing: -0.02em; text-wrap: balance; }
 .about-teaser__text p { color: var(--fg-dim); max-width: 46ch; font-size: clamp(15px, 1.2vw, 18px); }
 
 /* Before and after: one frame, ungraded on the left of the line and graded on
@@ -763,10 +787,10 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .work__item[hidden] { display: none; }
 .work__item a {
   display: block; padding: 4px 0;
-  font-family: var(--serif); font-size: clamp(22px, 2.3vw, 36px); line-height: 1.1; letter-spacing: -0.012em;
+  font-family: var(--serif); font-size: calc(clamp(22px, 2.3vw, 36px) * var(--serif-k)); line-height: 1.1; letter-spacing: -0.012em;
   text-shadow: 0 1px 20px rgba(0, 0, 0, 0.55);
 }
-/* The middle title is bold. Instrument Serif has only one weight, so the
+/* The middle title is bold. The heading serif has only one weight, so the
    weight alone would do nothing (and a faked bold would widen the letters and
    re-wrap long titles): a thin outline in the text colour thickens the letters
    without changing their size, so the list never shifts. */
@@ -850,7 +874,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
   width: max-content; max-width: 92vw; text-align: center; pointer-events: none !important;
 }
 .film__kind { color: var(--fg-dim); margin-bottom: 14px; }
-.film__title { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 6.4vw, 116px); line-height: 0.94; letter-spacing: -0.025em; text-wrap: balance; }
+.film__title { font-family: var(--serif); font-weight: 400; font-size: calc(clamp(40px, 6.4vw, 116px) * var(--serif-k)); line-height: 0.94; letter-spacing: -0.025em; text-wrap: balance; }
 .film--youtube .film__head {
   left: var(--pad); top: auto; bottom: 58px; transform: none; text-align: left; max-width: calc(100vw - 2 * var(--pad));
 }
@@ -898,7 +922,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 }
 .details__main { grid-column: 1 / span 7; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
 .details__main .label { margin: 0; }
-.details__title { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 5vw, 88px); line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance; }
+.details__title { font-family: var(--serif); font-weight: 400; font-size: calc(clamp(38px, 5vw, 88px) * var(--serif-k)); line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance; }
 .details__text { max-width: 48ch; font-size: clamp(16px, 1.45vw, 21px); line-height: 1.42; color: var(--fg-dim); text-wrap: pretty; }
 .details__links { display: flex; flex-wrap: wrap; gap: 8px 30px; }
 .details__credits { grid-column: 9 / span 4; align-self: start; }
@@ -922,7 +946,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .next .loop { transform: scale(1.06); transition: transform 2s var(--ease), opacity 0.7s var(--ease); }
 .next--portrait .next__img, .next--portrait .loop { object-position: 50% 26%; }
 .next__eyebrow, .next__kind { color: var(--fg-dim); }
-.next__title { font-family: var(--serif); font-size: clamp(48px, 8.6vw, 160px); line-height: 0.92; letter-spacing: -0.03em; text-wrap: balance; }
+.next__title { font-family: var(--serif); font-size: calc(clamp(48px, 8.6vw, 160px) * var(--serif-k)); line-height: 0.92; letter-spacing: -0.03em; text-wrap: balance; }
 
 /* 9. Photography ------------------------------------------------------------ */
 
@@ -985,7 +1009,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .about__col .label { margin: 0; }
 .about__col--bio { grid-column: 7 / span 6; align-self: end; }
 .about__col--bio p { max-width: 52ch; color: var(--fg-dim); font-size: clamp(15px, 1.2vw, 18px); text-wrap: pretty; }
-.about__col--bio .about__lead { font-family: var(--serif); font-size: clamp(25px, 2.7vw, 44px); line-height: 1.1; letter-spacing: -0.012em; color: var(--fg); max-width: 26em; }
+.about__col--bio .about__lead { font-family: var(--serif); font-size: calc(clamp(25px, 2.7vw, 44px) * var(--serif-k)); line-height: 1.1; letter-spacing: -0.012em; color: var(--fg); max-width: calc(26em / var(--serif-k)); }
 /* Details and What I Shoot sit side by side under the portrait and the bio,
    lined up with them (same left edges, same top), and about the same height:
    the four services are a two-by-two block instead of a tall list, so neither
@@ -995,15 +1019,15 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .facts { width: 100%; }
 .about__services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--pad); width: 100%; }
 .about__services li { border-top: 1px solid var(--line); }
-.about__services a { display: block; padding: 12px 0; font-family: var(--serif); font-size: clamp(22px, 2.1vw, 32px); line-height: 1.1; letter-spacing: -0.012em; }
+.about__services a { display: block; padding: 12px 0; font-family: var(--serif); font-size: calc(clamp(22px, 2.1vw, 32px) * var(--serif-k)); line-height: 1.1; letter-spacing: -0.012em; }
 
 .clients { padding: 22px 0 var(--gap-section); border-top: 1px solid var(--line); overflow: hidden; }
 .clients .label { padding: 0 var(--pad); }
 .marquee { display: flex; width: max-content; }
 .marquee__track { display: flex; flex: none; animation: marquee 34s linear infinite; }
 .marquee__track li {
-  font-family: var(--serif); font-size: clamp(40px, 6.6vw, 118px); line-height: 1.1; letter-spacing: -0.02em;
-  white-space: nowrap; padding-right: 0.5em;
+  font-family: var(--serif); font-size: calc(clamp(40px, 6.6vw, 118px) * var(--serif-k)); line-height: 1.1; letter-spacing: -0.02em;
+  white-space: nowrap; padding-right: calc(0.5em / var(--serif-k));
 }
 .marquee__track li::after { content: '/'; color: var(--fg-faint); margin-left: 0.5em; }
 @keyframes marquee { to { transform: translate3d(-100%, 0, 0); } }
@@ -1018,8 +1042,8 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
   scroll-margin-top: var(--nav-h);
 }
 .service__text { grid-column: 1 / span 6; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
-.service__title { font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 6.6vw, 118px); line-height: 0.94; letter-spacing: -0.025em; }
-.service__summary { font-family: var(--serif); font-size: clamp(22px, 2.2vw, 34px); line-height: 1.14; max-width: 24em; }
+.service__title { font-family: var(--serif); font-weight: 400; font-size: calc(clamp(44px, 6.6vw, 118px) * var(--serif-k)); line-height: 0.94; letter-spacing: -0.025em; }
+.service__summary { font-family: var(--serif); font-size: calc(clamp(22px, 2.2vw, 34px) * var(--serif-k)); line-height: 1.14; max-width: calc(24em / var(--serif-k)); }
 .service__body { color: var(--fg-dim); max-width: 50ch; font-size: clamp(15px, 1.2vw, 18px); text-wrap: pretty; }
 .service__example { grid-column: 8 / span 5; display: block; }
 .service:nth-child(even) .service__text { grid-column: 7 / span 6; order: 2; }
@@ -1032,7 +1056,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .areas { padding: var(--gap-row) var(--pad); border-top: 1px solid var(--line); }
 .areas { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--pad); align-items: start; }
 .areas .section-title { grid-column: 1 / span 5; }
-.areas__text { grid-column: 7 / span 6; font-family: var(--serif); font-size: clamp(26px, 2.8vw, 46px); line-height: 1.1; letter-spacing: -0.012em; text-wrap: balance; }
+.areas__text { grid-column: 7 / span 6; font-family: var(--serif); font-size: calc(clamp(26px, 2.8vw, 46px) * var(--serif-k)); line-height: 1.1; letter-spacing: -0.012em; text-wrap: balance; }
 
 /* 12. Contact ---------------------------------------------------------------- */
 
@@ -1048,12 +1072,12 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .field label span { color: var(--fg-faint); }
 .field input, .field textarea {
   width: 100%; padding: 8px 0 12px;
-  font-family: var(--serif); font-size: clamp(24px, 2.5vw, 38px); line-height: 1.15; color: var(--fg);
+  font-family: var(--serif); font-size: calc(clamp(24px, 2.5vw, 38px) * var(--serif-k)); line-height: 1.15; color: var(--fg);
   background: transparent; border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
   outline: none; transition: border-color 0.4s;
   -webkit-appearance: none; appearance: none;
 }
-.field textarea { resize: vertical; min-height: 4.6em; }
+.field textarea { resize: vertical; min-height: calc(4.6em / var(--serif-k)); }
 .field input:focus, .field textarea:focus { border-bottom-color: var(--fg); }
 .field.is-invalid input, .field.is-invalid textarea { border-bottom-color: var(--accent); }
 .field input:-webkit-autofill { -webkit-text-fill-color: var(--fg); transition: background-color 9999s; caret-color: var(--fg); }
@@ -1082,7 +1106,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .form.is-sent .field, .form.is-sent .button { opacity: 0.35; pointer-events: none; }
 .contact__side { display: flex; flex-direction: column; gap: clamp(26px, 4vh, 44px); }
 .contact__side .label { margin-bottom: 8px; }
-.contact__email { font-family: var(--serif); font-size: clamp(22px, 2vw, 30px); letter-spacing: -0.01em; word-break: break-word; }
+.contact__email { font-family: var(--serif); font-size: calc(clamp(22px, 2vw, 30px) * var(--serif-k)); letter-spacing: -0.01em; word-break: break-word; }
 
 .notfound { min-height: 82svh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 22px; padding: var(--nav-h) var(--pad) 0; }
 .notfound .label { margin: 0; }
@@ -1106,7 +1130,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
   padding: var(--gap-section) var(--pad); text-align: center;
 }
 .cta__eyebrow { color: var(--fg-dim); }
-.cta__big { font-family: var(--serif); font-size: clamp(56px, 11.6vw, 210px); line-height: 0.88; letter-spacing: -0.035em; text-wrap: balance; transition: letter-spacing 0.9s var(--ease); }
+.cta__big { font-family: var(--serif); font-size: calc(clamp(56px, 11.6vw, 210px) * var(--serif-k)); line-height: 0.88; letter-spacing: -0.035em; text-wrap: balance; transition: letter-spacing 0.9s var(--ease); }
 @media (hover: hover) { .cta__link:hover .cta__big { letter-spacing: -0.015em; } }
 .cta__go { padding: 8px 0; border-bottom: 1px solid var(--fg-faint); }
 
@@ -1116,7 +1140,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .footer__col ul { display: flex; flex-direction: column; }
 .footer__col a { display: inline-block; padding: 4px 0; color: var(--fg); }
 .footer__col .social { flex-direction: row; margin-top: -6px; }
-.footer__name { font-family: var(--serif); font-size: clamp(28px, 2.6vw, 40px); line-height: 1; letter-spacing: -0.015em; text-transform: none; color: var(--fg); margin-bottom: 8px; }
+.footer__name { font-family: var(--serif); font-size: calc(clamp(28px, 2.6vw, 40px) * var(--serif-k)); line-height: 1; letter-spacing: -0.015em; text-transform: none; color: var(--fg); margin-bottom: 8px; }
 .footer__base {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
   margin-top: var(--gap-block); padding-top: 14px; border-top: 1px solid var(--line);

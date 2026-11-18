@@ -25,6 +25,7 @@ import { aboutPage } from './src/pages/about.js';
 import { servicesPage } from './src/pages/services.js';
 import { contactPage, notFoundPage } from './src/pages/contact.js';
 import { privacyPage } from './src/pages/privacy.js';
+import { FETCHED_FONTS } from './tools/fonts.js';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(ROOT, 'dist');
@@ -162,8 +163,15 @@ function buildPhotos(site, media, photoNotes) {
   const captions = photoNotes.captions || {};
   const labelFor = (folder) => configured.find((c) => c.folder === folder)?.label
     || folder.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+  // A folder marked "hidden": true in site.json is left off the site altogether:
+  // its photos are not shown anywhere and are not copied into dist/. The files
+  // stay in media/, so taking "hidden" away brings them back.
+  const hiddenFolders = configured.filter((c) => c.hidden).map((c) => c.folder);
+  const hiddenCount = media.photos.filter((img) => hiddenFolders.includes(img.category)).length;
+  if (hiddenCount) warn(`${hiddenCount} photo(s) in media/photos/${hiddenFolders.join(', media/photos/')} are not on the site: the folder is marked "hidden" in content/site.json (Ayden chose to leave them out).`);
 
   const photos = media.photos
+    .filter((img) => !hiddenFolders.includes(img.category))
     .map((img) => {
       const categoryLabel = labelFor(img.category);
       return {
@@ -176,14 +184,15 @@ function buildPhotos(site, media, photoNotes) {
     // File names decide the order across every folder: 01-..., 02-..., 03-...
     .sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }) || a.category.localeCompare(b.category));
 
-  const folders = [...new Set([...configured.map((c) => c.folder), ...photos.map((p) => p.category)])];
+  const folders = [...new Set([...configured.map((c) => c.folder), ...photos.map((p) => p.category)])]
+    .filter((folder) => !hiddenFolders.includes(folder));
   const photoCategories = folders.map((folder) => ({
     folder,
     label: labelFor(folder),
     tab: configured.find((c) => c.folder === folder)?.tab !== false,
     count: photos.filter((p) => p.category === folder).length,
   }));
-  return { photos, photoCategories };
+  return { photos, photoCategories, hiddenFolders };
 }
 
 /**
@@ -219,7 +228,7 @@ function copyDir(from, to, filter = () => true) {
     const src = path.join(from, entry.name);
     const dest = path.join(to, entry.name);
     if (entry.isDirectory()) { copyDir(src, dest, filter); continue; }
-    if (!filter(entry.name)) continue;
+    if (!filter(entry.name, src)) continue;
     written.add(dest);
     const s = fs.statSync(src);
     const d = fs.existsSync(dest) ? fs.statSync(dest) : null;
@@ -309,7 +318,7 @@ export function build() {
   const { site, rawProjects, photoNotes } = loadContent();
   const media = scanMedia(ROOT);
   const projects = buildProjects(site, rawProjects, media);
-  const { photos, photoCategories } = buildPhotos(site, media, photoNotes);
+  const { photos, photoCategories, hiddenFolders } = buildPhotos(site, media, photoNotes);
   const grades = buildGrades(media, projects);
   const featured = projects.filter((p) => p.featured);
 
@@ -371,6 +380,15 @@ export function build() {
 
   if (CHECK_ONLY) return { pages, warnings: [...warnings], ms: Date.now() - started };
 
+  // The heading font is not kept in git (its license does not allow it in a
+  // public repository), so a fresh copy of the project does not have it yet.
+  // Stop here instead of building a site whose headings fall back to Times.
+  for (const font of FETCHED_FONTS) {
+    if (!fs.existsSync(path.join(ROOT, 'src', 'assets', 'fonts', font.file))) {
+      throw new ContentError(`The heading font is missing: src/assets/fonts/${font.file}\n  It is downloaded, not stored with the project. Run this once, then build again:\n    node tools/fonts.js`);
+    }
+  }
+
   written.clear();
   fs.mkdirSync(DIST, { recursive: true });
 
@@ -383,7 +401,10 @@ export function build() {
   }
 
   copyDir(path.join(ROOT, 'src', 'assets'), path.join(DIST, 'assets'));
-  copyDir(path.join(ROOT, 'media'), path.join(DIST, 'media'), (name) => !name.startsWith('.') && !/\.(md|txt)$/i.test(name));
+  // Photo folders marked "hidden" in site.json are not published at all.
+  const hiddenDirs = hiddenFolders.map((folder) => path.join(ROOT, 'media', 'photos', folder) + path.sep);
+  copyDir(path.join(ROOT, 'media'), path.join(DIST, 'media'), (name, src) => !name.startsWith('.') && !/\.(md|txt)$/i.test(name)
+    && !hiddenDirs.some((dir) => src.startsWith(dir)));
   copyDir(path.join(ROOT, 'public'), DIST);
   if (LAB) copyDir(path.join(ROOT, 'lab', 'assets'), path.join(DIST, 'lab-assets'));
 

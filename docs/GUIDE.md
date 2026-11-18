@@ -14,20 +14,20 @@ Everything here is written for you, not for a developer. The steps are in the or
 
 Ask Claude: **"Start the preview."** The site opens in the Browser pane inside the Claude app. While the preview is running you can also open it in Chrome at `http://localhost:4321`. It only works on this PC and only while the preview is running.
 
-**Design options page: `http://localhost:4321/lab/`** This page exists only in the preview. It is never part of the published site. It shows choices that are not built yet, using your own footage and photos. Every choice has a short code, such as "A6 page: option 2" or D4. Tell Claude the codes you want. Two bigger sets have their own pages: the photography layouts (`/lab/photos/`) and the fonts (`/lab/fonts/`). Your earlier picks are built into the site already: your name in capitals over one small line, the video page one project at a time, the before and after slider, the size of your name, the tagline, and all the wording you chose on November 18.
+**Design options page: `http://localhost:4321/lab/`** This page exists only in the preview. It is never part of the published site. It shows choices that are not built yet, using your own footage and photos. Every choice has a short code, such as "A6 page: option 2" or D4. Tell Claude the codes you want. Everything from your November revision list is answered and built in, so right now the page holds only a few earlier ideas (D1 to D4, D6 to D8). When there is a new choice to make, it will show up here.
 
 ## What you have
 
 - A complete site: Home, Video, a page for each of 23 projects, Photo, Services, About, Contact, and a short Privacy page linked in the footer. (The menu says Video and Photo, as you asked. The page addresses still end in `/work/` and `/photography/`.)
 - 8 of your films play straight from the site with its own player. The other 15 play from YouTube when the visitor presses play.
 - 11 projects have a silent preview loop that plays on hover. The other 12 show a still until you add a loop (see "Adding motion").
-- 26 photos from your `PORTFOLIO\PHOTOS` folder on the Passport drive, sorted into People, Events and Branding.
+- 22 photos from your `PORTFOLIO\PHOTOS` folder on the Passport drive, sorted into People, Events, and Branding.
 - Search setup for "videographer / cinematographer in Mankato, MN": page titles, descriptions, a Services page, a sitemap and the structured data Google reads.
 - No monthly cost. Hosting is free on GitHub Pages. You keep paying only for the domain at Namecheap.
 
 ## How the home page works
 
-- **Your name** sits in the middle in capitals, with one small line close under it ("Cinematographer | Mankato, MN"). That line is always exactly as wide as your name, on every screen size. Both were made larger in the November 17 revisions: you picked the largest of the four sizes and asked for less space between the name and the line. The name is the only place that uses this font; headings everywhere else are in the serif.
+- **Your name** sits in the middle in capitals, in its own font (Marcellus), with one small line close under it ("Cinematographer | Mankato, MN"). That line is always exactly as wide as your name, on every screen size. Both were made larger in the November 17 revisions: you picked the largest of the four sizes and asked for less space between the name and the line. The name is the only place that uses this font; headings everywhere else are in Gambarino.
 - **Under the reel** is your tagline, "Create content WORTH watching." On a computer it is one centered line that runs the full width of the page. On a phone held upright it stacks as two lines of the same width. Selected Work follows straight after it.
 - **Hover a project title:** a blurred strip of that project slides in from the side of the screen the title is on. Move away and it slides back.
 - **Click a title:** the project opens across the whole screen, sharpens and plays, and the title turns into **See project**. Click that to go to the project's page.
@@ -43,7 +43,7 @@ Ask Claude: **"Start the preview."** The site opens in the Browser pane inside t
 - A title only plays footage when that project has a preview loop. Seraphim Studios and Super Bowl LIX don't have one yet, so they open as a still picture that drifts slowly (see "Adding motion").
 - **The "Selected Work" cards** further down the home page are the projects marked as featured.
 - **Everything else** is on the Video page. It shows one project at a time: one film fills the screen, and the list of titles moves through the middle while the film behind them changes. On a computer, rest the mouse low on the list and it scrolls on by itself; rest it high and it scrolls back; the middle stays still so you can click. The title in the middle, the one that is playing, is bold. On a phone you drag the list with a finger. The buttons at the bottom filter the list.
-- **No numbers.** The "01", "02" labels and the photo counts are gone, as you asked. The only numbers left do a job: the "01 / 26" counter when a photo is open full screen, the length of the reel, and the year and length on each project page.
+- **No numbers.** The "01", "02" labels and the photo counts are gone, as you asked. The only numbers left do a job: the "01 / 22" counter when a photo is open full screen, the length of the reel, and the year and length on each project page.
 
 **Color Grading Showcase (the before and after slider)**
 
@@ -211,7 +211,7 @@ The loop behind your name on the home page is a stand-in I cut from the SCHEELS,
 | Hosting (GitHub Pages) | free |
 | Contact form (Web3Forms) | free up to 250 messages a month |
 | Editor (Pages CMS) | free |
-| Fonts (Instrument Serif, Inter Tight) | free, open license |
+| Fonts (Gambarino, Marcellus, Inter Tight) | free. All three may be used on a business site |
 
 GitHub Pages allows a site of about 1 GB and 100 GB of traffic a month. The site is about 185 MB now. That is plenty for a portfolio. If you ever host many long films, the videos can move to separate storage without changing the site.
 
@@ -223,18 +223,26 @@ Your old site had a Google Analytics tag: a small piece of code that counts visi
 
 ## The fonts
 
-The reference sites use paid or private typefaces (Kai Blamey's is a commercial font called ABC Schengen; Xanvier Allison's files are private to his site), so they can't legally be copied. Yours uses the closest free ones: **Instrument Serif** for the large type and **Inter Tight** for the small capitals. Your name on the home screen is set in Inter Tight capitals, which you picked from nine options.
+The reference sites use paid or private typefaces (Kai Blamey's is a commercial font called ABC Schengen; Xanvier Allison's files are private to his site), so they can't legally be copied. Yours uses free ones that you picked on November 18:
+
+- **Gambarino** for the headings. It replaced Instrument Serif, which you found a little generic. Its letters are wider, so it is set slightly smaller: every heading breaks onto lines exactly where it did before.
+- **Marcellus**, in capitals, for your name on the home screen. It is used nowhere else.
+- **Inter Tight** for the small capital labels, as before.
+
+All three are loaded from your own site. Nobody else's server is contacted for a font.
+
+**One thing to know about Gambarino.** Its license lets you host it on your own website for free, but does not allow the font file to sit in a public file store, and your site's working files on GitHub are public. So that one file is kept off GitHub. It is on this PC for the preview, and each time the site is published it is fetched fresh from the foundry that makes it (Fontshare) and then served from your site like everything else. You do not have to do anything. If the foundry's site is ever down at the moment of publishing, the publish stops and your live site stays exactly as it was; publishing again later fixes it.
 
 ## Still worth checking
 
 - **Project categories.** Which group each project sits in on the Video page (Brand & Commercial, Creative & Film, Weddings).
 - **"Director"** was added to the role on: Spec Ad - SCHEELS, Reborn Legacy Tattoo, Seraphim Studios, the Allstar Nutrition giveaway, OxCB, both music videos, and Justin + Veronica. Say if any should not have it.
 - **Services page.** "How It Works" and "Common questions" are removed, as you asked. The title, the description, and the text for Brand Films, Commercials, and Social Media are the ones you picked on November 18. The text in the Photography row is still my draft.
-- **Commas.** Every list on the site is now written "x, y, and z", with a comma before "and", as you asked. Tell Claude if you spot one that was missed.
+- **Commas.** Every list on the site is now written "x, y, and z", with a comma before "and" (or "&"), as you asked. A place name is not a list, so "Mankato, Minnesota and beyond" has no comma after Minnesota. Tell Claude if you spot one that was missed.
 - **"Worked with" list** on the About page. You said you want to add and remove names.
 - **Bio.** A short placeholder, written on November 17. A proper one is waiting on your answers to the interview questions (number 31 in `review/QUESTIONNAIRE.md`).
 - **About portrait** is the one from your old site at the size Adobe offers (about 1200 pixels). A full-size original will look sharper.
-- **The 26 photos** are my pick from your portfolio folder. Four of them (a gas pump, a diner, a turkey in the woods, a trail) don't fit People, Events or Branding. They show under "All" only until you decide.
+- **The photos.** 22 are on the site, sorted into People, Events, and Branding. Four more (a gas pump, a diner, a turkey in the woods, a trail) fit none of the three, and you chose to leave them out. Their files are still in the project, so they can come back: just ask.
 - **The Privacy page** was rewritten to be shorter and more formal. Read it once.
 
 ## If something goes wrong

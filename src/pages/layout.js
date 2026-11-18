@@ -64,8 +64,8 @@ ${page.noindex ? '<meta name="robots" content="noindex, follow">' : '<meta name=
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/intertight-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/instrumentserif-normal.woff2" as="font" type="font/woff2" crossorigin>
-${(page.preload || []).map((p) => `<link rel="preload" href="${esc(p.href)}" as="${p.as}"${p.type ? ` type="${p.type}"` : ''}${p.fetchpriority ? ` fetchpriority="${p.fetchpriority}"` : ''}>`)}
+<link rel="preload" href="/assets/fonts/Gambarino-Regular.woff2" as="font" type="font/woff2" crossorigin>
+${(page.preload || []).map((p) => `<link rel="preload" href="${esc(p.href)}" as="${p.as}"${p.type ? ` type="${p.type}"` : ''}${p.fetchpriority ? ` fetchpriority="${p.fetchpriority}"` : ''}${p.as === 'font' ? ' crossorigin' : ''}>`)}
 <link rel="stylesheet" href="${ctx.asset('/assets/css/main.css')}">
 <script>
   // Runs before first paint: marks that JavaScript is on and whether this is

@@ -19,18 +19,26 @@
 //   E1       project pages stay as they are
 //   F        his own sentence under the reel: "Creating content worth watching."
 //
-// Picked from the revision round (answered 2026-11-18), built in the same way:
-//   A1       name size option 3 (the largest), with a smaller gap between the
-//            name and the line under it
-//   A2       the tagline is "Create content WORTH watching." (capital C, a
-//            period), centred and as wide as the page
-//   A4, A6 text, A7, A8   all the wording picks (see the top of
-//            lab/revision-options.js for the list)
+// Answered in the revision round (2026-11-18), built in or closed, and removed
+// from this page. The wording itself is in content/site.json.
+//   A1   name size: the largest of four, with a smaller gap between the name
+//        and the line under it
+//   A2   the tagline is "Create content WORTH watching." (capital C, a
+//        period), centered and as wide as the page
+//   A4   "Color Grading Showcase" and the text under it
+//   A6   photography: he looked at four page layouts and three home page
+//        blocks and kept both as they are; no line of text beside the home
+//        photos; his description is the line at the top of the Photography page
+//   A7   the short about line
+//   A8   Services title, description, the text for the three video types,
+//        the "Where I Work" line
+//   A11  fonts: Gambarino for the headings (sized to keep the old line
+//        lengths), Marcellus capitals for his name
+// If photo layouts or fonts come up again, the preview pages that showed those
+// options are in git history: lab/photo-options.js and lab/font-options.js,
+// last present in commit 1ab950f.
 import { esc, html } from '../src/lib/html.js';
 import { labPage, section } from './shared.js';
-import { photoOptionPages } from './photo-options.js';
-import { fontOptionPages } from './font-options.js';
-import { revisionSections } from './revision-options.js';
 
 // The stand-in reel on the home page is five clips. Rough start time of each, in seconds.
 const REEL_SEGMENTS = [
@@ -141,13 +149,8 @@ function indexPage(ctx) {
   <header class="page-head">
     <p class="label">Preview only. Nothing on this page is on your live site.</p>
     <h1 class="page-title">Design options</h1>
-    <p class="page-lead">Everything on this page is waiting for your pick. Each option has a code. Answer with the code, for example "A8 title: option 3" or "A6 page: option 2".</p>
-    <nav class="lab-toc" aria-label="On this page">
-      ${[['a6', 'A6', 'Photography layout'], ['a11', 'A11', 'Fonts'], ['ideas', 'D', 'Earlier ideas']]
-        .map(([id, letter, label]) => `<a class="hover-blur" href="#${id}"><b>${letter}</b>${esc(label)}</a>`)}
-    </nav>
+    <p class="page-lead">Everything from your revision list is answered and built in. What is left here are earlier ideas you have not picked up. Each has a code. Answer with the code, for example "D4".</p>
   </header>
-  ${revisionSections(ctx)}
   ${ideasSection}
   <p class="lab-end">Want to see something that is not here? Ask. I can add it to this page before building it for real.</p>
 </div>`;
@@ -156,5 +159,5 @@ function indexPage(ctx) {
 }
 
 export function labPages(ctx) {
-  return [indexPage(ctx), ...photoOptionPages(ctx), ...fontOptionPages(ctx)];
+  return [indexPage(ctx)];
 }

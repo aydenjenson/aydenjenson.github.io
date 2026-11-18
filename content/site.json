@@ -117,7 +117,7 @@
       }
     ],
     "areasHeading": "Where I Work",
-    "areasText": "Based in Mankato, Minnesota, and open to travel."
+    "areasText": "Based in Mankato, Minnesota and open to travel."
   },
 
   "photography": {
@@ -127,7 +127,7 @@
       { "folder": "people", "label": "People" },
       { "folder": "events", "label": "Events" },
       { "folder": "brand", "label": "Branding" },
-      { "folder": "explore", "label": "Explore", "tab": false }
+      { "folder": "explore", "label": "Explore", "tab": false, "hidden": true }
     ]
   },
 

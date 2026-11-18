@@ -81,7 +81,7 @@ export function contactPage(ctx) {
     id: 'contact',
     nav: 'contact',
     title: `Contact | Hire a Videographer in ${loc.city}, ${loc.region} | ${site.seo.titleSuffix}`,
-    description: `Get in touch with ${site.name} about a brand film, commercial, social content, or photography in ${loc.city}, ${loc.regionName}, and beyond.`,
+    description: `Get in touch with ${site.name} about a brand film, commercial, social content, or photography in ${loc.city}, ${loc.regionName} and beyond.`,
     jsonld: [businessLd(ctx), breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact/' }])],
     content,
   };
