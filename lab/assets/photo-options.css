@@ -1,0 +1,268 @@
+/* Photography options (A6). Preview only. Markup: lab/photo-options.js. Behaviour: photo-options.js.
+   Uses the site's own colours, fonts and spacing from main.css. Hover feedback stays inside each element. */
+
+.po { padding-top: var(--nav-h); }
+.po img { max-width: 100%; }
+
+.po-label,
+.po-bar,
+.po-ch__jump,
+.po-one__nav,
+.po-index__open {
+  font-family: var(--sans); font-size: 11.5px; font-weight: 600; line-height: 1.3;
+  letter-spacing: 0.045em; text-transform: uppercase;
+}
+.po-label { color: var(--fg-dim); }
+
+.po-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px;
+  padding: 0 var(--pad); border-bottom: 1px solid var(--line); color: var(--fg-dim);
+}
+.po-bar__code { display: flex; gap: 12px; min-width: 0; }
+.po-bar__code b { color: var(--accent); font-weight: 600; white-space: nowrap; }
+.po-bar__code span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.po-bar__back { flex: none; color: var(--fg); background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.5s var(--ease); }
+.po-bar__back:hover, .po-bar__back:focus-visible { background-size: 100% 1px; }
+
+:is(.po-ch__chap a, .po-st__list a, .po-cs__frame, .po-cs__stage, .po-one__frame, .po-one__nav, .po-one__type, .po-door, .po-feat__name, .po-col__link, .po-index__open):focus-visible,
+.po-st__scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* ------------------------------------------------ A6 page 1: Chapters ---- */
+
+.po-ch__jump { display: flex; gap: 26px; padding: 16px var(--pad); color: var(--fg-dim); }
+.po-ch__jump a:hover, .po-ch__jump a:focus-visible { color: var(--fg); }
+
+.po-ch__chap {
+  display: grid; grid-template-columns: minmax(0, 30%) minmax(0, 1fr); gap: var(--pad) clamp(24px, 4vw, 64px);
+  padding: clamp(40px, 8vh, 96px) var(--pad); border-top: 1px solid var(--line); scroll-margin-top: var(--nav-h);
+}
+.po-ch__side { position: sticky; top: calc(var(--nav-h) + 28px); align-self: start; display: grid; gap: 14px; min-width: 0; }
+.po-ch__name {
+  font-family: var(--serif); font-weight: 400; font-size: clamp(52px, 6.8vw, 120px);
+  line-height: 0.9; letter-spacing: -0.02em; overflow-wrap: anywhere;
+}
+.po-ch__rows { --h: clamp(150px, 19vw, 290px); display: flex; flex-wrap: wrap; gap: clamp(6px, 0.8vw, 12px); min-width: 0; }
+.po-ch__rows li {
+  flex-grow: calc(var(--ar) * 100); flex-shrink: 1; flex-basis: calc(var(--ar) * var(--h)); min-width: 0;
+}
+.po-ch__rows li.po-ch__ghost { flex: 1000000 1 0; height: 0; }
+.po-ch__rows a { display: block; overflow: hidden; background: var(--bg-2); cursor: zoom-in; }
+.po-ch__rows img { display: block; width: 100%; height: auto; transition: transform 0.9s var(--ease), opacity 0.5s var(--ease); }
+.po-ch__rows a:hover img, .po-ch__rows a:focus-visible img { transform: scale(1.03); }
+
+@media (max-width: 900px) {
+  .po-ch__chap { grid-template-columns: minmax(0, 1fr); }
+  .po-ch__side { position: static; }
+  .po-ch__name { font-size: clamp(52px, 16vw, 92px); }
+  .po-ch__rows { --h: 140px; }
+}
+
+/* ---------------------------------------- A6 page 2: Contact sheet ---- */
+
+.po-cs__grid {
+  display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--pad) clamp(24px, 3vw, 56px);
+  padding: var(--pad); align-items: start;
+}
+.po-cs__viewer {
+  position: sticky; top: calc(var(--nav-h) + var(--pad)); height: calc(100svh - var(--nav-h) - var(--pad) * 2);
+  display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 14px; min-width: 0;
+}
+.po-cs__stage { position: relative; display: block; min-height: 0; padding: 0; overflow: hidden; background: var(--bg-2); cursor: zoom-in; }
+.po-cs__stage img {
+  position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: contain;
+  transition: opacity 0.35s var(--ease), transform 0.7s var(--ease);
+}
+.po-cs__stage img.is-out { opacity: 0; transform: scale(0.985); }
+.po-cs__cap { display: flex; gap: 18px; align-items: baseline; min-width: 0; color: var(--fg-dim); font-size: 14px; }
+.po-cs__cap .po-label { flex: none; color: var(--fg); }
+.po-cs__cap span:last-child { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+.po-cs__sheet { display: grid; gap: clamp(28px, 5vh, 52px); min-width: 0; padding-bottom: 12vh; }
+.po-cs__group { display: grid; gap: 14px; }
+.po-cs__group .po-label { padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.po-cs__frames { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 6px; }
+.po-cs__frame {
+  position: relative; display: block; width: 100%; aspect-ratio: 3 / 2; padding: 0; overflow: hidden;
+  background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--line);
+}
+.po-cs__frame img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; opacity: 0.5; transition: opacity 0.4s var(--ease), transform 0.8s var(--ease); }
+.po-cs__frame:hover img, .po-cs__frame:focus-visible img, .po-cs__frame.is-on img { opacity: 1; }
+.po-cs__frame:hover img { transform: scale(1.05); }
+.po-cs__frame.is-on { box-shadow: inset 0 0 0 2px var(--accent); }
+
+@media (max-width: 900px) {
+  .po-cs__grid { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 0; }
+  .po-cs__viewer {
+    top: var(--nav-h); z-index: 3; height: 46svh; min-height: 260px; margin: 0 calc(var(--pad) * -1);
+    padding: 10px var(--pad) 12px; background: var(--bg); border-bottom: 1px solid var(--line); gap: 10px;
+  }
+  .po-cs__cap { font-size: 13px; gap: 12px; }
+  .po-cs__sheet { padding-top: 22px; }
+  .po-cs__frames { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .po-cs__frame { scroll-margin-top: calc(var(--nav-h) + 46svh + 24px); }
+}
+
+/* ----------------------------------------------- A6 page 3: Strips ---- */
+
+.po-st__hint { padding: 14px var(--pad); }
+.po-st__strip { border-top: 1px solid var(--line); }
+.po-st__scroll {
+  --sh: clamp(190px, 25vh, 330px);
+  display: flex; align-items: flex-end; gap: clamp(14px, 2vw, 32px); overflow-x: auto; overflow-y: hidden;
+  padding: 22px var(--pad) 26px; cursor: grab; overscroll-behavior-x: contain;
+  scrollbar-width: thin; scrollbar-color: var(--fg-faint) transparent;
+}
+.po-st__scroll.is-drag { cursor: grabbing; user-select: none; }
+.po-st__scroll.is-drag a { pointer-events: none; }
+.po-st__head { flex: none; width: clamp(140px, 20vw, 300px); display: grid; gap: 12px; }
+.po-st__name { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 5.4vw, 90px); line-height: 0.92; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.po-st__list { display: flex; flex: none; gap: clamp(8px, 1vw, 16px); }
+.po-st__list li { flex: none; height: var(--sh); aspect-ratio: var(--ar); }
+.po-st__list a { display: block; width: 100%; height: 100%; overflow: hidden; background: var(--bg-2); cursor: inherit; }
+.po-st__list img { display: block; width: 100%; height: 100%; max-width: none; user-select: none; -webkit-user-drag: none; transition: transform 0.9s var(--ease); }
+.po-st__list a:hover img, .po-st__list a:focus-visible img { transform: scale(1.03); }
+.po-st__end { flex: none; width: 1px; }
+
+@media (max-width: 900px) {
+  .po-st__scroll { --sh: clamp(170px, 30vh, 260px); }
+}
+
+/* ------------------------------------------ A6 page 4: One at a time ---- */
+
+.po-one { display: flex; flex-direction: column; height: 100svh; min-height: 560px; }
+.po-one__stage { position: relative; flex: 1 1 0; min-height: 0; overflow: hidden; background: #000; touch-action: pan-y; }
+.po-one__bg { position: absolute; inset: 0; overflow: hidden; }
+.po-one__bg img {
+  width: 100%; height: 100%; max-width: none; object-fit: cover; transform: scale(1.15);
+  filter: blur(40px) brightness(0.38); transition: opacity 0.5s var(--ease);
+}
+.po-one__img {
+  position: absolute; left: var(--pad); top: 18px; width: calc(100% - var(--pad) * 2); height: calc(100% - 74px);
+  max-width: none; object-fit: contain; transition: opacity 0.45s var(--ease), transform 0.8s var(--ease);
+}
+.po-one__stage.is-out .po-one__img { opacity: 0; transform: scale(0.99); }
+.po-one__stage.is-out .po-one__bg img { opacity: 0.4; }
+.po-one__cap {
+  position: absolute; left: var(--pad); bottom: 16px; right: calc(var(--pad) + 130px);
+  display: flex; gap: 18px; align-items: baseline; font-size: 14px; color: var(--fg-dim);
+}
+.po-one__cap .po-label { flex: none; color: var(--fg); }
+.po-one__cap span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.po-one__nav { position: absolute; bottom: 6px; z-index: 2; padding: 10px 8px; color: var(--fg); }
+.po-one__nav--prev { right: calc(var(--pad) + 52px); }
+.po-one__nav--next { right: calc(var(--pad) - 8px); }
+.po-one__nav:hover { color: var(--accent); }
+
+.po-one__frames { display: flex; gap: 6px; overflow-x: auto; padding: 10px var(--pad); border-top: 1px solid var(--line); scrollbar-width: none; }
+.po-one__frames::-webkit-scrollbar { display: none; }
+.po-one__frames[hidden] { display: none; }
+.po-one__frames li { flex: none; }
+.po-one__frame { display: block; height: clamp(44px, 7vh, 64px); padding: 0; box-shadow: inset 0 0 0 1px var(--line); }
+.po-one__frame img { display: block; height: 100%; width: auto; max-width: none; opacity: 0.5; transition: opacity 0.4s var(--ease); }
+.po-one__frame:hover img, .po-one__frame:focus-visible img, .po-one__frame.is-on img { opacity: 1; }
+.po-one__frame.is-on { box-shadow: 0 0 0 2px var(--accent); }
+.po-one__frames { padding-left: calc(var(--pad) + 2px); padding-right: calc(var(--pad) + 2px); }
+
+.po-one__switch { display: flex; justify-content: center; gap: clamp(22px, 4vw, 64px); padding: 12px var(--pad) 18px; border-top: 1px solid var(--line); }
+.po-one__type { font-family: var(--serif); font-size: clamp(28px, 3.4vw, 50px); line-height: 1; letter-spacing: -0.012em; color: var(--fg-faint); transition: color 0.4s var(--ease); }
+.po-one__type:hover, .po-one__type.is-on { color: var(--fg); }
+
+@media (max-width: 900px) {
+  .po-one__cap { right: var(--pad); bottom: 52px; }
+  .po-one__img { height: calc(100% - 110px); }
+  .po-one__nav { bottom: 6px; }
+  .po-one__nav--prev { right: auto; left: calc(var(--pad) - 8px); }
+  .po-one__nav--next { right: calc(var(--pad) - 8px); }
+}
+
+/* ------------------------------------------------------ A6 home blocks ---- */
+
+.po-homes { padding-bottom: clamp(80px, 14vh, 160px); }
+.po-home { margin-top: clamp(48px, 9vh, 110px); }
+.po-home__tag { display: flex; gap: 14px; padding: 14px var(--pad); border-top: 1px solid var(--line); }
+.po-home__tag b { color: var(--accent); font-weight: 600; }
+.po-home__block { padding: clamp(14px, 3vh, 32px) var(--pad) 0; }
+
+/* Option 1: three doors */
+.po-doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(6px, 1vw, 14px); height: clamp(420px, 72vh, 780px); }
+.po-door { position: relative; display: block; overflow: hidden; background: var(--bg-2); min-width: 0; }
+.po-door__imgs { position: absolute; inset: 0; transition: transform 1.4s var(--ease); }
+.po-door:hover .po-door__imgs, .po-door:focus-visible .po-door__imgs { transform: scale(1.04); }
+.po-door__img {
+  position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover;
+  opacity: 0; transition: opacity 1.8s ease;
+}
+.po-door__img.is-on { opacity: 1; }
+.po-door::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, rgba(13, 10, 8, 0.78), rgba(13, 10, 8, 0) 46%); }
+.po-door__text { position: absolute; z-index: 2; left: clamp(10px, 1.6vw, 24px); right: clamp(10px, 1.6vw, 24px); bottom: clamp(12px, 1.8vw, 26px); display: grid; gap: 8px; }
+.po-door__text .po-label { color: var(--fg); opacity: 0.8; }
+.po-door__title { font-family: var(--serif); font-size: clamp(20px, 3.6vw, 66px); line-height: 0.95; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.po-door__arrow { display: inline-block; margin-left: 0.3em; font-family: var(--sans); font-size: 0.5em; opacity: 0; transform: translateX(-6px); transition: opacity 0.5s var(--ease), transform 0.6s var(--ease); }
+.po-door:hover .po-door__arrow, .po-door:focus-visible .po-door__arrow { opacity: 1; transform: none; }
+
+/* Option 2: feature and list */
+.po-feat { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: var(--pad) clamp(24px, 4vw, 72px); align-items: end; }
+.po-feat__frame { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--bg-2); }
+.po-feat__pic { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; opacity: 0; transition: opacity 0.7s var(--ease); }
+.po-feat__pic.is-on { opacity: 1; }
+.po-feat__list { display: grid; gap: 18px; min-width: 0; }
+.po-feat__name {
+  display: block; font-family: var(--serif); font-size: clamp(52px, 8vw, 140px); line-height: 0.98; letter-spacing: -0.02em;
+  color: var(--fg-faint); transition: color 0.5s var(--ease); overflow-wrap: anywhere;
+}
+.po-feat__name span { display: inline-block; margin-left: 0.2em; font-family: var(--sans); font-size: 0.32em; letter-spacing: 0; vertical-align: 0.5em; opacity: 0; transform: translateX(-6px); transition: opacity 0.5s var(--ease), transform 0.6s var(--ease); }
+.po-feat__name.is-on { color: var(--fg); }
+.po-feat__name.is-on span { opacity: 1; transform: none; }
+
+/* Option 3: collage */
+.po-col__board { position: relative; aspect-ratio: 17 / 10; }
+.po-col__item {
+  position: absolute; left: var(--l); top: var(--t); width: var(--w); z-index: var(--z);
+  overflow: hidden; background: var(--bg-2); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+.po-col__item img { display: block; width: 100%; height: auto; transition: transform 1.2s var(--ease); }
+.po-col__item:hover img { transform: scale(1.04); }
+.po-col__foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-top: clamp(28px, 5vh, 56px); }
+.po-col__link { display: inline-flex; align-items: baseline; gap: 0.3em; font-family: var(--serif); font-size: clamp(34px, 4.4vw, 72px); line-height: 1; letter-spacing: -0.02em; }
+.po-col__link span { font-family: var(--sans); font-size: 0.4em; transition: transform 0.6s var(--ease); }
+.po-col__link:hover span, .po-col__link:focus-visible span { transform: translateX(6px); }
+
+@media (max-width: 900px) {
+  .po-doors { height: 64svh; min-height: 380px; gap: 5px; }
+  .po-door__text .po-label { font-size: 10px; }
+  .po-door__arrow { display: none; }
+  .po-feat { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .po-feat__name { font-size: clamp(46px, 15vw, 80px); }
+  .po-col__board { aspect-ratio: 17 / 20; }
+  .po-col__item { left: var(--ml); top: var(--mt); width: var(--mw); }
+}
+
+/* ------------------------------------------------------------- index ---- */
+
+.po-index { padding-bottom: clamp(80px, 14vh, 160px); }
+.po-index__list { padding: 0 var(--pad); }
+.po-index__item {
+  display: grid; grid-template-columns: minmax(150px, 1fr) minmax(0, 2fr) minmax(0, 3fr) auto; gap: 10px clamp(20px, 3vw, 48px);
+  align-items: baseline; padding: 24px 0; border-top: 1px solid var(--line);
+}
+.po-index__item:last-child { border-bottom: 1px solid var(--line); }
+.po-index__code { color: var(--accent); }
+.po-index__name { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 2.8vw, 44px); line-height: 1.05; letter-spacing: -0.012em; }
+.po-index__line { max-width: 56ch; color: var(--fg-dim); text-wrap: pretty; }
+.po-index__open { display: inline-flex; gap: 8px; color: var(--fg); white-space: nowrap; }
+.po-index__open span { transition: transform 0.6s var(--ease); }
+.po-index__open:hover span, .po-index__open:focus-visible span { transform: translateX(5px); }
+.po-index__note { max-width: 62ch; margin: clamp(40px, 7vh, 80px) var(--pad) 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--fg-dim); }
+.po-index__note a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 900px) {
+  .po-index__item { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ------------------------------------------------------------- motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .po *, .po *::before, .po *::after { transition-duration: 0.01ms !important; animation: none !important; }
+  .po-ch__rows a:hover img, .po-st__list a:hover img, .po-cs__frame:hover img, .po-col__item:hover img,
+  .po-door:hover .po-door__imgs { transform: none; }
+}

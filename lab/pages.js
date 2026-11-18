@@ -19,6 +19,10 @@
 //   E1       project pages stay as they are
 //   F        his own sentence under the reel: "Creating content worth watching."
 import { esc, html } from '../src/lib/html.js';
+import { labPage, section } from './shared.js';
+import { photoOptionPages } from './photo-options.js';
+import { fontOptionPages } from './font-options.js';
+import { revisionSections, heroSizePages } from './revision-options.js';
 
 // The stand-in reel on the home page is five clips. Rough start time of each, in seconds.
 const REEL_SEGMENTS = [
@@ -29,27 +33,7 @@ const REEL_SEGMENTS = [
   { at: 14.5, label: 'SCHEELS' },
 ];
 
-const HEAD = '<link rel="stylesheet" href="/lab-assets/lab.css">';
-const SCRIPT = '<script type="module" src="/lab-assets/lab.js"></script>';
-
 const still = (p) => p.loop?.still || p.poster.src;
-
-/** Every lab page: kept out of search engines, with the lab stylesheet and script. */
-function labPage(page) {
-  return { id: 'lab', nav: '', noindex: true, description: 'Design options. Local preview only.', head: HEAD, ...page, content: `${page.content}\n${SCRIPT}` };
-}
-
-function section({ id, letter, title, lead, body }) {
-  return html`
-<section class="lab-sec" id="${id}" aria-labelledby="${id}-title">
-  <header class="lab-sec__head">
-    <p class="lab-sec__letter" aria-hidden="true">${letter}</p>
-    <h2 class="section-title" id="${id}-title">${esc(title)}</h2>
-    <p class="lab-sec__lead">${lead}</p>
-  </header>
-  ${body}
-</section>`;
-}
 
 function indexPage(ctx) {
   const { site } = ctx;
@@ -61,8 +45,8 @@ function indexPage(ctx) {
   const ideasSection = section({
     id: 'ideas',
     letter: 'D',
-    title: 'Ideas from the other two sites',
-    lead: 'Things kaiblamey.com and danikbartolini.com do that your site does not do yet. Say the codes you like. None of them are built in.',
+    title: 'Earlier ideas, still open',
+    lead: 'From the first options page: things kaiblamey.com and danikbartolini.com do that your site does not do yet. Say the codes you like. None of them are built in.',
     body: html`
   <div class="lab-ideas">
 
@@ -149,16 +133,13 @@ function indexPage(ctx) {
   <header class="page-head">
     <p class="label">Preview only. Nothing on this page is on your live site.</p>
     <h1 class="page-title">Design options</h1>
-    <p class="page-lead">Ideas that are not built yet. Each has a short code. Tell me the codes you like and I will build those into the site.</p>
-    <ul class="lab-done">
-      <li><b>Built from your picks</b></li>
-      <li>A7 + B1: your name in capitals over one small line</li>
-      <li>C5: the Work page, one project at a time</li>
-      <li>D5: the before and after slider on the home page</li>
-      <li>E1: project pages as they are</li>
-      <li>Your own sentence under the reel</li>
-    </ul>
+    <p class="page-lead">Everything on this page is waiting for your pick. Each option has a code. Answer with the code, for example "A8 title: option 3" or "A6 page: option 2".</p>
+    <nav class="lab-toc" aria-label="On this page">
+      ${[['a1', 'A1', 'Name size'], ['a4', 'A4', 'Color section text'], ['a6', 'A6', 'Photography'], ['a7', 'A7', 'Short about line'], ['a8', 'A8', 'Services wording'], ['a11', 'A11', 'Fonts'], ['ideas', 'D', 'Earlier ideas']]
+        .map(([id, letter, label]) => `<a class="hover-blur" href="#${id}"><b>${letter}</b>${esc(label)}</a>`)}
+    </nav>
   </header>
+  ${revisionSections(ctx)}
   ${ideasSection}
   <p class="lab-end">Want to see something that is not here? Ask. I can add it to this page before building it for real.</p>
 </div>`;
@@ -167,5 +148,5 @@ function indexPage(ctx) {
 }
 
 export function labPages(ctx) {
-  return [indexPage(ctx)];
+  return [indexPage(ctx), ...heroSizePages(ctx), ...photoOptionPages(ctx), ...fontOptionPages(ctx)];
 }

@@ -52,6 +52,9 @@ for (const file of pages) {
   }
 
   if (isRedirect) continue;
+  // The design options pages (lab/) exist only in the local preview and are never
+  // published, so their links are checked above but their search tags are not.
+  if (rel.startsWith('/lab/')) continue;
   const title = (html.match(/<title>([^<]*)<\/title>/) || [])[1];
   const description = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1];
   if (!title) problems.push(`${rel}: no <title>`);
