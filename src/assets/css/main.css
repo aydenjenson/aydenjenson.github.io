@@ -675,10 +675,11 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 /* 7. Work ------------------------------------------------------------------- */
 
 /* One project at a time (Ayden's pick; the idea comes from kaiblamey.com).
-   work.js makes .work as tall as the list needs. The stage stays on screen
-   while the page scrolls, and how far it has scrolled picks the project. */
+   The section is exactly one screen tall. The page does not scroll through it:
+   the list of titles is its own scroll box, and the title at the middle of
+   that box is the active one (work.js works it out). */
 .work { position: relative; }
-.work__stage { position: sticky; top: 0; height: 100svh; min-height: 480px; overflow: hidden; background: #000; }
+.work__stage { position: relative; height: 100svh; min-height: 480px; overflow: hidden; background: #000; }
 .work__layers, .work__layer, .work__dim { position: absolute; inset: 0; }
 .work__layer { opacity: 0; transition: opacity 0.8s var(--ease); }
 .work__layer.is-active { opacity: 1; }
@@ -696,16 +697,26 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .work__dim { background: linear-gradient(90deg, rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.2) 55%, rgba(0, 0, 0, 0.48)); pointer-events: none; }
 
 /* The list shows through this window and fades out towards the top and bottom
-   of the screen, so far-off titles never run under the menu or the filter. */
+   of the screen, so far-off titles never run under the menu or the filter.
+   The window itself lets clicks through to the film; only the list takes them. */
 .work__window {
   position: absolute; inset: 0; overflow: hidden; pointer-events: none;
   -webkit-mask-image: linear-gradient(to bottom, transparent 7%, #000 24%, #000 76%, transparent 91%);
   mask-image: linear-gradient(to bottom, transparent 7%, #000 24%, #000 76%, transparent 91%);
 }
+/* The list is the scroll box. Its top and bottom padding is set by work.js to
+   about half its height, so the first and last titles can reach the middle
+   (the 40svh here is only the value before the script runs). There is no scroll
+   snapping, and no overscroll-behavior: when the list reaches an end the page
+   takes over, so the footer under the section stays reachable. The scrollbar is
+   hidden because the bold title in the middle already shows where you are. */
 .work__list {
-  position: absolute; left: var(--pad); top: 50%; width: min(48vw, 640px); pointer-events: auto;
-  transition: transform 0.7s cubic-bezier(0.8, 0, 0.2, 1); will-change: transform;
+  position: absolute; left: var(--pad); top: 0; bottom: 0; width: min(48vw, 640px); pointer-events: auto;
+  margin: 0; padding: 40svh 0;
+  overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; -ms-overflow-style: none;
 }
+.work__list::-webkit-scrollbar { display: none; }
 /* --d is how many titles this one is from the middle one (work.js sets it): the further, the fainter */
 .work__item { opacity: clamp(0.14, calc(1 - var(--d, 9) * 0.28), 1); transition: opacity 0.5s var(--ease); }
 .work__item[hidden] { display: none; }
@@ -714,6 +725,12 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
   font-family: var(--serif); font-size: clamp(22px, 2.3vw, 36px); line-height: 1.1; letter-spacing: -0.012em;
   text-shadow: 0 1px 20px rgba(0, 0, 0, 0.55);
 }
+/* The middle title is bold. Instrument Serif has only one weight, so the
+   weight alone would do nothing (and a faked bold would widen the letters and
+   re-wrap long titles): a thin outline in the text colour thickens the letters
+   without changing their size, so the list never shifts. */
+.work__item.is-active { opacity: 1; }
+.work__item.is-active a { -webkit-text-stroke: 0.6px currentColor; }
 .work__credits {
   position: absolute; right: var(--pad); top: 50%; transform: translateY(-50%);
   display: grid; gap: 6px; max-width: min(300px, 24vw); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
@@ -728,12 +745,15 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .work__cats button { padding: 8px 0; opacity: 0.45; font: inherit; letter-spacing: inherit; text-transform: uppercase; transition: opacity 0.3s; }
 .work__cats button:hover, .work__cats button.is-active { opacity: 1; }
 .work__hint { position: absolute; left: var(--pad); bottom: calc(var(--pad) + env(safe-area-inset-bottom)); padding: 8px 0; color: var(--fg-dim); }
+/* A touch screen has no resting pointer, and the hint would only say the obvious */
+@media (hover: none) { .work__hint { display: none; } }
 
 /* Without JavaScript the page is a plain list of links */
 html:not(.js) .work__stage { position: static; height: auto; min-height: 0; overflow: visible; background: none; padding: calc(var(--nav-h) + 48px) var(--pad) 96px; }
 html:not(.js) .work__window { position: static; overflow: visible; -webkit-mask-image: none; mask-image: none; }
-html:not(.js) .work__list { position: static; width: auto; }
+html:not(.js) .work__list { position: static; width: auto; padding: 0; overflow: visible; }
 html:not(.js) .work__item { opacity: 1; }
+html:not(.js) .work__item.is-active a { -webkit-text-stroke: 0; }
 html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats, html:not(.js) .work__hint { display: none; }
 
 /* 8. Film page -------------------------------------------------------------- */
@@ -1097,14 +1117,19 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
   .grade__stage, .grade__side { grid-column: 1 / -1; }
 }
 
-/* Work page on phones: titles across the width, the details and the filter at the bottom */
+/* Work page on phones' ===== */
+
+/* Work page on phones: the list fills the upper part of the screen and is dragged with a finger; the details and the filter stay at the bottom */
 @media (max-width: 700px) {
-  /* The window ends above the details and the filter, which sit at the bottom on a phone */
+  /* The window (and so the list's scrolling area) ends above the details and the
+     filter, so the list never covers their buttons. The middle of the window is
+     the middle of the visible list. */
   .work__window {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 8%, #000 22%, #000 58%, transparent 72%);
-    mask-image: linear-gradient(to bottom, transparent 8%, #000 22%, #000 58%, transparent 72%);
+    inset: 0 0 calc(214px + env(safe-area-inset-bottom)) 0;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%);
   }
-  .work__list { top: 40%; width: calc(100vw - var(--pad) * 2); }
+  .work__list { width: calc(100vw - var(--pad) * 2); }
   .work__credits { top: auto; bottom: calc(92px + env(safe-area-inset-bottom)); left: var(--pad); right: var(--pad); max-width: none; transform: none; }
   .work__credits div { justify-content: flex-start; }
   .work__credits dd { text-align: left; }

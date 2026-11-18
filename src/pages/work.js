@@ -1,11 +1,14 @@
 // Work page: one project at a time (Ayden picked this layout; the idea comes
-// from kaiblamey.com). One film fills the screen. Scrolling steps through the
-// list of titles, and the footage behind them changes with it.
+// from kaiblamey.com). One film fills the screen, exactly one screen tall.
+// The list of titles is a scroll box: the title at its middle is the active
+// one (shown bold) and its footage plays behind. On a computer the list also
+// scrolls by itself while the pointer rests below or above its middle; on a
+// phone the visitor drags it.
 //
 //   .work__layers   one full-screen layer per project: its still, and its
 //                   preview loop when it has one (work.js adds the <video>)
 //   .work__window   the part of the screen the list shows through (it fades out at the top and bottom)
-//   .work__list     every title, as a link to the project page
+//   .work__list     the scrolling box with every title, as a link to the project page
 //   .work__credits  type, client, year and length of the title in the middle
 //   .work__cats     All / Brand & Commercial / Creative & Film / Weddings
 //
@@ -57,7 +60,7 @@ export function workPage(ctx) {
       <button class="is-active" type="button" data-filter="all" aria-pressed="true">All</button>
       ${cats.map((c) => `<button type="button" data-filter="${esc(c.id)}" aria-pressed="false">${esc(c.label)}</button>`)}
     </div>
-    <p class="work__hint" aria-hidden="true">Scroll</p>
+    <p class="work__hint" aria-hidden="true">Scroll the list</p>
   </div>
 </section>`;
 
