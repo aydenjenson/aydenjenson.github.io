@@ -298,6 +298,31 @@ function initStatement() {
   const text = section && $('[data-words]', section);
   if (!text) return;
   const words = $$('.word', text);
+
+  // On a phone the tagline is two stacked lines. Each line gets its own size
+  // so both end up exactly as wide as the text column: a tidy block instead of
+  // one long line and one short one. (Same width as the "phones" rule for
+  // .statement__line in main.css.)
+  const lines = $$('.statement__line', text);
+  const stacked = matchMedia('(max-width: 700px)');
+  function fitLines() {
+    lines.forEach((line) => { line.style.fontSize = ''; });
+    if (!stacked.matches || lines.length < 2) return;
+    const room = text.clientWidth;
+    lines.forEach((line) => {
+      // Twice: text does not scale perfectly evenly, so the second pass takes out the last few pixels.
+      for (let pass = 0; pass < 2; pass += 1) {
+        const size = parseFloat(getComputedStyle(line).fontSize);
+        const width = line.getBoundingClientRect().width;
+        if (size && width && room) line.style.fontSize = `${((size * room) / width).toFixed(2)}px`;
+      }
+    });
+  }
+  fitLines();
+  let fitWidth = window.innerWidth;
+  window.addEventListener('resize', () => { if (window.innerWidth !== fitWidth) { fitWidth = window.innerWidth; fitLines(); } });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLines);
+
   if (reduced || !('IntersectionObserver' in window)) { words.forEach((w) => w.classList.add('is-on')); return; }
 
   let visible = false;

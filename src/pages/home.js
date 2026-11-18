@@ -6,7 +6,7 @@
 //   click a title   the project opens full screen, sharpens and plays; the title becomes "See project"
 //   click the name  back to the reel
 import { esc, html, clock } from '../lib/html.js';
-import { chars, words, spread, titleText, socialLinks, projectAttrs, posterImg, loopVideo, picture, sectionHead, cta, gradeSection, ARROW } from './components.js';
+import { chars, spread, titleText, socialLinks, projectAttrs, posterImg, loopVideo, picture, sectionHead, cta, gradeSection, ARROW } from './components.js';
 import { businessLd, personLd, websiteLd } from '../lib/seo.js';
 
 // The hero is a grid of 3 columns x 2 rows; each cell holds one title.
@@ -71,9 +71,15 @@ export function homePage(ctx) {
   </div>
 </section>`;
 
+  // The tagline is printed as two halves (split by word count), so a phone can
+  // stack them as two lines of equal width. Each word is its own span because
+  // the words light up one after another as the page scrolls (home.js).
+  const taglineWords = String(site.home.statement || '').split(/\s+/).filter(Boolean);
+  const taglineCut = Math.ceil(taglineWords.length / 2);
+  const taglineLine = (list, start) => `<span class="statement__line">${list.map((w, i) => `<span class="word" style="--i:${start + i}">${esc(w)}</span>`).join(' ')}</span>`;
   const statement = html`
 <section class="statement" id="intro" data-statement aria-label="Introduction">
-  <p class="statement__text" data-words>${words(site.home.statement)}</p>
+  <p class="statement__text" data-words>${[taglineLine(taglineWords.slice(0, taglineCut), 0), taglineLine(taglineWords.slice(taglineCut), taglineCut)].join(' ')}</p>
 </section>`;
 
   const selected = html`
