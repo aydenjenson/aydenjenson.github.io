@@ -49,6 +49,13 @@
 
   /* Space */
   --pad: clamp(16px, 2.2vw, 36px);
+  /* Vertical rhythm. Three gaps do all the work, so every page breathes the same way:
+     --gap-section  the space after a whole section (and above the footer)
+     --gap-row      above and below one row in a ruled list of sections (each service, the details on a project page)
+     --gap-block    between a heading and what it introduces */
+  --gap-section: clamp(64px, 11vh, 136px);
+  --gap-row: clamp(48px, 8.5vh, 104px);
+  --gap-block: clamp(28px, 5vh, 60px);
   --nav-h: 56px;
 
   /* Motion */
@@ -186,7 +193,7 @@ sup { line-height: 0; }
 }
 
 .page-head {
-  padding: calc(var(--nav-h) + clamp(64px, 13vh, 170px)) var(--pad) clamp(32px, 6vh, 72px);
+  padding: calc(var(--nav-h) + clamp(56px, 11vh, 136px)) var(--pad) var(--gap-block);
 }
 .page-title {
   font-family: var(--serif);
@@ -552,19 +559,19 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .js .word { opacity: 0.16; transition: opacity 0.6s var(--ease); }
 .js .word.is-on { opacity: 1; }
 
-.selected { padding-bottom: clamp(90px, 16vh, 220px); }
+.selected { padding-bottom: var(--gap-section); }
 .selected__grid {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: var(--pad); row-gap: clamp(60px, 11vh, 150px);
+  column-gap: var(--pad); row-gap: clamp(48px, 8vh, 104px);
   align-items: start;
-  padding: clamp(36px, 7vh, 90px) var(--pad) 0;
+  padding: var(--gap-block) var(--pad) 0;
 }
 .card--a { grid-column: 1 / span 7; }
-.card--b { grid-column: 9 / span 4; margin-top: clamp(70px, 18vh, 220px); }
+.card--b { grid-column: 9 / span 4; margin-top: clamp(48px, 12vh, 150px); }
 .card--c { grid-column: 2 / span 5; }
-.card--d { grid-column: 7 / span 6; margin-top: clamp(40px, 10vh, 130px); }
+.card--d { grid-column: 7 / span 6; margin-top: clamp(32px, 8vh, 100px); }
 .card--e { grid-column: 1 / span 5; }
-.card--f { grid-column: 6 / span 7; margin-top: clamp(50px, 12vh, 160px); }
+.card--f { grid-column: 6 / span 7; margin-top: clamp(40px, 10vh, 120px); }
 .card__link { display: block; }
 .card__media { position: relative; overflow: hidden; aspect-ratio: 16 / 10; background: var(--bg-2); }
 .card--b .card__media, .card--e .card__media { aspect-ratio: 4 / 5; }
@@ -578,7 +585,7 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 .card__title { font-family: var(--serif); font-weight: 400; font-size: clamp(22px, 2.1vw, 34px); line-height: 1.05; letter-spacing: -0.01em; }
 .card__kind { color: var(--fg-dim); white-space: nowrap; }
 
-.svc-teaser { padding-bottom: clamp(80px, 14vh, 190px); }
+.svc-teaser { padding-bottom: var(--gap-section); }
 .svc-list { border-bottom: 1px solid var(--line); }
 .svc__link {
   display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) auto auto;
@@ -608,19 +615,19 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
   .svc__link:hover .svc__thumb img { scale: 1; }
 }
 
-.stills { padding-bottom: clamp(80px, 14vh, 190px); overflow: clip; }
-.stills__viewport { overflow: hidden; padding: clamp(32px, 6vh, 80px) 0 clamp(24px, 4vh, 48px); }
+.stills { padding-bottom: var(--gap-section); overflow: clip; }
+.stills__viewport { overflow: hidden; padding: var(--gap-block) 0 clamp(20px, 3.5vh, 40px); }
 .stills__track { display: flex; align-items: flex-start; gap: var(--pad); width: max-content; padding: 0 var(--pad); will-change: transform; }
 .stills__item { flex: none; height: clamp(230px, 46vh, 540px); aspect-ratio: var(--ar); overflow: hidden; background: var(--bg-2); }
 .stills__item:nth-child(even) { margin-top: clamp(24px, 6vh, 72px); }
 .stills__item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
 .stills__item:hover img { transform: scale(1.04); }
-.stills__text { padding: 0 var(--pad); max-width: 44ch; color: var(--fg-dim); font-size: clamp(15px, 1.3vw, 19px); }
+.stills__text { padding: 0 var(--pad); max-width: 44ch; color: var(--fg-dim); font-size: clamp(15px, 1.2vw, 18px); }
 
 .about-teaser {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--pad);
   align-items: center;
-  padding: clamp(40px, 8vh, 110px) var(--pad) clamp(90px, 16vh, 220px);
+  padding: 0 var(--pad) var(--gap-section);
   border-top: 1px solid var(--line);
 }
 .about-teaser__img { grid-column: 2 / span 4; aspect-ratio: 4 / 5; overflow: hidden; background: var(--bg-2); }
@@ -636,11 +643,11 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
    follows the pointer by itself), or use the arrow keys. The buttons beside it
    switch to another frame. Markup: gradeSection() in components.js. Behaviour:
    initGrade() in main.js. Pictures: media/grades/. */
-.grade { padding-bottom: clamp(90px, 16vh, 220px); }
+.grade { padding-bottom: var(--gap-section); }
 .grade__body {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(22px, 4vh, 40px) var(--pad);
   align-items: end;
-  padding: clamp(28px, 5vh, 64px) var(--pad) 0;
+  padding: var(--gap-block) var(--pad) 0;
 }
 .grade__stage {
   --split: 50%;
@@ -864,7 +871,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 
 .details {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(36px, 6vh, 72px) var(--pad);
-  padding: clamp(80px, 14vh, 190px) var(--pad);
+  padding: var(--gap-section) var(--pad);
 }
 .details__main { grid-column: 1 / span 7; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
 .details__main .label { margin: 0; }
@@ -901,7 +908,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .filter:hover { opacity: 0.75; }
 .filter.is-active { opacity: 1; }
 
-.photos { padding-bottom: clamp(70px, 12vh, 160px); }
+.photos { padding-bottom: var(--gap-section); }
 .photos__grid { columns: 3; column-gap: var(--pad); padding: 0 var(--pad); }
 .photos__grid.is-cols { columns: auto; display: flex; align-items: flex-start; gap: var(--pad); }
 .photos__col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: var(--pad); will-change: transform; }
@@ -945,8 +952,8 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 
 .about__grid {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: clamp(48px, 9vh, 120px) var(--pad);
-  padding: clamp(24px, 4vh, 48px) var(--pad) clamp(90px, 15vh, 200px);
+  gap: var(--gap-row) var(--pad);
+  padding: clamp(20px, 3.5vh, 40px) var(--pad) var(--gap-section);
 }
 .about__portrait { grid-column: 1 / span 5; aspect-ratio: 4 / 5; overflow: hidden; background: var(--bg-2); }
 .about__portrait > div { height: 116%; margin-top: -8%; }
@@ -967,7 +974,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .about__services li { border-top: 1px solid var(--line); }
 .about__services a { display: block; padding: 12px 0; font-family: var(--serif); font-size: clamp(22px, 2.1vw, 32px); line-height: 1.1; letter-spacing: -0.012em; }
 
-.clients { padding: 22px 0 clamp(70px, 12vh, 150px); border-top: 1px solid var(--line); overflow: hidden; }
+.clients { padding: 22px 0 var(--gap-section); border-top: 1px solid var(--line); overflow: hidden; }
 .clients .label { padding: 0 var(--pad); }
 .marquee { display: flex; width: max-content; }
 .marquee__track { display: flex; flex: none; animation: marquee 34s linear infinite; }
@@ -983,7 +990,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .service {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(32px, 5vh, 56px) var(--pad);
   align-items: center;
-  padding: clamp(56px, 10vh, 130px) var(--pad);
+  padding: var(--gap-row) var(--pad);
   border-top: 1px solid var(--line);
   scroll-margin-top: var(--nav-h);
 }
@@ -999,17 +1006,17 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .service__caption { display: flex; justify-content: space-between; gap: 12px; padding-top: 10px; color: var(--fg-dim); }
 .service__caption span:last-child { color: var(--fg); text-align: right; }
 
-.areas { padding: clamp(64px, 11vh, 140px) var(--pad); border-top: 1px solid var(--line); }
+.areas { padding: var(--gap-row) var(--pad); border-top: 1px solid var(--line); }
 .areas { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--pad); align-items: start; }
 .areas .section-title { grid-column: 1 / span 5; }
 .areas__text { grid-column: 7 / span 6; font-family: var(--serif); font-size: clamp(26px, 2.8vw, 46px); line-height: 1.1; letter-spacing: -0.012em; text-wrap: balance; }
 
 /* 12. Contact ---------------------------------------------------------------- */
 
-.contact { padding-bottom: clamp(90px, 15vh, 200px); }
+.contact { padding-bottom: var(--gap-section); }
 .contact__grid {
   display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(48px, 9vw, 160px);
-  padding: clamp(24px, 5vh, 60px) var(--pad) 0;
+  padding: clamp(20px, 3.5vh, 40px) var(--pad) 0;
 }
 .form { display: grid; gap: clamp(22px, 3.4vh, 36px); }
 .form__trap { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
@@ -1059,7 +1066,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .notfound__links { display: flex; gap: 30px; margin-top: 10px; }
 
 /* Privacy page: one readable column of short sections */
-.legal { max-width: calc(760px + var(--pad) * 2); padding: 0 var(--pad) clamp(80px, 14vh, 160px); }
+.legal { max-width: calc(760px + var(--pad) * 2); padding: 0 var(--pad) var(--gap-section); }
 .legal__block { padding: clamp(22px, 3.4vh, 34px) 0; border-top: 1px solid var(--line); }
 .legal__block .label { margin-bottom: 12px; }
 .legal__block p { color: var(--fg-dim); font-size: clamp(15px, 1.15vw, 17px); line-height: 1.55; text-wrap: pretty; }
@@ -1073,14 +1080,14 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .cta { border-top: 1px solid var(--line); }
 .cta__link {
   display: flex; flex-direction: column; align-items: center; gap: clamp(18px, 3vh, 34px);
-  padding: clamp(100px, 20vh, 260px) var(--pad) clamp(90px, 17vh, 220px); text-align: center;
+  padding: var(--gap-section) var(--pad); text-align: center;
 }
 .cta__eyebrow { color: var(--fg-dim); }
 .cta__big { font-family: var(--serif); font-size: clamp(56px, 11.6vw, 210px); line-height: 0.88; letter-spacing: -0.035em; text-wrap: balance; transition: letter-spacing 0.9s var(--ease); }
 @media (hover: hover) { .cta__link:hover .cta__big { letter-spacing: -0.015em; } }
 .cta__go { padding: 8px 0; border-bottom: 1px solid var(--fg-faint); }
 
-.footer { border-top: 1px solid var(--line); padding: clamp(36px, 6vh, 64px) var(--pad) calc(18px + env(safe-area-inset-bottom)); }
+.footer { border-top: 1px solid var(--line); padding: var(--gap-block) var(--pad) calc(18px + env(safe-area-inset-bottom)); }
 .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: clamp(28px, 4vw, 60px) var(--pad); }
 .footer__col { display: flex; flex-direction: column; gap: 6px; color: var(--fg-dim); }
 .footer__col ul { display: flex; flex-direction: column; }
@@ -1089,7 +1096,7 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 .footer__name { font-family: var(--serif); font-size: clamp(28px, 2.6vw, 40px); line-height: 1; letter-spacing: -0.015em; text-transform: none; color: var(--fg); margin-bottom: 8px; }
 .footer__base {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
-  margin-top: clamp(44px, 8vh, 96px); padding-top: 14px; border-top: 1px solid var(--line);
+  margin-top: var(--gap-block); padding-top: 14px; border-top: 1px solid var(--line);
   color: var(--fg-faint);
 }
 .footer__base a { color: var(--fg); }

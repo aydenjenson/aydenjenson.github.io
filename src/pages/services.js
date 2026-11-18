@@ -1,5 +1,5 @@
 // Services page. This is the page written for Google as much as for people:
-// plain text about what Ayden offers, where, and how it works.
+// plain text about what Ayden offers and where.
 import { esc, html } from '../lib/html.js';
 import { chars, projectAttrs, posterImg, loopVideo, cta, ARROW } from './components.js';
 import { breadcrumbLd, businessLd } from '../lib/seo.js';
@@ -55,7 +55,7 @@ ${cta(ctx, { eyebrow: `Video production in ${loc.city}, ${loc.region}` })}`;
     id: 'services',
     nav: 'services',
     title: `Video Production Services in ${loc.city}, ${loc.region} | ${site.seo.titleSuffix}`,
-    description: `Brand films, commercials, social media content and photography in ${loc.city}, ${loc.regionName} and beyond. See how it works and get a quote.`,
+    description: `Brand films, commercials, social media content and photography in ${loc.city}, ${loc.regionName} and beyond. Get a quote.`,
     jsonld: [
       businessLd(ctx),
       breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]),
