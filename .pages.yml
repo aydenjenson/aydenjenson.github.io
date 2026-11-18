@@ -158,7 +158,7 @@ content:
             type: string
             list: true
           - name: nameLine
-            label: The small line under your name (each entry is one part; parts are joined with a slash)
+            label: The small line under your name (each entry is one part; parts are joined with a vertical bar)
             type: string
             list: true
           - name: statement
@@ -170,20 +170,12 @@ content:
           - name: gradeText
             label: Before and after slider, text beside the picture
             type: text
-          - name: facts
-            label: The facts under the intro statement
-            type: object
-            list: true
-            fields:
-              - name: label
-                label: Label
-                type: string
-              - name: value
-                label: Text
-                type: string
           - name: aboutHeading
             label: About teaser heading
             type: string
+          - name: aboutText
+            label: About teaser text (leave empty to use the first line of the bio)
+            type: text
           - name: photoText
             label: Stills text
             type: text

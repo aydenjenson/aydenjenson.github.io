@@ -5,7 +5,7 @@
 //   hover a title   a blurred strip of that project slides in from the side the title is on
 //   click a title   the project opens full screen, sharpens and plays; the title becomes "See project"
 //   click the name  back to the reel
-import { esc, html, pad2, clock } from '../lib/html.js';
+import { esc, html, clock } from '../lib/html.js';
 import { chars, words, spread, titleText, socialLinks, projectAttrs, posterImg, loopVideo, picture, sectionHead, cta, gradeSection, ARROW } from './components.js';
 import { businessLd, personLd, websiteLd } from '../lib/seo.js';
 
@@ -74,18 +74,11 @@ export function homePage(ctx) {
   const statement = html`
 <section class="statement" id="intro" data-statement aria-label="Introduction">
   <p class="statement__text" data-words>${words(site.home.statement)}</p>
-  <dl class="statement__facts" style="--cols:${(site.home.facts || []).length || 1}" data-reveal>
-    ${(site.home.facts || []).map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`)}
-  </dl>
-  <p class="statement__links" data-reveal>
-    <a class="link-arrow hover-blur" href="/about/">${chars('About Ayden')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
-    <a class="link-arrow hover-blur" href="/services/">${chars('Services')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
-  </p>
 </section>`;
 
   const selected = html`
 <section class="selected" aria-labelledby="selected-title">
-  ${sectionHead({ num: 1, title: site.home.workHeading, id: 'selected-title', link: { href: '/work/', label: `All work (${ctx.projects.length})` } })}
+  ${sectionHead({ title: site.home.workHeading, id: 'selected-title', link: { href: '/work/', label: 'All work' } })}
   <div class="selected__grid">
     ${cards.map((p, i) => html`
     <article class="card card--${CARD_LAYOUT[i]}" data-parallax="${[0.05, -0.04, 0.03, -0.05, 0.04, -0.03][i]}">
@@ -96,7 +89,6 @@ export function homePage(ctx) {
           <span class="brackets" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         </div>
         <div class="card__meta">
-          <span class="card__num" aria-hidden="true">${pad2(i + 1)}</span>
           <h3 class="card__title">${titleText(p.title)}</h3>
           <p class="card__kind">${esc(p.kind)}<span aria-hidden="true"> / </span>${p.year}</p>
         </div>
@@ -105,13 +97,12 @@ export function homePage(ctx) {
   </div>
 </section>`;
 
-  // The before/after slider appears once media/grades/ holds a pair; the sections after it are then numbered one higher.
-  const grade = gradeSection(ctx, { num: 2, title: site.home.gradeHeading || 'Before and After', text: site.home.gradeText });
-  const shift = grade ? 1 : 0;
+  // The color grading slider appears once media/grades/ holds a pair.
+  const grade = gradeSection(ctx, { title: site.home.gradeHeading || 'Colorgrading Showcase', text: site.home.gradeText });
 
   const services = html`
 <section class="svc-teaser" aria-labelledby="svc-title">
-  ${sectionHead({ num: 2 + shift, title: site.home.servicesHeading, id: 'svc-title', link: { href: '/services/', label: 'Services' } })}
+  ${sectionHead({ title: site.home.servicesHeading, id: 'svc-title', link: { href: '/services/', label: 'Services' } })}
   <ul class="svc-list">
     ${site.services.items.map((s, i) => {
       // A small picture opens up inside the row on hover (it does not follow the pointer).
@@ -120,7 +111,6 @@ export function homePage(ctx) {
       return html`
     <li class="svc" data-reveal style="--d:${i * 60}ms">
       <a class="svc__link" href="${s.href || `/services/#${s.slug}`}">
-        <span class="svc__num" aria-hidden="true">${pad2(i + 1)}</span>
         <span class="svc__title">${esc(s.title)}</span>
         <span class="svc__summary">${esc(s.summary)}</span>
         <span class="svc__thumb" aria-hidden="true">${thumb ? `<img src="${esc(thumb)}" alt="" loading="lazy" decoding="async">` : ''}</span>
@@ -133,7 +123,7 @@ export function homePage(ctx) {
 
   const stillsSection = stills.length ? html`
 <section class="stills" aria-labelledby="stills-title">
-  ${sectionHead({ num: 3 + shift, title: site.home.photoHeading, id: 'stills-title', link: { href: '/photography/', label: 'Photography' } })}
+  ${sectionHead({ title: site.home.photoHeading, id: 'stills-title', link: { href: '/photography/', label: 'Photography' } })}
   <div class="stills__viewport">
     <div class="stills__track" data-stills>
       ${stills.map((img, i) => html`
@@ -152,9 +142,8 @@ export function homePage(ctx) {
     <div data-parallax="0.06">${picture(portrait, { alt: site.about.portraitAlt, sizes: '(min-width: 900px) 36vw, 90vw' })}</div>
   </figure>` : ''}
   <div class="about-teaser__text">
-    <p class="section-head__num" aria-hidden="true">(${pad2(4 + shift)})</p>
     <h2 class="about-teaser__title" id="about-teaser-title" data-reveal="rise">${esc(site.home.aboutHeading)}</h2>
-    <p data-reveal>${esc(site.about.bio[0])}</p>
+    <p data-reveal>${esc(site.home.aboutText || site.about.bio[0])}</p>
     <a class="link-arrow hover-blur" href="/about/">${chars('About Ayden')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
   </div>
 </section>`;

@@ -1,10 +1,10 @@
 // The shell around every page: <head>, navigation, footer, shared overlays.
-import { esc, html, pad2 } from '../lib/html.js';
+import { esc, html } from '../lib/html.js';
 import { chars, socialLinks, ARROW_UP } from './components.js';
 
 export const NAV = [
-  { id: 'work', label: 'Work', href: '/work/' },
-  { id: 'photography', label: 'Photography', href: '/photography/' },
+  { id: 'work', label: 'Video', href: '/work/' },
+  { id: 'photography', label: 'Photo', href: '/photography/' },
   { id: 'services', label: 'Services', href: '/services/' },
   { id: 'about', label: 'About', href: '/about/' },
   { id: 'contact', label: 'Contact', href: '/contact/' },
@@ -92,10 +92,8 @@ ${page.head || ''}
 <header class="nav" data-nav>
   <a class="nav__brand hover-blur" href="/" aria-label="${esc(site.name)}, home">${chars(site.name)}</a>
   <nav class="nav__links" aria-label="Main">
-    ${NAV.map((item, i) => html`
-    <a class="nav__link hover-blur${item.id === page.nav ? ' is-current' : ''}" href="${item.href}"${item.id === page.nav ? ' aria-current="page"' : ''}>
-      <span class="nav__num" aria-hidden="true">${pad2(i + 1)}</span>${chars(item.label)}
-    </a>`)}
+    ${NAV.map((item) => html`
+    <a class="nav__link hover-blur${item.id === page.nav ? ' is-current' : ''}" href="${item.href}"${item.id === page.nav ? ' aria-current="page"' : ''}>${chars(item.label)}</a>`)}
   </nav>
   <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
     <span class="nav__toggle-open">Menu</span><span class="nav__toggle-close">Close</span>
@@ -104,9 +102,9 @@ ${page.head || ''}
 
 <div class="menu" id="menu" data-menu aria-hidden="true">
   <nav class="menu__links" aria-label="Menu">
-    <a class="menu__link" href="/"><span class="menu__num">00</span><span class="menu__label">Home</span></a>
-    ${NAV.map((item, i) => html`
-    <a class="menu__link${item.id === page.nav ? ' is-current' : ''}" href="${item.href}"><span class="menu__num">${pad2(i + 1)}</span><span class="menu__label">${esc(item.label)}</span></a>`)}
+    <a class="menu__link" href="/"><span class="menu__label">Home</span></a>
+    ${NAV.map((item) => html`
+    <a class="menu__link${item.id === page.nav ? ' is-current' : ''}" href="${item.href}"><span class="menu__label">${esc(item.label)}</span></a>`)}
   </nav>
   <div class="menu__foot">
     <a href="mailto:${esc(site.contact.email)}">${esc(site.contact.email)}</a>

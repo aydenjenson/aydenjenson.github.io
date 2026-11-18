@@ -111,18 +111,6 @@ export function breadcrumbLd(ctx, crumbs) {
   };
 }
 
-export function faqLd(faq) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faq.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
-    })),
-  };
-}
-
 /** List of all projects, used on the work page. */
 export function workListLd(ctx) {
   return {

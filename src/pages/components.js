@@ -1,5 +1,5 @@
 // Small building blocks shared by the page templates.
-import { esc, html, pad2 } from '../lib/html.js';
+import { esc, html } from '../lib/html.js';
 import { SOCIAL_ICONS } from '../lib/icons.js';
 
 /**
@@ -44,14 +44,14 @@ export const titleText = (text) => esc(text).replace(/ - /g, '&nbsp;- ');
 /**
  * A short line of capitals spread letter by letter across the full width of
  * its box. The home page uses it under the name, in a box exactly as wide as
- * the name, so the two lines start and end together. Parts are joined by a slash.
+ * the name, so the two lines start and end together. Parts are joined by a vertical bar.
  */
 export function spread(parts) {
   const list = [].concat(parts).filter(Boolean).map(String);
   const gap = '<i class="spread__gap"> </i>';
   const cells = list
     .map((part) => [...part].map((ch) => (ch === ' ' ? gap : `<i>${esc(ch)}</i>`)).join(''))
-    .join(`${gap}<i class="spread__sep">/</i>${gap}`);
+    .join(`${gap}<i class="spread__sep">|</i>${gap}`);
   return `<span class="spread" aria-hidden="true">${cells}</span><span class="sr">${esc(list.join(', '))}</span>`;
 }
 
@@ -112,11 +112,10 @@ export function picture(img, { alt = '', sizes = '100vw', lazy = true, cls = '' 
   return `<img${cls ? ` class="${cls}"` : ''} src="${esc(img.src)}"${srcset} alt="${esc(alt)}" width="${img.width}" height="${img.height}" ${lazy ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async">`;
 }
 
-/** "(01) Section title ......... link" header used above home sections. */
-export function sectionHead({ num, title, id, link }) {
+/** "Section title ......... link" header used above home sections. */
+export function sectionHead({ title, id, link }) {
   return html`
     <header class="section-head" data-reveal>
-      <p class="section-head__num" aria-hidden="true">(${pad2(num)})</p>
       <h2 class="section-head__title"${id ? ` id="${id}"` : ''}>${esc(title)}</h2>
       ${link && html`<a class="link-arrow hover-blur" href="${link.href}">${chars(link.label)}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>`}
     </header>`;
@@ -129,7 +128,7 @@ export function sectionHead({ num, title, id, link }) {
  * frame. The pairs are the files in media/grades/ (ctx.grades, see build.js).
  * With none there, nothing is drawn. Behaviour: initGrade() in main.js.
  */
-export function gradeSection(ctx, { num, title, text } = {}) {
+export function gradeSection(ctx, { title, text } = {}) {
   const pairs = ctx.grades || [];
   if (!pairs.length) return '';
   const first = pairs[0];
@@ -137,7 +136,7 @@ export function gradeSection(ctx, { num, title, text } = {}) {
   const size = (img) => `width="${img.width}" height="${img.height}"`;
   return html`
 <section class="grade" data-grade aria-labelledby="grade-title">
-  ${sectionHead({ num, title, id: 'grade-title' })}
+  ${sectionHead({ title, id: 'grade-title' })}
   <div class="grade__body">
     <div class="grade__stage" data-grade-stage data-reveal>
       <img class="grade__img" data-grade-after src="${esc(first.after.src)}" alt="${esc(alt(first))}" ${size(first.after)} loading="lazy" decoding="async" draggable="false">
@@ -154,7 +153,7 @@ export function gradeSection(ctx, { num, title, text } = {}) {
       ${pairs.length > 1 ? html`
       <ol class="grade__list" data-reveal>
         ${pairs.map((pair, i) => html`
-        <li><button class="grade__pick${i === 0 ? ' is-active' : ''}" type="button" data-grade-pick data-after="${esc(pair.after.src)}" data-before="${esc(pair.before.src)}" data-alt="${esc(alt(pair))}" data-href="${pair.project ? pair.project.url : ''}" aria-pressed="${i === 0}"><span aria-hidden="true">${pad2(i + 1)}</span><span>${esc(pair.label)}</span></button></li>`)}
+        <li><button class="grade__pick${i === 0 ? ' is-active' : ''}" type="button" data-grade-pick data-after="${esc(pair.after.src)}" data-before="${esc(pair.before.src)}" data-alt="${esc(alt(pair))}" data-href="${pair.project ? pair.project.url : ''}" aria-pressed="${i === 0}"><span>${esc(pair.label)}</span></button></li>`)}
       </ol>` : ''}
       <a class="link-arrow hover-blur" href="${first.project ? first.project.url : '/work/'}" data-grade-link${first.project ? '' : ' hidden'}>${chars('See this project')}<span class="link-arrow__icon" aria-hidden="true">${ARROW}</span></a>
     </div>

@@ -1,6 +1,6 @@
 // Photography page: a small, curated grid with category filters and a
 // full-screen viewer. The photos come straight from media/photos/<category>/.
-import { esc, html, pad2 } from '../lib/html.js';
+import { esc, html } from '../lib/html.js';
 import { picture, cta } from './components.js';
 import { breadcrumbLd } from '../lib/seo.js';
 
@@ -13,12 +13,12 @@ export function photographyPage(ctx) {
   const content = html`
 <section class="photos" data-photos>
   <header class="page-head">
-    <h1 class="page-title" data-reveal="rise">${esc(site.photography.heading)}<sup>${photos.length}</sup></h1>
+    <h1 class="page-title" data-reveal="rise">${esc(site.photography.heading)}</h1>
     <p class="page-lead" data-reveal>${esc(site.photography.lead)}</p>
     ${cats.length > 1 ? html`
     <div class="filters" role="group" aria-label="Filter photos" data-reveal>
-      <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All<sup>${photos.length}</sup></button>
-      ${cats.map((c) => `<button class="filter" type="button" data-filter="${esc(c.folder)}" aria-pressed="false">${esc(c.label)}<sup>${c.count}</sup></button>`)}
+      <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+      ${cats.map((c) => `<button class="filter" type="button" data-filter="${esc(c.folder)}" aria-pressed="false">${esc(c.label)}</button>`)}
     </div>` : ''}
   </header>
 
@@ -27,7 +27,7 @@ export function photographyPage(ctx) {
     ${photos.map((img, i) => html`
     <a class="photo" href="${esc(img.full.src)}" data-photo data-category="${esc(img.category)}" data-label="${esc(img.categoryLabel)}" data-w="${img.full.width}" data-h="${img.full.height}" style="--ar:${(img.width / img.height).toFixed(4)}" aria-label="Open photo ${i + 1}: ${esc(img.alt)}">
       ${picture(img, { alt: img.alt, sizes: '(min-width: 1100px) 32vw, (min-width: 640px) 48vw, 96vw', lazy: i > 2 })}
-      <span class="photo__meta" aria-hidden="true"><span>${pad2(i + 1)}</span><span>${esc(img.categoryLabel)}</span></span>
+      <span class="photo__meta" aria-hidden="true"><span>${esc(img.categoryLabel)}</span></span>
     </a>`)}
   </div>` : html`<p class="photos__empty">Photos are on the way.</p>`}
 </section>

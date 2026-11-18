@@ -1,8 +1,8 @@
 // Services page. This is the page written for Google as much as for people:
 // plain text about what Ayden offers, where, and how it works.
-import { esc, html, pad2 } from '../lib/html.js';
+import { esc, html } from '../lib/html.js';
 import { chars, projectAttrs, posterImg, loopVideo, cta, ARROW } from './components.js';
-import { breadcrumbLd, businessLd, faqLd } from '../lib/seo.js';
+import { breadcrumbLd, businessLd } from '../lib/seo.js';
 
 export function servicesPage(ctx) {
   const { site } = ctx;
@@ -18,12 +18,11 @@ export function servicesPage(ctx) {
   </header>
 
   <div class="services__list">
-    ${s.items.map((item, i) => {
+    ${s.items.map((item) => {
       const project = ctx.projects.find((p) => p.slug === item.project);
       return html`
     <article class="service" id="${esc(item.slug)}">
       <div class="service__text">
-        <p class="service__num" aria-hidden="true">${pad2(i + 1)}</p>
         <h2 class="service__title" data-reveal="rise">${esc(item.title)}</h2>
         <p class="service__summary" data-reveal>${esc(item.summary)}</p>
         <p class="service__body" data-reveal>${esc(item.body)}</p>
@@ -44,32 +43,9 @@ export function servicesPage(ctx) {
     })}
   </div>
 
-  <section class="process" aria-labelledby="process-title">
-    <h2 class="section-title" id="process-title" data-reveal="rise">${esc(s.processHeading)}</h2>
-    <ol class="process__steps">
-      ${s.process.map((step, i) => html`
-      <li class="process__step" data-reveal style="--d:${i * 70}ms">
-        <span class="process__num" aria-hidden="true">${pad2(i + 1)}</span>
-        <h3>${esc(step.title)}</h3>
-        <p>${esc(step.text)}</p>
-      </li>`)}
-    </ol>
-  </section>
-
   <section class="areas" aria-labelledby="areas-title">
     <h2 class="section-title" id="areas-title" data-reveal="rise">${esc(s.areasHeading)}</h2>
     <p class="areas__text" data-reveal>${esc(s.areasText)}</p>
-  </section>
-
-  <section class="faq" aria-labelledby="faq-title">
-    <h2 class="section-title" id="faq-title" data-reveal="rise">${esc(s.faqHeading)}</h2>
-    <div class="faq__list">
-      ${s.faq.map((f) => html`
-      <details class="faq__item" data-reveal>
-        <summary><span>${esc(f.q)}</span><span class="faq__icon" aria-hidden="true"></span></summary>
-        <p>${esc(f.a)}</p>
-      </details>`)}
-    </div>
   </section>
 </section>
 ${cta(ctx, { eyebrow: `Video production in ${loc.city}, ${loc.region}` })}`;
@@ -82,7 +58,6 @@ ${cta(ctx, { eyebrow: `Video production in ${loc.city}, ${loc.region}` })}`;
     description: `Brand films, commercials, social media content and photography in ${loc.city}, ${loc.regionName} and beyond. See how it works and get a quote.`,
     jsonld: [
       businessLd(ctx),
-      faqLd(s.faq),
       breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]),
     ],
     content,

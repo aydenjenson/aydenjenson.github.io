@@ -52,18 +52,15 @@
       "bison-in-the-snow"
     ],
     "nameLine": ["Cinematographer", "Mankato, MN"],
-    "statement": "Creating content worth watching.",
-    "facts": [
-      { "label": "Based in", "value": "Mankato, Minnesota. Open to travel." },
-      { "label": "Making", "value": "Brand Films, Commercials, Social Media" }
-    ],
+    "statement": "create content WORTH watching",
     "workHeading": "Selected Work",
-    "gradeHeading": "Before and After",
+    "gradeHeading": "Colorgrading Showcase",
     "gradeText": "Color grading is part of every project. Drag the line across the frame to compare.",
     "servicesHeading": "What I Do",
     "photoHeading": "Stills",
     "photoText": "Photography that sits next to the motion work: people, events and branding.",
     "aboutHeading": "Cinematographer, Editor, Colorist.",
+    "aboutText": "Creating brand films, commercials social media content since 2017",
     "cta": "Let's make something."
   },
 
@@ -86,8 +83,8 @@
   },
 
   "services": {
-    "heading": "Video Production in Mankato, MN",
-    "lead": "Brand films, commercials and social media content for businesses in Mankato, MN and beyond, with photography to match.",
+    "heading": "Full Scale Video Production Curated for YOU",
+    "lead": "Brand films, commercials and social media content for individuals and businesses located in Minnesota and beyond.",
     "items": [
       {
         "slug": "brand-films",
@@ -119,35 +116,8 @@
         "href": "/photography/"
       }
     ],
-    "processHeading": "How It Works",
-    "process": [
-      { "title": "Talk", "text": "A quick call or coffee to hear what you need, who it's for and where it will be seen." },
-      { "title": "Plan", "text": "I put together the concept, shot list and schedule so the shoot day runs smoothly." },
-      { "title": "Shoot", "text": "On location with a small, quiet setup that doesn't get in the way of your day." },
-      { "title": "Edit", "text": "Cut, color and sound, with a review round so you can ask for changes." },
-      { "title": "Deliver", "text": "Final files sized for every place you plan to post them." }
-    ],
     "areasHeading": "Where I Work",
-    "areasText": "Mankato, MN and beyond. Open to travel.",
-    "faqHeading": "Common Questions",
-    "faq": [
-      {
-        "q": "How much does a video cost?",
-        "a": "It depends on the length, the number of shoot days and how the video will be used, so every project gets its own quote. Tell me what you have in mind and your budget range and I'll tell you what's possible."
-      },
-      {
-        "q": "Do you work outside of Mankato?",
-        "a": "Yes. I'm based in Mankato, MN and open to travel for projects elsewhere."
-      },
-      {
-        "q": "Can you make vertical videos for Instagram and TikTok?",
-        "a": "Yes. If the video is going on social, I frame for vertical on the shoot day instead of cropping it afterwards."
-      },
-      {
-        "q": "Do you do photography too?",
-        "a": "Yes. Photography can be booked on its own or added to a video shoot."
-      }
-    ]
+    "areasText": "Mankato, MN and beyond. Open to travel."
   },
 
   "photography": {
