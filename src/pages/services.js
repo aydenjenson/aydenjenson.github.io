@@ -9,11 +9,17 @@ export function servicesPage(ctx) {
   const s = site.services;
   const loc = site.location;
 
+  // The title is printed in phrases (split after each comma), and a phrase is
+  // kept together when it fits on a line. So "Full-Scale Video Production,
+  // Curated for You" breaks after the comma instead of in the middle of
+  // "Video Production". A title without a comma is one phrase and wraps as usual.
+  const titlePhrases = String(s.heading || '').split(/(?<=,)\s+/).filter(Boolean);
+
   const content = html`
 <section class="services">
   <header class="page-head">
     <p class="label" data-reveal>Services</p>
-    <h1 class="page-title" data-reveal="rise">${esc(s.heading)}</h1>
+    <h1 class="page-title" data-reveal="rise">${titlePhrases.map((phrase) => `<span class="page-title__phrase">${esc(phrase)}</span>`).join(' ')}</h1>
     <p class="page-lead" data-reveal>${esc(s.lead)}</p>
   </header>
 
@@ -55,7 +61,7 @@ ${cta(ctx, { eyebrow: `Video production in ${loc.city}, ${loc.region}` })}`;
     id: 'services',
     nav: 'services',
     title: `Video Production Services in ${loc.city}, ${loc.region} | ${site.seo.titleSuffix}`,
-    description: `Brand films, commercials, social media content and photography in ${loc.city}, ${loc.regionName} and beyond. Get a quote.`,
+    description: `Brand films, commercials, social media content, and photography in ${loc.city}, ${loc.regionName}, and beyond. Get a quote.`,
     jsonld: [
       businessLd(ctx),
       breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]),

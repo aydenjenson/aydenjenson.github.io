@@ -48,7 +48,7 @@ ${cta(ctx, { eyebrow: 'Need photos for your brand?' })}`;
     id: 'photography',
     nav: 'photography',
     title: `Photography | ${site.location.city}, ${site.location.region} Photographer | ${site.seo.titleSuffix}`,
-    description: `Photography by ${site.name}, based in ${site.location.city}, ${site.location.regionName}: people, events and branding.`,
+    description: `Photography by ${site.name}, based in ${site.location.city}, ${site.location.regionName}: people, events, and branding.`,
     image: photos[0]?.src,
     jsonld: [
       breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Photography', path: '/photography/' }]),

@@ -69,7 +69,7 @@ export function workPage(ctx) {
     id: 'work',
     nav: 'work',
     title: `Video Work: Brand Films, Commercials & Creative | ${site.seo.titleSuffix}`,
-    description: `Selected video work by ${site.name}, a ${site.location.city}, ${site.location.region} videographer and cinematographer: brand films, commercials, social media content and creative projects.`,
+    description: `Selected video work by ${site.name}, a ${site.location.city}, ${site.location.region} videographer and cinematographer: brand films, commercials, social media content, and creative projects.`,
     preload: [{ href: still(ctx.projects[0]), as: 'image', fetchpriority: 'high' }],
     jsonld: [breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Work', path: '/work/' }]), workListLd(ctx)],
     content,

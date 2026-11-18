@@ -37,7 +37,7 @@
   "seo": {
     "titleSuffix": "Ayden Jenson",
     "homeTitle": "Ayden Jenson | Videographer & Cinematographer in Mankato, MN",
-    "description": "Ayden Jenson is a videographer and cinematographer in Mankato, MN, making brand films, commercials and social media content for businesses in Minnesota and beyond.",
+    "description": "Ayden Jenson is a videographer and cinematographer in Mankato, MN, making brand films, commercials, and social media content for businesses in Minnesota and beyond.",
     "keywords": ["Mankato videographer", "Mankato cinematographer", "video production Mankato MN", "commercial videographer Minnesota", "brand films", "social media video"]
   },
 
@@ -54,13 +54,13 @@
     "nameLine": ["Cinematographer", "Mankato, MN"],
     "statement": "Create content WORTH watching.",
     "workHeading": "Selected Work",
-    "gradeHeading": "Colorgrading Showcase",
-    "gradeText": "Color grading is part of every project. Drag the line across the frame to compare.",
+    "gradeHeading": "Color Grading Showcase",
+    "gradeText": "Color is what can make or break a video. Drag the line across the frame to compare the original footage with my finished look.",
     "servicesHeading": "What I Do",
     "photoHeading": "Stills",
-    "photoText": "Photography that sits next to the motion work: people, events and branding.",
+    "photoText": "",
     "aboutHeading": "Cinematographer, Editor, Colorist.",
-    "aboutText": "Creating brand films, commercials social media content since 2017",
+    "aboutText": "Creating brand films, commercials, and social media content since 2017.",
     "cta": "Let's make something."
   },
 
@@ -70,8 +70,8 @@
     "portrait": "about/portrait",
     "portraitAlt": "Ayden Jenson, videographer and cinematographer based in Mankato, Minnesota",
     "bio": [
-      "I make brand films, commercials and social media content for businesses, along with photography.",
-      "I handle the planning, shooting, editing and color grading myself, which keeps the look consistent from start to finish.",
+      "I make brand films, commercials, and social media content for businesses, along with photography.",
+      "I handle the planning, shooting, editing, and color grading myself, which keeps the look consistent from start to finish.",
       "I work with businesses in Mankato and beyond, and I'm open to travel. If you have a project in mind, I'd like to hear about it."
     ],
     "facts": [
@@ -83,46 +83,46 @@
   },
 
   "services": {
-    "heading": "Full Scale Video Production Curated for YOU",
-    "lead": "Brand films, commercials and social media content for individuals and businesses located in Minnesota and beyond.",
+    "heading": "Full-Scale Video Production, Curated for You",
+    "lead": "Brand films, commercials, and social media content for individuals and businesses located in Minnesota and beyond.",
     "items": [
       {
         "slug": "brand-films",
         "title": "Brand Films",
-        "summary": "Story-driven films that show who you are, not just what you sell.",
-        "body": "A brand film is the piece people watch when they want to know who they're dealing with. I plan it with you, shoot it on location and deliver a finished film for your website, your launch or your about page, along with shorter cuts you can post.",
+        "summary": "Introduce your business, or yourself, in one film.",
+        "body": "People trust what they can see and hear for themselves. A brand film shows your work and your people, so a new customer knows what to expect before they reach out.",
         "project": "seraphim-studios"
       },
       {
         "slug": "commercials",
         "title": "Commercials",
-        "summary": "Short, sharp spots built for paid social, pre-roll and local TV.",
-        "body": "Fifteen to sixty seconds with one clear idea. I handle concept, shooting, editing, color and sound, and deliver each spot in the sizes your ad platforms ask for.",
+        "summary": "A video made to sell a product, service, or event.",
+        "body": "A commercial has one job: get the viewer to act. I build it around a single message, so a business can run it in ads or on its own channels.",
         "project": "scheels-turkey-hunting"
       },
       {
         "slug": "social-media",
         "title": "Social Media",
-        "summary": "Reels, TikToks and shorts shot and cut for the vertical screen.",
-        "body": "One shoot day can cover weeks of posts. I shoot with your content calendar in mind and deliver vertical edits that are ready to publish, so your feed stays consistent without you having to film it yourself.",
+        "summary": "Engaging content geared for short form platforms.",
+        "body": "Regular video keeps your name in front of the people who follow you. I make it fit how people actually watch on their phones.",
         "project": "reborn-legacy-tattoo"
       },
       {
         "slug": "photography",
         "title": "Photography",
-        "summary": "People, event and branding photography that matches the look of your video.",
+        "summary": "People, event, and branding photography that matches the look of your video.",
         "body": "Stills and motion from the same shoot keep everything you publish looking like it belongs together. Photography can be booked on its own or added to any video project.",
         "project": "",
         "href": "/photography/"
       }
     ],
     "areasHeading": "Where I Work",
-    "areasText": "Mankato, MN and beyond. Open to travel."
+    "areasText": "Based in Mankato, Minnesota, and open to travel."
   },
 
   "photography": {
     "heading": "Photography",
-    "lead": "A small set of favorites: people, events and branding.",
+    "lead": "A curated collection of favorites: people, events, and branding.",
     "categories": [
       { "folder": "people", "label": "People" },
       { "folder": "events", "label": "Events" },
@@ -133,7 +133,7 @@
 
   "work": {
     "heading": "Work",
-    "lead": "Brand films, commercials and creative projects.",
+    "lead": "Brand films, commercials, and creative projects.",
     "categories": [
       { "id": "brand", "label": "Brand & Commercial" },
       { "id": "creative", "label": "Creative & Film" },
@@ -143,7 +143,7 @@
 
   "contactPage": {
     "heading": "Let's talk.",
-    "lead": "Tell me about your project: what you're making, when you need it and where it will be seen."
+    "lead": "Tell me about your project: what you're making, when you need it, and where it will be seen."
   },
 
   "redirects": [

@@ -22,8 +22,10 @@
 // Picked from the revision round (answered 2026-11-18), built in the same way:
 //   A1       name size option 3 (the largest), with a smaller gap between the
 //            name and the line under it
-//   A2       the tagline is "Create content WORTH watching." (capital C, full
-//            stop), centred and as wide as the page
+//   A2       the tagline is "Create content WORTH watching." (capital C, a
+//            period), centred and as wide as the page
+//   A4, A6 text, A7, A8   all the wording picks (see the top of
+//            lab/revision-options.js for the list)
 import { esc, html } from '../src/lib/html.js';
 import { labPage, section } from './shared.js';
 import { photoOptionPages } from './photo-options.js';
@@ -141,7 +143,7 @@ function indexPage(ctx) {
     <h1 class="page-title">Design options</h1>
     <p class="page-lead">Everything on this page is waiting for your pick. Each option has a code. Answer with the code, for example "A8 title: option 3" or "A6 page: option 2".</p>
     <nav class="lab-toc" aria-label="On this page">
-      ${[['a4', 'A4', 'Color section text'], ['a6', 'A6', 'Photography'], ['a7', 'A7', 'Short about line'], ['a8', 'A8', 'Services wording'], ['a11', 'A11', 'Fonts'], ['ideas', 'D', 'Earlier ideas']]
+      ${[['a6', 'A6', 'Photography layout'], ['a11', 'A11', 'Fonts'], ['ideas', 'D', 'Earlier ideas']]
         .map(([id, letter, label]) => `<a class="hover-blur" href="#${id}"><b>${letter}</b>${esc(label)}</a>`)}
     </nav>
   </header>

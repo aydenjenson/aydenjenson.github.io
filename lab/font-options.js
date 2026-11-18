@@ -138,7 +138,7 @@ function info(f) {
   <dl class="fo-info">
     <div><dt>Kind</dt><dd>${esc(f.kind || 'The heading font the site uses today.')}</dd></div>
     <div><dt>Designer or publisher</dt><dd>${esc(f.maker)}</dd></div>
-    <div><dt>Licence</dt><dd><a href="${esc(f.licenceUrl)}" target="_blank" rel="noopener">${esc(f.licence)}</a></dd></div>
+    <div><dt>License</dt><dd><a href="${esc(f.licenceUrl)}" target="_blank" rel="noopener">${esc(f.licence)}</a></dd></div>
     <div><dt>Self-hosting allowed</dt><dd>${esc(f.self)}</dd></div>
     <div><dt>How it would load</dt><dd>${esc(f.load)} File size: ${esc(f.size)}.</dd></div>
   </dl>`;
@@ -241,7 +241,7 @@ function optionsPage(ctx) {
     <ul class="fo-notes">
       <li>The three Fontshare fonts used here (Gambarino, Sentient, Clash Display) fall under the ITF Free Font License, which lets you host the files yourself but forbids changing them, including cutting them down to fewer characters. They would be used exactly as downloaded, so they may be a little larger than a trimmed Google font. File sizes have not been checked.</li>
       <li>Marcellus declares a Reserved Font Name. Used unchanged it is fine; if the files were ever trimmed or converted they would have to be renamed. Say if you want that checked before choosing it.</li>
-      <li>The Fontshare licence text is shown on its page by a script, so a reader sees it only in a browser. Its section 01 and 02 wording is quoted above. The page shows "Version 2.0, 17 Aug 2026".</li>
+      <li>The Fontshare license text is shown on its page by a script, so a reader sees it only in a browser. Its section 01 and 02 wording is quoted above. The page shows "Version 2.0, 17 Aug 2026".</li>
       <li>Condensed and wide names look very different at the same width: Big Shoulders comes out much taller, Archivo and Syne much shorter. The home screen live pages keep the name the same width as today, so the stack of name and small line may sit a little differently on the screen.</li>
       <li>Do you want the section headings and the project titles to change together with the big headings, or only some of them? The samples here treat them all as one choice.</li>
     </ul>

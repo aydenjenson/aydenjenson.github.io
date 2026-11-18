@@ -14,7 +14,7 @@ Everything here is written for you, not for a developer. The steps are in the or
 
 Ask Claude: **"Start the preview."** The site opens in the Browser pane inside the Claude app. While the preview is running you can also open it in Chrome at `http://localhost:4321`. It only works on this PC and only while the preview is running.
 
-**Design options page: `http://localhost:4321/lab/`** This page exists only in the preview. It is never part of the published site. It shows choices that are not built yet, using your own footage and photos. Every choice has a short code, such as "A8 title: option 3" or D4. Tell Claude the codes you want. Three bigger sets have their own pages: the size of your name, the photography layouts (`/lab/photos/`) and the fonts (`/lab/fonts/`). Your earlier picks are built into the site already: your name in capitals over one small line, the video page one project at a time, the before and after slider.
+**Design options page: `http://localhost:4321/lab/`** This page exists only in the preview. It is never part of the published site. It shows choices that are not built yet, using your own footage and photos. Every choice has a short code, such as "A6 page: option 2" or D4. Tell Claude the codes you want. Two bigger sets have their own pages: the photography layouts (`/lab/photos/`) and the fonts (`/lab/fonts/`). Your earlier picks are built into the site already: your name in capitals over one small line, the video page one project at a time, the before and after slider, the size of your name, the tagline, and all the wording you chose on November 18.
 
 ## What you have
 
@@ -28,7 +28,7 @@ Ask Claude: **"Start the preview."** The site opens in the Browser pane inside t
 ## How the home page works
 
 - **Your name** sits in the middle in capitals, with one small line close under it ("Cinematographer | Mankato, MN"). That line is always exactly as wide as your name, on every screen size. Both were made larger in the November 17 revisions: you picked the largest of the four sizes and asked for less space between the name and the line. The name is the only place that uses this font; headings everywhere else are in the serif.
-- **Under the reel** is your tagline, "Create content WORTH watching." On a computer it is one centred line that runs the full width of the page. On a phone held upright it stacks as two lines of the same width. Selected Work follows straight after it.
+- **Under the reel** is your tagline, "Create content WORTH watching." On a computer it is one centered line that runs the full width of the page. On a phone held upright it stacks as two lines of the same width. Selected Work follows straight after it.
 - **Hover a project title:** a blurred strip of that project slides in from the side of the screen the title is on. Move away and it slides back.
 - **Click a title:** the project opens across the whole screen, sharpens and plays, and the title turns into **See project**. Click that to go to the project's page.
 - **Click your name:** back to the reel.
@@ -45,7 +45,7 @@ Ask Claude: **"Start the preview."** The site opens in the Browser pane inside t
 - **Everything else** is on the Video page. It shows one project at a time: one film fills the screen, and the list of titles moves through the middle while the film behind them changes. On a computer, rest the mouse low on the list and it scrolls on by itself; rest it high and it scrolls back; the middle stays still so you can click. The title in the middle, the one that is playing, is bold. On a phone you drag the list with a finger. The buttons at the bottom filter the list.
 - **No numbers.** The "01", "02" labels and the photo counts are gone, as you asked. The only numbers left do a job: the "01 / 26" counter when a photo is open full screen, the length of the reel, and the year and length on each project page.
 
-**Colorgrading Showcase (the before and after slider)**
+**Color Grading Showcase (the before and after slider)**
 
 Under "Selected Work" on the home page there is one frame with a line across it. Left of the line is the frame before your grade, right of it the finished grade. Visitors drag the line. The list beside it switches to another frame.
 
@@ -211,7 +211,7 @@ The loop behind your name on the home page is a stand-in I cut from the SCHEELS,
 | Hosting (GitHub Pages) | free |
 | Contact form (Web3Forms) | free up to 250 messages a month |
 | Editor (Pages CMS) | free |
-| Fonts (Instrument Serif, Inter Tight) | free, open licence |
+| Fonts (Instrument Serif, Inter Tight) | free, open license |
 
 GitHub Pages allows a site of about 1 GB and 100 GB of traffic a month. The site is about 185 MB now. That is plenty for a portfolio. If you ever host many long films, the videos can move to separate storage without changing the site.
 
@@ -229,7 +229,8 @@ The reference sites use paid or private typefaces (Kai Blamey's is a commercial 
 
 - **Project categories.** Which group each project sits in on the Video page (Brand & Commercial, Creative & Film, Weddings).
 - **"Director"** was added to the role on: Spec Ad - SCHEELS, Reborn Legacy Tattoo, Seraphim Studios, the Allstar Nutrition giveaway, OxCB, both music videos, and Justin + Veronica. Say if any should not have it.
-- **Services page.** "How It Works" and "Common questions" are removed, as you asked. The text for Brand Films, Commercials and Social Media is still my earlier draft until you pick from the new options (A8 on the options page).
+- **Services page.** "How It Works" and "Common questions" are removed, as you asked. The title, the description, and the text for Brand Films, Commercials, and Social Media are the ones you picked on November 18. The text in the Photography row is still my draft.
+- **Commas.** Every list on the site is now written "x, y, and z", with a comma before "and", as you asked. Tell Claude if you spot one that was missed.
 - **"Worked with" list** on the About page. You said you want to add and remove names.
 - **Bio.** A short placeholder, written on November 17. A proper one is waiting on your answers to the interview questions (number 31 in `review/QUESTIONNAIRE.md`).
 - **About portrait** is the one from your old site at the size Adobe offers (about 1200 pixels). A full-size original will look sharper.

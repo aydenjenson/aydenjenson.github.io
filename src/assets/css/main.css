@@ -203,6 +203,9 @@ sup { line-height: 0; }
   letter-spacing: -0.03em;
   text-wrap: balance;
 }
+/* A phrase of a long title (the Services page splits its title after each
+   comma): kept on one line when it fits, so the title breaks between phrases */
+.page-title__phrase { display: inline-block; }
 .page-lead {
   margin-top: clamp(20px, 3vh, 36px);
   max-width: 46ch;
@@ -635,6 +638,8 @@ a:hover .brackets, a:focus-visible .brackets { opacity: 1; transform: none; }
 
 .stills { padding-bottom: var(--gap-section); overflow: clip; }
 .stills__viewport { overflow: hidden; padding: var(--gap-block) 0 clamp(20px, 3.5vh, 40px); }
+/* No line of text under the photos (Ayden's choice): the strip is the last thing in the section */
+.stills--bare .stills__viewport { padding-bottom: 0; }
 .stills__track { display: flex; align-items: flex-start; gap: var(--pad); width: max-content; padding: 0 var(--pad); will-change: transform; }
 .stills__item { flex: none; height: clamp(230px, 46vh, 540px); aspect-ratio: var(--ar); overflow: hidden; background: var(--bg-2); }
 .stills__item:nth-child(even) { margin-top: clamp(24px, 6vh, 72px); }

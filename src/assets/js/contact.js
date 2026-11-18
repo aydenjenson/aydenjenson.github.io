@@ -37,7 +37,7 @@ export default function initContact() {
     });
     if (firstBad) {
       firstBad.focus();
-      say('Please add your name, a valid email and a short message.', true);
+      say('Please add your name, a valid email, and a short message.', true);
       return;
     }
 

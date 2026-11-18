@@ -109,7 +109,7 @@ export function homePage(ctx) {
 </section>`;
 
   // The color grading slider appears once media/grades/ holds a pair.
-  const grade = gradeSection(ctx, { title: site.home.gradeHeading || 'Colorgrading Showcase', text: site.home.gradeText });
+  const grade = gradeSection(ctx, { title: site.home.gradeHeading || 'Color Grading Showcase', text: site.home.gradeText });
 
   const services = html`
 <section class="svc-teaser" aria-labelledby="svc-title">
@@ -132,8 +132,11 @@ export function homePage(ctx) {
   </ul>
 </section>`;
 
+  // The line of text under the photos is optional: Ayden chose to have none
+  // (site.json -> home.photoText is empty). Put words there to bring it back.
+  const photoText = String(site.home.photoText || '').trim();
   const stillsSection = stills.length ? html`
-<section class="stills" aria-labelledby="stills-title">
+<section class="stills${photoText ? '' : ' stills--bare'}" aria-labelledby="stills-title">
   ${sectionHead({ title: site.home.photoHeading, id: 'stills-title', link: { href: '/photography/', label: 'Photography' } })}
   <div class="stills__viewport">
     <div class="stills__track" data-stills>
@@ -143,7 +146,7 @@ export function homePage(ctx) {
       </a>`)}
     </div>
   </div>
-  <p class="stills__text" data-reveal>${esc(site.home.photoText)}</p>
+  ${photoText ? `<p class="stills__text" data-reveal>${esc(photoText)}</p>` : ''}
 </section>` : '';
 
   const about = html`

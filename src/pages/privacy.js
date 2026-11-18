@@ -28,7 +28,7 @@ export function privacyPage(ctx) {
       title: 'Contact form',
       body: [
         formSends
-          ? `Messages sent through the contact form are delivered by Web3Forms. The name, email address, business name and message you provide are used only to respond to your inquiry.`
+          ? `Messages sent through the contact form are delivered by Web3Forms. The name, email address, business name, and message you provide are used only to respond to your inquiry.`
           : `The contact form opens a message in your own email application. The information you send is used only to respond to your inquiry.`,
       ],
     },
@@ -64,7 +64,7 @@ export function privacyPage(ctx) {
 <section class="legal-page">
   <header class="page-head">
     <h1 class="page-title" data-reveal="rise">Privacy</h1>
-    <p class="page-lead" data-reveal>This is a portfolio. There are no accounts, no ads and nothing for sale here. This page explains the little information the site does handle.</p>
+    <p class="page-lead" data-reveal>This is a portfolio. There are no accounts, no ads, and nothing for sale here. This page explains the little information the site does handle.</p>
   </header>
   <div class="legal">
     ${blocks.map((b) => html`
@@ -82,7 +82,7 @@ export function privacyPage(ctx) {
     id: 'privacy',
     nav: '',
     title: `Privacy | ${site.seo.titleSuffix}`,
-    description: `How ${site.url.replace(/^https?:\/\//, '')} handles visitor information: analytics, the contact form and embedded video.`,
+    description: `How ${site.url.replace(/^https?:\/\//, '')} handles visitor information: analytics, the contact form, and embedded video.`,
     noindex: true,
     content,
   };
