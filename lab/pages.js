@@ -18,11 +18,17 @@
 //   D5       the before and after slider (home page)
 //   E1       project pages stay as they are
 //   F        his own sentence under the reel: "Creating content worth watching."
+//
+// Picked from the revision round (answered 2026-11-18), built in the same way:
+//   A1       name size option 3 (the largest), with a smaller gap between the
+//            name and the line under it
+//   A2       the tagline is "Create content WORTH watching." (capital C, full
+//            stop), centred and as wide as the page
 import { esc, html } from '../src/lib/html.js';
 import { labPage, section } from './shared.js';
 import { photoOptionPages } from './photo-options.js';
 import { fontOptionPages } from './font-options.js';
-import { revisionSections, heroSizePages } from './revision-options.js';
+import { revisionSections } from './revision-options.js';
 
 // The stand-in reel on the home page is five clips. Rough start time of each, in seconds.
 const REEL_SEGMENTS = [
@@ -135,7 +141,7 @@ function indexPage(ctx) {
     <h1 class="page-title">Design options</h1>
     <p class="page-lead">Everything on this page is waiting for your pick. Each option has a code. Answer with the code, for example "A8 title: option 3" or "A6 page: option 2".</p>
     <nav class="lab-toc" aria-label="On this page">
-      ${[['a1', 'A1', 'Name size'], ['a4', 'A4', 'Color section text'], ['a6', 'A6', 'Photography'], ['a7', 'A7', 'Short about line'], ['a8', 'A8', 'Services wording'], ['a11', 'A11', 'Fonts'], ['ideas', 'D', 'Earlier ideas']]
+      ${[['a4', 'A4', 'Color section text'], ['a6', 'A6', 'Photography'], ['a7', 'A7', 'Short about line'], ['a8', 'A8', 'Services wording'], ['a11', 'A11', 'Fonts'], ['ideas', 'D', 'Earlier ideas']]
         .map(([id, letter, label]) => `<a class="hover-blur" href="#${id}"><b>${letter}</b>${esc(label)}</a>`)}
     </nav>
   </header>
@@ -148,5 +154,5 @@ function indexPage(ctx) {
 }
 
 export function labPages(ctx) {
-  return [indexPage(ctx), ...heroSizePages(ctx), ...photoOptionPages(ctx), ...fontOptionPages(ctx)];
+  return [indexPage(ctx), ...photoOptionPages(ctx), ...fontOptionPages(ctx)];
 }

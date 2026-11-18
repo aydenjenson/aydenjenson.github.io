@@ -3,20 +3,13 @@
 // in the form "A8 title: option 3". Nothing here is on the site until he picks.
 //
 //   revisionSections(ctx)   the blocks shown on /lab/
-//   heroSizePages(ctx)      the real home page at each name size (/lab/hero-size-N/)
+//
+// Answered and built into the site, so no longer here:
+//   A1  name size: he picked option 3 (the largest of four) with a smaller gap
+//       under the name. The sizes are in main.css (.hero__title, .hero__role).
 import { esc, html } from '../src/lib/html.js';
-import { spread, ARROW } from '../src/pages/components.js';
-import { homePage } from '../src/pages/home.js';
-import { labPage, section } from './shared.js';
-
-/* A1. The name and the line under it, four sizes. `at1440` is the size on a
-   1440-pixel-wide screen, used for the still pictures on the options page. */
-const HERO_SIZES = [
-  { n: 0, label: 'As on the live site today', note: 'For comparison.', name: 'clamp(26.4px, 2.722vw, 63px)', role: 'clamp(9px, calc(var(--name-size) * 0.255), 11px)', at1440: [39.2, 10] },
-  { n: 1, label: 'A little larger', note: 'About 20 percent up.', name: 'clamp(30px, 3.3vw, 76px)', role: 'clamp(10px, calc(var(--name-size) * 0.24), 13px)', at1440: [47.5, 11.4] },
-  { n: 2, label: 'Larger', note: 'About 45 percent up. This is the one applied on the revisions branch now.', name: 'clamp(34px, 3.95vw, 92px)', role: 'clamp(10.5px, calc(var(--name-size) * 0.235), 15px)', at1440: [56.9, 13.4] },
-  { n: 3, label: 'Largest', note: 'About 75 percent up. The name becomes as wide as it was in the serif at the very start, but in capitals.', name: 'clamp(40px, 4.75vw, 110px)', role: 'clamp(11px, calc(var(--name-size) * 0.225), 17px)', at1440: [68.4, 15.4] },
-];
+import { ARROW } from '../src/pages/components.js';
+import { section } from './shared.js';
 
 /* A4. Second sentence of the Colorgrading Showcase description. The first sentence is his and stays. */
 const A4_FIRST = 'Color is what can make or break a video.';
@@ -93,26 +86,6 @@ const open = (href, label) => `<a class="link-arrow hover-blur" href="${href}">$
 
 export function revisionSections(ctx) {
   const { site } = ctx;
-  const line = site.home.nameLine?.length ? site.home.nameLine : [site.role];
-
-  const a1 = section({
-    id: 'a1',
-    letter: 'A1',
-    title: 'Your name on the home screen: how large',
-    lead: 'You asked for the name and the line under it to be scaled up, with the name clearly the larger of the two. I applied option 2 on the revisions branch so you can see it in place. The pictures below are the exact sizes on a 1440-pixel-wide screen. Tell me if you want it smaller or larger. (The font itself is a separate choice: see A11.)',
-    body: html`
-  <ol class="lab-opts lab-opts--hero">
-    ${HERO_SIZES.map((s) => html`
-    <li>
-      ${code(`A1: option ${s.n}`, `${s.label}. ${s.note}`)}
-      <div class="lab-lockup"><span class="lab-lockup__in">
-        <span class="lab-lockup__name" style="font-size:${s.at1440[0]}px">${esc(site.name)}</span>
-        <span class="lab-lockup__role" style="font-size:${s.at1440[1]}px">${spread(line)}</span>
-      </span></div>
-      <p>${open(`/lab/hero-size-${s.n}/`, 'See it on the home screen')}</p>
-    </li>`)}
-  </ol>`,
-  });
 
   const a4 = section({
     id: 'a4',
@@ -198,18 +171,5 @@ export function revisionSections(ctx) {
     body: `<p class="lab-opts__links">${open('/lab/fonts/', 'Open the font options')}</p>`,
   });
 
-  return [a1, a4, a6, a7, a8, a11].join('\n');
-}
-
-/** The real home page at each name size, so the choice can be judged in place. */
-export function heroSizePages(ctx) {
-  return HERO_SIZES.map((s) => labPage({
-    ...homePage(ctx),
-    path: `/lab/hero-size-${s.n}/`,
-    title: `A1 option ${s.n}: ${s.label} | Preview only`,
-    jsonld: [],
-    head: `<style>.hero__title{--name-size:${s.name}}.hero__role{font-size:${s.role}}</style>`,
-    content: `${homePage(ctx).content}
-<p class="lab-flag"><b>Preview only.</b> A1 option ${s.n}: ${esc(s.label.toLowerCase())}. <a href="/lab/#a1">Back to the options</a></p>`,
-  }));
+  return [a4, a6, a7, a8, a11].join('\n');
 }

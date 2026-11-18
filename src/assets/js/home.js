@@ -299,24 +299,39 @@ function initStatement() {
   if (!text) return;
   const words = $$('.word', text);
 
-  // On a phone the tagline is two stacked lines. Each line gets its own size
-  // so both end up exactly as wide as the text column: a tidy block instead of
-  // one long line and one short one. (Same width as the "phones" rule for
-  // .statement__line in main.css.)
+  // The tagline always fills the width of the text column (Ayden asked for it
+  // centred and taking up the horizontal space).
+  // - On a wide screen it is one line, sized so it runs from edge to edge.
+  // - On a phone held upright it is two stacked lines. Each line gets its own
+  //   size so both end up exactly as wide as the column: a tidy block instead
+  //   of one long line and one short one. (Same width as the "phones" rule
+  //   for .statement__line in main.css.)
+  // main.css sets a close estimate first, so the page looks right before this
+  // runs and without JavaScript.
   const lines = $$('.statement__line', text);
-  const stacked = matchMedia('(max-width: 700px)');
+  const stacked = matchMedia('(max-width: 600px)');
+  const LARGEST = 240; // px; the same cap as in main.css, for very wide screens
   function fitLines() {
     lines.forEach((line) => { line.style.fontSize = ''; });
-    if (!stacked.matches || lines.length < 2) return;
+    text.style.fontSize = '';
     const room = text.clientWidth;
-    lines.forEach((line) => {
-      // Twice: text does not scale perfectly evenly, so the second pass takes out the last few pixels.
-      for (let pass = 0; pass < 2; pass += 1) {
-        const size = parseFloat(getComputedStyle(line).fontSize);
-        const width = line.getBoundingClientRect().width;
-        if (size && width && room) line.style.fontSize = `${((size * room) / width).toFixed(2)}px`;
-      }
-    });
+    if (!room || !lines.length) return;
+    // Twice in both cases: text does not scale perfectly evenly, so the second pass takes out the last few pixels.
+    if (stacked.matches && lines.length > 1) {
+      lines.forEach((line) => {
+        for (let pass = 0; pass < 2; pass += 1) {
+          const size = parseFloat(getComputedStyle(line).fontSize);
+          const width = line.getBoundingClientRect().width;
+          if (size && width) line.style.fontSize = `${((size * room) / width).toFixed(2)}px`;
+        }
+      });
+      return;
+    }
+    for (let pass = 0; pass < 2; pass += 1) {
+      const size = parseFloat(getComputedStyle(text).fontSize);
+      const width = lines[lines.length - 1].getBoundingClientRect().right - lines[0].getBoundingClientRect().left;
+      if (size && width > 0) text.style.fontSize = `${Math.min((size * room) / width, LARGEST).toFixed(2)}px`;
+    }
   }
   fitLines();
   let fitWidth = window.innerWidth;

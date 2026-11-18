@@ -27,8 +27,8 @@ Ask Claude: **"Start the preview."** The site opens in the Browser pane inside t
 
 ## How the home page works
 
-- **Your name** sits in the middle in capitals, with one small line close under it ("Cinematographer | Mankato, MN"). That line is always exactly as wide as your name, on every screen size. Both were made larger in the November 17 revisions, with the name clearly the bigger of the two. The name is the only place that uses this font; headings everywhere else are in the serif.
-- **Under the reel** is your tagline, "create content WORTH watching", in large type. On a phone it stacks as two lines of the same width. Selected Work follows straight after it.
+- **Your name** sits in the middle in capitals, with one small line close under it ("Cinematographer | Mankato, MN"). That line is always exactly as wide as your name, on every screen size. Both were made larger in the November 17 revisions: you picked the largest of the four sizes and asked for less space between the name and the line. The name is the only place that uses this font; headings everywhere else are in the serif.
+- **Under the reel** is your tagline, "Create content WORTH watching." On a computer it is one centred line that runs the full width of the page. On a phone held upright it stacks as two lines of the same width. Selected Work follows straight after it.
 - **Hover a project title:** a blurred strip of that project slides in from the side of the screen the title is on. Move away and it slides back.
 - **Click a title:** the project opens across the whole screen, sharpens and plays, and the title turns into **See project**. Click that to go to the project's page.
 - **Click your name:** back to the reel.

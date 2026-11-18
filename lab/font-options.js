@@ -126,7 +126,7 @@ const NAMES = [
 
 const SAMPLE_LARGE = ['Brand Films', 'Commercials', 'Social Media'];
 const SAMPLE_SECTION = 'Selected Work';
-const SAMPLE_TAGLINE = 'create content WORTH watching';
+const SAMPLE_TAGLINE = 'Create content WORTH watching.';
 const SAMPLE_PROJECT = 'Reborn Legacy Tattoo - Social Media Promo';
 const SAMPLE_NUMERALS = '2017 & 2026, Mankato, MN';
 const NAME_LINE = 'CINEMATOGRAPHER | MANKATO, MN';

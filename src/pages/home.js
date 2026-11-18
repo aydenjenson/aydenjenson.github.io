@@ -74,12 +74,17 @@ export function homePage(ctx) {
   // The tagline is printed as two halves (split by word count), so a phone can
   // stack them as two lines of equal width. Each word is its own span because
   // the words light up one after another as the page scrolls (home.js).
+  // --ems is roughly how wide the whole line is, in ems, in the heading serif
+  // (about 0.36 of an em per character, measured on "Create content WORTH
+  // watching."). main.css uses it to size the line to the width of the page
+  // before the script fits it exactly.
   const taglineWords = String(site.home.statement || '').split(/\s+/).filter(Boolean);
   const taglineCut = Math.ceil(taglineWords.length / 2);
+  const taglineEms = Math.max(4, taglineWords.join(' ').length * 0.363).toFixed(2);
   const taglineLine = (list, start) => `<span class="statement__line">${list.map((w, i) => `<span class="word" style="--i:${start + i}">${esc(w)}</span>`).join(' ')}</span>`;
   const statement = html`
 <section class="statement" id="intro" data-statement aria-label="Introduction">
-  <p class="statement__text" data-words>${[taglineLine(taglineWords.slice(0, taglineCut), 0), taglineLine(taglineWords.slice(taglineCut), taglineCut)].join(' ')}</p>
+  <p class="statement__text" data-words style="--ems:${taglineEms}">${[taglineLine(taglineWords.slice(0, taglineCut), 0), taglineLine(taglineWords.slice(taglineCut), taglineCut)].join(' ')}</p>
 </section>`;
 
   const selected = html`
