@@ -1,4 +1,4 @@
-// Options from Ayden's revision list of 2026-11-18 (items tagged "give me
+// Options from Ayden's revision list of 2026-11-17 (items tagged "give me
 // options"). Preview only. Every option carries the code he can answer with,
 // in the form "A8 title: option 3". Nothing here is on the site until he picks.
 //

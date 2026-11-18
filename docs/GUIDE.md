@@ -4,21 +4,21 @@ Everything here is written for you, not for a developer. The steps are in the or
 
 ## Where things stand (November 17, 2026)
 
-- **The new site is online at a test address: https://aydenjenson.github.io**
-- **aydenjenson.com still shows the old Adobe site.** Nothing changes for visitors until you do Step 4.
-- Google is told not to list the test address, so there is no rush.
-- **You asked to see changes before they go online.** So Claude makes a change, shows it to you in the preview on this PC, and publishes only when you say "publish". When you will be away you can say "publish when finished" up front, as you did on November 17.
-- **Everything I still need from you is in one list: `docs/NEEDS-FROM-AYDEN.md`.**
+- **The site is online at your own address: https://aydenjenson.com.** You connected the domain yourself and I checked it: everything is set correctly, including the padlock (HTTPS). The old test address now forwards to it.
+- **Your latest round of revisions is built but not online.** It is waiting for your answers. Start with `review/QUESTIONNAIRE.md` in this folder; the other papers from that round are beside it (what was changed, the options, the search and email reports).
+- **Nothing goes online until you say so.** Claude makes a change, shows it to you in the preview on this PC, and publishes only when you say "publish".
+- **Google has not read the new site yet.** It still remembers the old one. Step 5 fixes that and takes about ten minutes.
+- The older list of things I need from you is `docs/NEEDS-FROM-AYDEN.md`.
 
 ## Seeing changes before they go online
 
 Ask Claude: **"Start the preview."** The site opens in the Browser pane inside the Claude app. While the preview is running you can also open it in Chrome at `http://localhost:4321`. It only works on this PC and only while the preview is running.
 
-**Design options page: `http://localhost:4321/lab/`** This page exists only in the preview. It shows ideas that are not built yet, using your own footage. Every idea has a short code such as D1 or D4. Tell Claude the codes you want. Your picks from November 17 are built into the site already: your name in capitals (A7) over one small line (B1), the Work page one project at a time (C5), the before and after slider (D5), project pages as they were (E1), and your own sentence under the reel.
+**Design options page: `http://localhost:4321/lab/`** This page exists only in the preview. It is never part of the published site. It shows choices that are not built yet, using your own footage and photos. Every choice has a short code, such as "A8 title: option 3" or D4. Tell Claude the codes you want. Three bigger sets have their own pages: the size of your name, the photography layouts (`/lab/photos/`) and the fonts (`/lab/fonts/`). Your earlier picks are built into the site already: your name in capitals over one small line, the video page one project at a time, the before and after slider.
 
 ## What you have
 
-- A complete site: Home, Work, a page for each of 23 projects, Photography, Services, About, Contact, and a short Privacy page linked in the footer.
+- A complete site: Home, Video, a page for each of 23 projects, Photo, Services, About, Contact, and a short Privacy page linked in the footer. (The menu says Video and Photo, as you asked. The page addresses still end in `/work/` and `/photography/`.)
 - 8 of your films play straight from the site with its own player. The other 15 play from YouTube when the visitor presses play.
 - 11 projects have a silent preview loop that plays on hover. The other 12 show a still until you add a loop (see "Adding motion").
 - 26 photos from your `PORTFOLIO\PHOTOS` folder on the Passport drive, sorted into People, Events and Branding.
@@ -27,7 +27,8 @@ Ask Claude: **"Start the preview."** The site opens in the Browser pane inside t
 
 ## How the home page works
 
-- **Your name** sits in the middle in capitals, with one small line close under it ("Cinematographer / Mankato, MN"). That line is always exactly as wide as your name, on every screen size. The name is the only place that uses this font; headings everywhere else are in the serif.
+- **Your name** sits in the middle in capitals, with one small line close under it ("Cinematographer | Mankato, MN"). That line is always exactly as wide as your name, on every screen size. Both were made larger in the November 17 revisions, with the name clearly the bigger of the two. The name is the only place that uses this font; headings everywhere else are in the serif.
+- **Under the reel** is your tagline, "create content WORTH watching", in large type. On a phone it stacks as two lines of the same width. Selected Work follows straight after it.
 - **Hover a project title:** a blurred strip of that project slides in from the side of the screen the title is on. Move away and it slides back.
 - **Click a title:** the project opens across the whole screen, sharpens and plays, and the title turns into **See project**. Click that to go to the project's page.
 - **Click your name:** back to the reel.
@@ -41,15 +42,17 @@ Ask Claude: **"Start the preview."** The site opens in the Browser pane inside t
 - **The six titles over the reel** are a list you choose. Right now: Spec Ad - SCHEELS, Reborn Legacy Tattoo, Seraphim Studios, Western Fest Stampede Rodeo, Super Bowl LIX, Bison in the Snow. To change it, tell Claude "put ____ on the home page instead of ____".
 - A title only plays footage when that project has a preview loop. Seraphim Studios and Super Bowl LIX don't have one yet, so they open as a still picture that drifts slowly (see "Adding motion").
 - **The "Selected Work" cards** further down the home page are the projects marked as featured.
-- **Everything else** is on the Work page. It shows one project at a time: one film fills the screen, and scrolling steps through the list of titles while the film behind them changes. The buttons at the bottom filter the list.
+- **Everything else** is on the Video page. It shows one project at a time: one film fills the screen, and the list of titles moves through the middle while the film behind them changes. On a computer, rest the mouse low on the list and it scrolls on by itself; rest it high and it scrolls back; the middle stays still so you can click. The title in the middle, the one that is playing, is bold. On a phone you drag the list with a finger. The buttons at the bottom filter the list.
+- **No numbers.** The "01", "02" labels and the photo counts are gone, as you asked. The only numbers left do a job: the "01 / 26" counter when a photo is open full screen, the length of the reel, and the year and length on each project page.
 
-**Before and after (the color grading slider)**
+**Colorgrading Showcase (the before and after slider)**
 
 Under "Selected Work" on the home page there is one frame with a line across it. Left of the line is the frame before your grade, right of it the finished grade. Visitors drag the line. The list beside it switches to another frame.
 
 - Four of the six frames are real: the "before" and "after" come straight out of your film "The Beauty of Color Grading" (the barber, the tattoo, the dirt bike and the golden hour field).
 - **Two are stand-ins: the SCHEELS turkey and the rodeo.** You asked for faked F-Log on those, so their "before" was made from the finished frame, tuned to match how your real ungraded frames look. Anyone who grades for a living could tell on a close look, so swap them when you can.
 - **To add or replace a frame, send two pictures of the same frame:** one exported with your grade turned off and one with it on, the same size. Any still format works. Tell Claude which project it is from.
+- You asked to swap the dirt bike and golden hour frames for the Evergreen wedding and Fresh Air. That is waiting on the video files: this PC has only the small YouTube thumbnails of those two.
 
 ## How every project page is written
 
@@ -68,9 +71,7 @@ Open the preview (see above) and click through every page. Then open the design 
 
 ## Step 2. Put it online (done)
 
-This was done on November 17, 2026. Your GitHub account is `aydenjenson`, the site's files live at `github.com/aydenjenson/aydenjenson.github.io`, and every change Claude publishes shows up at `https://aydenjenson.github.io` about a minute later.
-
-Your real domain still shows the old Adobe site at this point. Nothing has changed for visitors yet.
+This was done on November 17, 2026. Your GitHub account is `aydenjenson`, the site's files live at `github.com/aydenjenson/aydenjenson.github.io`, and every change Claude publishes shows up at `https://aydenjenson.com` about a minute later.
 
 ## Step 3. Turn on the contact form (2 minutes)
 
@@ -82,7 +83,14 @@ Until you do this, the form opens the visitor's email app instead of sending by 
 
 Free plan: 250 messages a month.
 
-## Step 4. Point aydenjenson.com at the new site
+## Step 4. Point aydenjenson.com at the new site (done)
+
+**You did this, and it is correct.** Checked on November 17, 2026: the domain is saved and verified at GitHub, the four A records and the `www` record below are in place at Namecheap, the padlock certificate is issued, "Enforce HTTPS" is on, and `www.`, plain `http://` and the old test address all forward to `https://aydenjenson.com`. Your email records were left alone and still work. The full check is in `review/REPORT-DOMAIN-EMAIL.md`.
+
+What is left of this step:
+
+- **Adobe Portfolio** no longer receives your visitors. If you pay for it only for the website, you can turn it off. If it comes with a plan you use for other things, leave it.
+- **Do not change the records below.** They are what keeps the site on your domain. The steps stay here only as a record of what was set.
 
 You do **not** need to transfer the domain. It stays registered at Namecheap. You only change where it points. Your email forwarding is not affected as long as you leave the mail records alone.
 
@@ -120,10 +128,12 @@ Old links such as `/videography` and `/about-2` forward to the new pages automat
 
 ## Step 5. Tell Google (about 20 minutes, and it matters more than anything on the site)
 
-1. **Google Business Profile** (business.google.com). Create or claim a profile for "Ayden Jenson". Choose "I deliver to / visit my customers" (a service-area business, no storefront). Category: Videographer or Video production service. Service area: Mankato and the towns you work in. Add the website, photos and a short description. This is what puts you in the map results when someone searches "videographer Mankato".
-2. **Ask for reviews.** Send your Business Profile review link to recent clients. A handful of real reviews does more than any website tweak.
-3. **Google Search Console** (search.google.com/search-console). Add `aydenjenson.com`, follow the verification step, then submit this sitemap: `https://aydenjenson.com/sitemap.xml`.
-4. **Fix your links.** Your YouTube handle is now `@aydenjenson` (the link on the old site pointed to a handle that no longer exists). Put `aydenjenson.com` in your YouTube, Instagram and TikTok bios, and ask clients who post your videos to credit and link you.
+The exact clicks for each of these, checked against Google's own help pages, are in `review/REPORT-SEO-AI.md` (section 4). In short:
+
+1. **Google Search Console first** (search.google.com/search-console). Add `aydenjenson.com`, verify it with one line added at Namecheap, submit the sitemap (`sitemap.xml`), and ask Google to read the home page. On November 17 Google still held only the old Adobe home page, so this is what gets the new site read.
+2. **Google Business Profile** (business.google.com/add), with the same Google account. Use your real business name with no extra words. When asked whether customers can visit you, say no: you go to them. For the category, start typing "video" and pick the closest one Google offers ("Video production service" is what the local video companies use). Service area: Mankato and the towns you work in. Add the website, a few stills and a short description. This is what puts you on the map when someone searches "Mankato videographer". Every business on that map has one.
+3. **Ask for reviews.** Send your Business Profile review link to recent clients. Never offer anything in return: Google forbids it. The video companies on the Mankato map have between 8 and 31 reviews, so a handful of real ones puts you level.
+4. **Fix your links.** Your YouTube handle is `@aydenjenson`. Put `aydenjenson.com` in your YouTube, Instagram, TikTok and LinkedIn profiles, and ask clients who post your videos to credit and link you.
 
 **About the words "videographer" and "Mankato".** The line under your name now says Cinematographer, as you asked. "Videographer" is still in the page titles, the descriptions Google shows, the footer of every page and the Services page, because that is the word local clients type into Google. "Mankato, MN" is in all of those places too. Both help.
 
@@ -135,7 +145,7 @@ You said you have a lot of new work to add and may cut a new showreel. Here is w
 |---|---|---|
 | The video behind your name (your showreel) | Horizontal only | One file, 30 to 90 seconds. Sound does not matter: it plays silent. It loops, so a clean first and last shot helps. |
 | The six titles on the home screen | Horizontal only | The finished export of each. I cut an 8 to 10 second silent preview from it. A vertical video would be cropped to a thin band here. |
-| Every other project | Horizontal or vertical | The finished export. Vertical videos keep their tall shape on the Work page and on their own page. |
+| Every other project | Horizontal or vertical | The finished export. Vertical videos keep their tall shape on the Video page and on their own page. |
 
 - **How many:** the six home titles plus as many more as are strong. About 12 to 20 projects in total is a good size. Fewer, better pieces beat a long list.
 - **Format:** the normal export you would post (MP4 or MOV, 1080p or 4K). I make the web-size copies.
@@ -155,7 +165,7 @@ Open this project in the Claude app and say what you want. Examples:
 - "Put the rodeo film first on the home page."
 - "Rewrite the Brand Films description on the Services page to say ____."
 
-Claude makes the change, checks it, and shows you the preview. Say **"publish"** and the test address updates about a minute later.
+Claude makes the change, checks it, and shows you the preview. Nothing goes online until you say **"publish"**. When you do, aydenjenson.com updates about a minute later.
 
 ### By yourself, in a browser: Pages CMS
 
@@ -217,12 +227,11 @@ The reference sites use paid or private typefaces (Kai Blamey's is a commercial 
 
 ## Still worth checking
 
-- **Project categories.** Which column each project sits in on the Work page (Brand & Commercial, Creative & Film, Weddings).
+- **Project categories.** Which group each project sits in on the Video page (Brand & Commercial, Creative & Film, Weddings).
 - **"Director"** was added to the role on: Spec Ad - SCHEELS, Reborn Legacy Tattoo, Seraphim Studios, the Allstar Nutrition giveaway, OxCB, both music videos, and Justin + Veronica. Say if any should not have it.
-- **Common questions** on the Services page (at the bottom of that page). There are four: cost, travel, vertical video, photography.
-- **Services page**: the service descriptions and the five process steps are my draft.
+- **Services page.** "How It Works" and "Common questions" are removed, as you asked. The text for Brand Films, Commercials and Social Media is still my earlier draft until you pick from the new options (A8 on the options page).
 - **"Worked with" list** on the About page. You said you want to add and remove names.
-- **Bio.** Still your old one. A new one is waiting on your answers to the bio questions.
+- **Bio.** A short placeholder, written on November 17. A proper one is waiting on your answers to the interview questions (number 31 in `review/QUESTIONNAIRE.md`).
 - **About portrait** is the one from your old site at the size Adobe offers (about 1200 pixels). A full-size original will look sharper.
 - **The 26 photos** are my pick from your portfolio folder. Four of them (a gas pump, a diner, a turkey in the woods, a trail) don't fit People, Events or Branding. They show under "All" only until you decide.
 - **The Privacy page** was rewritten to be shorter and more formal. Read it once.
