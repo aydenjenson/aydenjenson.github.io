@@ -83,6 +83,9 @@ content:
           - name: date
             label: Publish date (YYYY-MM-DD)
             type: string
+          - name: published
+            label: Exact publish time from YouTube (optional, filled in by Claude; leave as it is)
+            type: string
           - name: duration
             label: Length in seconds
             type: number

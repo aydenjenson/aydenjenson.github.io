@@ -88,7 +88,9 @@ export function videoLd(ctx, p) {
     name: p.title,
     description: p.description || `${p.title}, ${p.kind.toLowerCase()} by ${site.name}.`,
     thumbnailUrl: [ctx.abs(p.poster.src)],
-    uploadDate: p.date ? `${p.date}T12:00:00-06:00` : undefined,
+    // The exact publish time from YouTube when the project has one ("published"
+    // in projects.json), otherwise the date alone. No time of day is made up.
+    uploadDate: p.published || p.date || undefined,
     duration: p.duration ? isoDuration(p.duration) : undefined,
     contentUrl: p.film ? ctx.abs(p.film.src) : undefined,
     embedUrl: !p.film && p.ytId ? youtubeEmbedUrl(p.ytId).replace('-nocookie', '') : undefined,
