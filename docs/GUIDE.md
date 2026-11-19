@@ -89,7 +89,8 @@ Free plan: 250 messages a month.
 
 What is left of this step:
 
-- **Adobe Portfolio** no longer receives your visitors. If you pay for it only for the website, you can turn it off. If it comes with a plan you use for other things, leave it.
+- **Adobe Portfolio** no longer receives your visitors. You said on November 18 that it is part of a plan you use for other things, so it stays as it is.
+- **A contact@aydenjenson.com address.** You chose the free kind on November 18: mail sent to it lands in your Gmail, and your replies still show your Gmail address. You add it yourself at Namecheap in about two minutes (the steps are in `review/REPORT-DOMAIN-EMAIL.md`). The site keeps showing your Gmail address until you tell me the new one works and that you want it swapped.
 - **Do not change the records below.** They are what keeps the site on your domain. The steps stay here only as a record of what was set.
 
 You do **not** need to transfer the domain. It stays registered at Namecheap. You only change where it points. Your email forwarding is not affected as long as you leave the mail records alone.
@@ -122,7 +123,7 @@ You do **not** need to transfer the domain. It stays registered at Namecheap. Yo
 2. Go back to GitHub **Settings → Pages**. When the **Enforce HTTPS** box becomes available, tick it.
 3. Open `https://aydenjenson.com` and `https://www.aydenjenson.com`. Both should show the new site with a padlock.
 
-**D. Only then, turn off Adobe Portfolio.** Keep it until the new site is working on your domain.
+**D. Adobe Portfolio.** It no longer receives your visitors. You are keeping it, because it is part of a plan you use.
 
 Old links such as `/videography` and `/about-2` forward to the new pages automatically.
 
@@ -130,8 +131,8 @@ Old links such as `/videography` and `/about-2` forward to the new pages automat
 
 The exact clicks for each of these, checked against Google's own help pages, are in `review/REPORT-SEO-AI.md` (section 4). In short:
 
-1. **Google Search Console first** (search.google.com/search-console). Add `aydenjenson.com`, verify it with one line added at Namecheap, submit the sitemap (`sitemap.xml`), and ask Google to read the home page. On November 17 Google still held only the old Adobe home page, so this is what gets the new site read.
-2. **Google Business Profile** (business.google.com/add), with the same Google account. Use your real business name with no extra words. When asked whether customers can visit you, say no: you go to them. For the category, start typing "video" and pick the closest one Google offers ("Video production service" is what the local video companies use). Service area: Mankato and the towns you work in. Add the website, a few stills and a short description. This is what puts you on the map when someone searches "Mankato videographer". Every business on that map has one.
+1. **Google Search Console first** (search.google.com/search-console). Add `aydenjenson.com`, verify it with one line added at Namecheap, submit the sitemap (`sitemap.xml`), and ask Google to read the home page. On November 17 Google still held only the old Adobe home page, so this is what gets the new site read. This is the way you chose on November 18.
+2. **Google Business Profile** (business.google.com/add), with the same Google account. Use your real business name with no extra words. When asked whether customers can visit you, say no: you go to them. For the category, start typing "video" and pick the closest one Google offers ("Video production service" is what the local video companies use). Service area: Mankato and the towns you work in. Add the website, a few stills and a short description. This is what puts you on the map when someone searches "Mankato videographer". Every business on that map has one. You said on November 18 that you will make one. Send me its link afterwards, so the site can point to it.
 3. **Ask for reviews.** Send your Business Profile review link to recent clients. Never offer anything in return: Google forbids it. The video companies on the Mankato map have between 8 and 31 reviews, so a handful of real ones puts you level.
 4. **Fix your links.** Your YouTube handle is `@aydenjenson`. Put `aydenjenson.com` in your YouTube, Instagram, TikTok and LinkedIn profiles, and ask clients who post your videos to credit and link you.
 
