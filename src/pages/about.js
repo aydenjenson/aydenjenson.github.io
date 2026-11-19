@@ -62,7 +62,7 @@ ${cta(ctx)}`;
     path: '/about/',
     id: 'about',
     nav: 'about',
-    title: `About ${site.name} | ${site.location.city}, ${site.location.region} Videographer & Cinematographer`,
+    title: `About ${site.name} | ${site.role}`,
     description: `${site.name} is a videographer, cinematographer, and photographer based in ${site.location.city}, ${site.location.regionName}, working with businesses in Minnesota. Open to travel.`,
     image: portrait?.src,
     ogType: 'profile',

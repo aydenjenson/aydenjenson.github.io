@@ -100,6 +100,9 @@ content:
           - name: description
             label: Description
             type: text
+          - name: seoDescription
+            label: Shorter sentence for Google only (optional; used when the description is too long for search results)
+            type: text
           - name: credits
             label: Extra credits (artist, narration, a note). Type, client, role, camera, year and length are added automatically
             type: object

@@ -126,14 +126,25 @@ export function filmPage(ctx, p) {
 </article>
 ${cta(ctx)}`;
 
-  // Search results show roughly 60 characters of title and 160 of description.
-  const credit = `${p.kind} by ${site.name}, ${site.location.city}, ${site.location.region}.`;
+  // Search results show roughly 60 characters of title and 155 of description.
+  // The description is Ayden's own sentence about the project plus a credit. When
+  // that is too long the credit is shortened before his sentence is given up. A
+  // project can also carry a shorter sentence written for search ("seoDescription"
+  // in projects.json); the sentence shown on the page itself never changes.
+  const place = `${site.location.city}, ${site.location.region}`;
+  const credit = `${p.kind} by ${site.name}, ${place}.`;
+  const shortCredit = `By ${site.name}, ${place}.`;
   const firstSentence = (p.description || '').split(/(?<=[.!?])\s+/)[0] || '';
-  const description = [p.description, firstSentence]
+  const description = [
+    p.seoDescription && `${p.seoDescription} ${shortCredit}`,
+    p.description && `${p.description} ${credit}`,
+    firstSentence && `${firstSentence} ${credit}`,
+    p.description && `${p.description} ${shortCredit}`,
+    firstSentence && `${firstSentence} ${shortCredit}`,
+  ]
     .filter(Boolean)
-    .map((text) => `${text} ${credit}`)
-    .find((text) => text.length <= 160)
-    || `${p.title}: ${p.kind.toLowerCase()} by ${site.name}, videographer and cinematographer in ${site.location.city}, ${site.location.region}.`;
+    .find((text) => text.length <= 155)
+    || `${p.title}: ${p.kind.toLowerCase()} by ${site.name}, videographer and cinematographer in ${place}.`;
   // The fullest version that fits; a long "Name - What it is" title falls back to the name alone.
   // The type is left out when the title already says it ("2025 Showreel", "OxCB - Event Promotion").
   const shortName = p.title.split(' - ')[0];
@@ -144,7 +155,7 @@ ${cta(ctx)}`;
     !says && `${shortName} | ${p.kind} by ${site.seo.titleSuffix}`,
     `${shortName} | ${site.seo.titleSuffix}`,
   ].filter(Boolean);
-  const title = titles.find((t) => t.length <= 62) || titles[titles.length - 1];
+  const title = titles.find((t) => t.length <= 60) || titles[titles.length - 1];
 
   return {
     path: p.url,
