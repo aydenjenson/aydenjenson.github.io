@@ -88,9 +88,9 @@ export function projectAttrs(p) {
 }
 
 /** Poster image for a project. `small: true` uses the thumbnail copy when there is one. */
-export function posterImg(p, { lazy = true, cls = '', small = false } = {}) {
+export function posterImg(p, { lazy = true, cls = '', small = false, alt = '' } = {}) {
   const src = small && p.poster.thumb ? p.poster.thumb : p.poster.src;
-  return `<img${cls ? ` class="${cls}"` : ''} src="${esc(src)}" alt="" width="${p.poster.width}" height="${p.poster.height}" ${lazy ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async">`;
+  return `<img${cls ? ` class="${cls}"` : ''} src="${esc(src)}" alt="${esc(alt)}" width="${p.poster.width}" height="${p.poster.height}" ${lazy ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async">`;
 }
 
 /**

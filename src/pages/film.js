@@ -39,7 +39,7 @@ export function filmPage(ctx, p) {
     ? html`
       <video class="film__video" data-film-video src="${esc(p.film.src)}" poster="${esc(p.poster.src)}" playsinline preload="metadata" controls></video>`
     : html`
-      ${posterImg(p, { lazy: false, cls: 'film__poster' })}
+      ${posterImg(p, { lazy: false, cls: 'film__poster', alt: `Still from ${p.title}` })}
       <div class="film__embed" data-film-embed data-yt="${esc(p.ytId)}" data-title="${esc(p.title)}"></div>
       <button class="film__play" type="button" data-film-play aria-label="Play ${esc(p.title)}">
         <span class="film__play-icon" aria-hidden="true"></span>
