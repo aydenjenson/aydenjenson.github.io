@@ -1033,6 +1033,13 @@ html:not(.js) .work__layers, html:not(.js) .work__dim, html:not(.js) .work__cats
 }
 .marquee__track li::after { content: '/'; color: var(--fg-faint); margin-left: 0.5em; }
 @keyframes marquee { to { transform: translate3d(-100%, 0, 0); } }
+/* Some names open their project. The strip holds still while the pointer is on
+   it, or while a link in it has keyboard focus, so a name can be clicked. Not on
+   touch screens, where "hover" would stay on after a tap and freeze the strip. */
+.marquee:focus-within .marquee__track { animation-play-state: paused; }
+@media (hover: hover) {
+  .marquee:hover .marquee__track { animation-play-state: paused; }
+}
 
 /* 11. Services --------------------------------------------------------------- */
 

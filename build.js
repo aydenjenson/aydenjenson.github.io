@@ -318,6 +318,11 @@ export function build() {
   const { site, rawProjects, photoNotes } = loadContent();
   const media = scanMedia(ROOT);
   const projects = buildProjects(site, rawProjects, media);
+  // "Worked With" names that open a project page (about.clientLinks: name -> slug).
+  for (const [name, slug] of Object.entries(site.about.clientLinks || {})) {
+    if (!(site.about.clients || []).includes(name)) warn(`"Worked With" link for "${name}": that name is not in the list (about.clients in content/site.json), so the link is not used.`);
+    else if (!projects.some((p) => p.slug === slug)) warn(`"Worked With" link for "${name}": there is no project "${slug}", so the name is shown without a link.`);
+  }
   const { photos, photoCategories, hiddenFolders } = buildPhotos(site, media, photoNotes);
   const grades = buildGrades(media, projects);
   const featured = projects.filter((p) => p.featured);

@@ -8,6 +8,17 @@ export function aboutPage(ctx) {
   const a = site.about;
   const portrait = ctx.media.about[a.portrait?.split('/').pop() || 'portrait'] || ctx.media.about.portrait;
   const clients = a.clients || [];
+  // A name opens a project page only where Ayden has confirmed that link
+  // ("clientLinks" in site.json: name, then the project's slug). Every other
+  // name is plain text. The second copy of the strip exists only to make the
+  // loop seamless, so its links are kept out of the keyboard's tab order.
+  const clientLinks = a.clientLinks || {};
+  const client = (name, { copy = false } = {}) => {
+    const p = ctx.projects.find((x) => x.slug === clientLinks[name]);
+    return p
+      ? `<li><a class="hover-blur" href="${p.url}"${copy ? ' tabindex="-1"' : ''}>${chars(name)}</a></li>`
+      : `<li>${esc(name)}</li>`;
+  };
 
   const content = html`
 <section class="about">
@@ -48,10 +59,10 @@ export function aboutPage(ctx) {
     <p class="label">${esc(a.clientsHeading)}</p>
     <div class="marquee" data-marquee>
       <ul class="marquee__track">
-        ${clients.map((c) => `<li>${esc(c)}</li>`)}
+        ${clients.map((c) => client(c))}
       </ul>
       <ul class="marquee__track" aria-hidden="true">
-        ${clients.map((c) => `<li>${esc(c)}</li>`)}
+        ${clients.map((c) => client(c, { copy: true }))}
       </ul>
     </div>
   </div>` : ''}

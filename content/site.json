@@ -83,7 +83,13 @@
       { "label": "Role", "value": "Director, Cinematographer, Editor, Colorist" }
     ],
     "clientsHeading": "Worked With",
-    "clients": ["Seraphim Studios", "Reborn Legacy Tattoo", "Gigli", "Allstar Nutrition", "Body Art Nutrition", "Iron Alliance", "Mobile Charm Bar", "OrinLaen"]
+    "clients": ["Seraphim Studios", "Reborn Legacy Tattoo", "Gigli", "Allstar Nutrition", "Body Art Nutrition", "Hewitt", "Breek Arms", "Wingert Land Services", "Clix Gaming"],
+    "clientLinks": {
+      "Seraphim Studios": "seraphim-studios",
+      "Reborn Legacy Tattoo": "reborn-legacy-tattoo",
+      "Allstar Nutrition": "allstar-nutrition-giveaway",
+      "Body Art Nutrition": "allstar-body-art-tournament"
+    }
   },
 
   "services": {
