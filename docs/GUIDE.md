@@ -135,7 +135,9 @@ The exact clicks for each of these, checked against Google's own help pages, are
 3. **Ask for reviews.** Send your Business Profile review link to recent clients. Never offer anything in return: Google forbids it. The video companies on the Mankato map have between 8 and 31 reviews, so a handful of real ones puts you level.
 4. **Fix your links.** Your YouTube handle is `@aydenjenson`. Put `aydenjenson.com` in your YouTube, Instagram, TikTok and LinkedIn profiles, and ask clients who post your videos to credit and link you.
 
-**About the words "videographer" and "Mankato".** The line under your name now says Cinematographer, as you asked. "Videographer" is still in the page titles, the descriptions Google shows, the footer of every page and the Services page, because that is the word local clients type into Google. "Mankato, MN" is in all of those places too. Both help.
+**About the words "videographer" and "Mankato".** The line under your name says Cinematographer, as you asked. "Videographer" is still in the page titles Google shows and beside your name in the footer, because that is the word local clients type into Google. "Mankato, MN" is in those page titles and under your name on the home screen, and "Mankato, Minnesota" is on the About, Contact, and Services pages. Both words help people nearby find you. The sentence Google shows under your home page link and the small line at the very bottom of each page are your own wording and say "Southern Minnesota".
+
+**Wording you settled on November 18**, so new text can follow it: "Mankato, MN" in titles and labels and "Mankato, Minnesota" in sentences; "Open to travel." where the site used to say "and beyond"; roles listed with Director first; a comma before the last item in every list.
 
 ## Sending me new videos
 
@@ -238,7 +240,7 @@ All three are loaded from your own site. Nobody else's server is contacted for a
 - **Project categories.** Which group each project sits in on the Video page (Brand & Commercial, Creative & Film, Weddings).
 - **"Director"** was added to the role on: Spec Ad - SCHEELS, Reborn Legacy Tattoo, Seraphim Studios, the Allstar Nutrition giveaway, OxCB, both music videos, and Justin + Veronica. Say if any should not have it.
 - **Services page.** "How It Works" and "Common questions" are removed, as you asked. The title, the description, and the text for Brand Films, Commercials, and Social Media are the ones you picked on November 18. The text in the Photography row is still my draft.
-- **Commas.** Every list on the site is now written "x, y, and z", with a comma before "and" (or "&"), as you asked. A place name is not a list, so "Mankato, Minnesota and beyond" has no comma after Minnesota. Tell Claude if you spot one that was missed.
+- **Commas.** Every list on the site is now written "x, y, and z", with a comma before "and" (or "&"), as you asked. A place name is not a list, so "Based in Mankato, Minnesota and open to travel." has no comma after Minnesota. Tell Claude if you spot one that was missed.
 - **"Worked with" list** on the About page. You said you want to add and remove names.
 - **Bio.** A short placeholder, written on November 17. A proper one is waiting on your answers to the interview questions (number 31 in `review/QUESTIONNAIRE.md`).
 - **About portrait** is the one from your old site at the size Adobe offers (about 1200 pixels). A full-size original will look sharper.
