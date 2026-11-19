@@ -54,7 +54,7 @@ content:
             label: Type (for example Social Media Promotion, Event Recap, Short Film)
             type: string
           - name: category
-            label: Column on the Work page
+            label: Group on the Video page
             type: select
             required: true
             options:
@@ -149,6 +149,13 @@ content:
           - name: web3formsKey
             label: Web3Forms access key
             type: string
+      - name: footer
+        label: Footer
+        type: object
+        fields:
+          - name: line
+            label: The small line at the bottom of every page
+            type: string
       - name: home
         label: Home page
         type: object
@@ -177,7 +184,7 @@ content:
             label: About teaser text (leave empty to use the first line of the bio)
             type: text
           - name: photoText
-            label: Stills text
+            label: Text beside the home page photos (leave empty for none)
             type: text
           - name: cta
             label: Closing line

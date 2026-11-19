@@ -27,7 +27,11 @@
 
   "form": {
     "web3formsKey": "",
-    "projectTypes": ["Brand Film", "Commercial", "Social Media", "Photography", "Something Else"]
+    "projectTypes": ["Brand Films", "Commercials", "Social Media", "Photography", "Something Else"]
+  },
+
+  "footer": {
+    "line": "Video Production and Photography in Southern Minnesota"
   },
 
   "analytics": {
@@ -37,7 +41,7 @@
   "seo": {
     "titleSuffix": "Ayden Jenson",
     "homeTitle": "Ayden Jenson | Videographer & Cinematographer in Mankato, MN",
-    "description": "Ayden Jenson is a videographer and cinematographer in Mankato, MN, making brand films, commercials, and social media content for businesses in Minnesota and beyond.",
+    "description": "I'm Ayden, a cinematographer and photographer based in Southern Minnesota focused on creating brand work, commercials, and social media content since 2017.",
     "keywords": ["Mankato videographer", "Mankato cinematographer", "video production Mankato MN", "commercial videographer Minnesota", "brand films", "social media video"]
   },
 
@@ -72,11 +76,11 @@
     "bio": [
       "I make brand films, commercials, and social media content for businesses, along with photography.",
       "I handle the planning, shooting, editing, and color grading myself, which keeps the look consistent from start to finish.",
-      "I work with businesses in Mankato and beyond, and I'm open to travel. If you have a project in mind, I'd like to hear about it."
+      "I work with businesses in Mankato, and I'm open to travel. If you have a project in mind, I'd like to hear about it."
     ],
     "facts": [
       { "label": "Based in", "value": "Mankato, Minnesota. Open to travel." },
-      { "label": "Role", "value": "Cinematographer, Director, Editor, Colorist" }
+      { "label": "Role", "value": "Director, Cinematographer, Editor, Colorist" }
     ],
     "clientsHeading": "Worked With",
     "clients": ["Seraphim Studios", "Reborn Legacy Tattoo", "Gigli", "Allstar Nutrition", "Body Art Nutrition", "Iron Alliance", "Mobile Charm Bar", "OrinLaen"]
@@ -84,7 +88,7 @@
 
   "services": {
     "heading": "Full-Scale Video Production, Curated for You",
-    "lead": "Brand films, commercials, and social media content for individuals and businesses located in Minnesota and beyond.",
+    "lead": "Brand films, commercials, and social media content for individuals and businesses located in Minnesota. Open to travel.",
     "items": [
       {
         "slug": "brand-films",

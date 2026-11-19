@@ -223,6 +223,8 @@ sup { line-height: 0; }
 /* A phrase of a long title (the Services page splits its title after each
    comma): kept on one line when it fits, so the title breaks between phrases */
 .page-title__phrase { display: inline-block; }
+/* A short closing sentence of an intro line ("Open to travel.") stays in one piece */
+.page-lead__last { white-space: nowrap; }
 .page-lead {
   margin-top: clamp(20px, 3vh, 36px);
   max-width: 46ch;

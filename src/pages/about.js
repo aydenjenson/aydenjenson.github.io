@@ -36,7 +36,7 @@ export function aboutPage(ctx) {
     </div>
 
     <div class="about__col about__col--services">
-      <h2 class="label">What I shoot</h2>
+      <h2 class="label">What I Do</h2>
       <ul class="about__services" data-reveal>
         ${site.services.items.map((s) => `<li><a class="hover-blur" href="${s.href || `/services/#${s.slug}`}">${chars(s.title)}</a></li>`)}
       </ul>
@@ -63,7 +63,7 @@ ${cta(ctx)}`;
     id: 'about',
     nav: 'about',
     title: `About ${site.name} | ${site.location.city}, ${site.location.region} Videographer & Cinematographer`,
-    description: `${site.name} is a videographer, cinematographer, and photographer based in ${site.location.city}, ${site.location.regionName}, working with businesses in Minnesota and beyond.`,
+    description: `${site.name} is a videographer, cinematographer, and photographer based in ${site.location.city}, ${site.location.regionName}, working with businesses in Minnesota. Open to travel.`,
     image: portrait?.src,
     ogType: 'profile',
     jsonld: [personLd(ctx), breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'About', path: '/about/' }])],

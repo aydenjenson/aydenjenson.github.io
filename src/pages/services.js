@@ -14,13 +14,19 @@ export function servicesPage(ctx) {
   // Curated for You" breaks after the comma instead of in the middle of
   // "Video Production". A title without a comma is one phrase and wraps as usual.
   const titlePhrases = String(s.heading || '').split(/(?<=,)\s+/).filter(Boolean);
+  // The description ends with a short sentence of its own ("Open to travel.").
+  // It is kept in one piece so a line never ends on "Open" with "to travel." below it.
+  const leadParts = /^(.*[.!?])\s+([^.!?]{1,28}[.!?])$/.exec(String(s.lead || ''));
+  const leadHtml = leadParts
+    ? `${esc(leadParts[1])} <span class="page-lead__last">${esc(leadParts[2])}</span>`
+    : esc(s.lead);
 
   const content = html`
 <section class="services">
   <header class="page-head">
     <p class="label" data-reveal>Services</p>
     <h1 class="page-title" data-reveal="rise">${titlePhrases.map((phrase) => `<span class="page-title__phrase">${esc(phrase)}</span>`).join(' ')}</h1>
-    <p class="page-lead" data-reveal>${esc(s.lead)}</p>
+    <p class="page-lead" data-reveal>${leadHtml}</p>
   </header>
 
   <div class="services__list">
@@ -73,7 +79,7 @@ ${cta(ctx, { eyebrow: `Video production in ${loc.city}, ${loc.region}` })}`;
     id: 'services',
     nav: 'services',
     title: `Video Production Services in ${loc.city}, ${loc.region} | ${site.seo.titleSuffix}`,
-    description: `Brand films, commercials, social media content, and photography in ${loc.city}, ${loc.regionName} and beyond. Get a quote.`,
+    description: `Brand films, commercials, social media content, and photography in ${loc.city}, ${loc.regionName}. Open to travel. Get a quote.`,
     jsonld: [
       businessLd(ctx),
       breadcrumbLd(ctx, [{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]),
